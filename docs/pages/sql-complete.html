@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Complete Guide - Basics to Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .sql-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .sql-section h2 {
+            color: #0066cc;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 0.5rem;
+        }
+        .table-visual {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .table-visual table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table-visual th {
+            background: #0066cc;
+            color: white;
+            padding: 0.5rem;
+            text-align: left;
+        }
+        .table-visual td {
+            border: 1px solid #ddd;
+            padding: 0.5rem;
+        }
+        .query-result {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>SQL Complete Guide</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#basics">Basics</a></li>
+                <li><a href="#joins">Joins</a></li>
+                <li><a href="#advanced">Advanced</a></li>
+                <li><a href="#optimization">Optimization</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+
+        <!-- Introduction -->
+        <div id="intro" class="sql-section">
+            <h2><i class="fas fa-info-circle"></i> Introduction to SQL</h2>
+            <p>SQL (Structured Query Language) is the standard language for managing and manipulating relational databases. As a Data Engineer, you'll spend 60-70% of your time writing SQL queries.</p>
+
+            <h3>Why SQL for Data Engineering?</h3>
+            <ul>
+                <li><strong>Universal:</strong> Works with all major databases (PostgreSQL, MySQL, Redshift, etc.)</li>
+                <li><strong>Declarative:</strong> Tell WHAT you want, not HOW to get it</li>
+                <li><strong>Powerful:</strong> Handle millions of rows efficiently</li>
+                <li><strong>Essential:</strong> Required skill for all data roles</li>
+            </ul>
+
+            <h3>SQL Databases</h3>
+            <div class="table-visual">
+                <table>
+                    <tr>
+                        <th>Database</th>
+                        <th>Use Case</th>
+                        <th>Cloud Version</th>
+                    </tr>
+                    <tr>
+                        <td>PostgreSQL</td>
+                        <td>General purpose, ACID compliant</td>
+                        <td>AWS RDS, Google Cloud SQL</td>
+                    </tr>
+                    <tr>
+                        <td>MySQL</td>
+                        <td>Web applications, fast reads</td>
+                        <td>AWS RDS, Azure Database</td>
+                    </tr>
+                    <tr>
+                        <td>Amazon Redshift</td>
+                        <td>Data warehouse, analytics</td>
+                        <td>AWS Native</td>
+                    </tr>
+                    <tr>
+                        <td>Snowflake</td>
+                        <td>Cloud data warehouse</td>
+                        <td>Multi-cloud</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Basics -->
+        <div id="basics" class="sql-section">
+            <h2><i class="fas fa-play"></i> SQL Basics</h2>
+
+            <h3>1. SELECT Statement</h3>
+            <p>The most fundamental SQL command - retrieve data from tables.</p>
+
+            <div class="code-example">
+                <div class="code-example-title">Basic SELECT</div>
+                <pre><code class="language-sql">-- Select all columns
+SELECT * FROM employees;
+
+-- Select specific columns
+SELECT first_name, last_name, salary
+FROM employees;
+
+-- Select with alias
+SELECT
+    first_name AS "First Name",
+    last_name AS "Last Name",
+    salary AS "Annual Salary"
+FROM employees;
+
+-- Select distinct values
+SELECT DISTINCT department
+FROM employees;
+
+-- Select with calculations
+SELECT
+    first_name,
+    salary,
+    salary * 0.1 AS bonus,
+    salary * 1.1 AS total_compensation
+FROM employees;</code></pre>
+            </div>
+
+            <h3>2. WHERE Clause - Filtering Data</h3>
+            <div class="code-example">
+                <div class="code-example-title">Filtering Records</div>
+                <pre><code class="language-sql">-- Basic WHERE
+SELECT * FROM employees
+WHERE department = 'Engineering';
+
+-- Comparison operators
+SELECT * FROM employees
+WHERE salary > 100000;
+
+SELECT * FROM employees
+WHERE salary >= 80000 AND salary <= 120000;
+
+-- BETWEEN
+SELECT * FROM employees
+WHERE salary BETWEEN 80000 AND 120000;
+
+-- IN operator
+SELECT * FROM employees
+WHERE department IN ('Engineering', 'Sales', 'Marketing');
+
+-- LIKE pattern matching
+SELECT * FROM employees
+WHERE first_name LIKE 'J%';  -- Starts with J
+
+SELECT * FROM employees
+WHERE email LIKE '%@gmail.com';  -- Ends with @gmail.com
+
+SELECT * FROM employees
+WHERE first_name LIKE '_oh%';  -- Second and third letters are 'oh'
+
+-- IS NULL
+SELECT * FROM employees
+WHERE manager_id IS NULL;  -- Find employees with no manager
+
+-- NOT
+SELECT * FROM employees
+WHERE department NOT IN ('HR', 'Finance')
+  AND salary IS NOT NULL;
+
+-- Multiple conditions
+SELECT * FROM employees
+WHERE (department = 'Engineering' OR department = 'Data')
+  AND salary > 90000
+  AND hire_date >= '2020-01-01';</code></pre>
+            </div>
+
+            <h3>3. ORDER BY - Sorting Results</h3>
+            <div class="code-example">
+                <div class="code-example-title">Sorting Data</div>
+                <pre><code class="language-sql">-- Sort ascending (default)
+SELECT * FROM employees
+ORDER BY salary;
+
+-- Sort descending
+SELECT * FROM employees
+ORDER BY salary DESC;
+
+-- Multiple columns
+SELECT * FROM employees
+ORDER BY department ASC, salary DESC;
+
+-- Order by column position
+SELECT first_name, last_name, salary
+FROM employees
+ORDER BY 3 DESC;  -- Order by 3rd column (salary)
+
+-- Order by calculated column
+SELECT
+    first_name,
+    last_name,
+    salary,
+    salary * 0.1 AS bonus
+FROM employees
+ORDER BY bonus DESC;</code></pre>
+            </div>
+
+            <h3>4. LIMIT - Restricting Results</h3>
+            <div class="code-example">
+                <div class="code-example-title">Limiting Results</div>
+                <pre><code class="language-sql">-- Get top 10 highest paid employees
+SELECT * FROM employees
+ORDER BY salary DESC
+LIMIT 10;
+
+-- Pagination with OFFSET
+SELECT * FROM employees
+ORDER BY employee_id
+LIMIT 20 OFFSET 40;  -- Skip first 40, get next 20
+
+-- In some databases (SQL Server)
+SELECT TOP 10 * FROM employees
+ORDER BY salary DESC;</code></pre>
+            </div>
+        </div>
+
+        <!-- Aggregate Functions -->
+        <div id="aggregates" class="sql-section">
+            <h2><i class="fas fa-calculator"></i> Aggregate Functions</h2>
+
+            <h3>1. Basic Aggregations</h3>
+            <div class="code-example">
+                <div class="code-example-title">COUNT, SUM, AVG, MIN, MAX</div>
+                <pre><code class="language-sql">-- COUNT - count rows
+SELECT COUNT(*) AS total_employees
+FROM employees;
+
+SELECT COUNT(DISTINCT department) AS num_departments
+FROM employees;
+
+-- SUM - total
+SELECT SUM(salary) AS total_payroll
+FROM employees;
+
+-- AVG - average
+SELECT AVG(salary) AS average_salary
+FROM employees;
+
+-- MIN and MAX
+SELECT
+    MIN(salary) AS lowest_salary,
+    MAX(salary) AS highest_salary
+FROM employees;
+
+-- Combining multiple aggregates
+SELECT
+    COUNT(*) AS total_employees,
+    AVG(salary) AS avg_salary,
+    MIN(salary) AS min_salary,
+    MAX(salary) AS max_salary,
+    SUM(salary) AS total_payroll
+FROM employees;</code></pre>
+            </div>
+
+            <h3>2. GROUP BY</h3>
+            <div class="code-example">
+                <div class="code-example-title">Grouping Data</div>
+                <pre><code class="language-sql">-- Group by single column
+SELECT
+    department,
+    COUNT(*) AS num_employees,
+    AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department;
+
+-- Group by multiple columns
+SELECT
+    department,
+    location,
+    COUNT(*) AS num_employees,
+    AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department, location
+ORDER BY department, location;
+
+-- Group by with calculations
+SELECT
+    YEAR(hire_date) AS hire_year,
+    COUNT(*) AS new_hires,
+    AVG(salary) AS avg_starting_salary
+FROM employees
+GROUP BY YEAR(hire_date)
+ORDER BY hire_year;</code></pre>
+            </div>
+
+            <h3>3. HAVING - Filter After Grouping</h3>
+            <div class="code-example">
+                <div class="code-example-title">HAVING Clause</div>
+                <pre><code class="language-sql">-- WHERE filters before grouping, HAVING filters after grouping
+
+-- Find departments with more than 10 employees
+SELECT
+    department,
+    COUNT(*) AS num_employees
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 10;
+
+-- Departments with average salary > 100k
+SELECT
+    department,
+    AVG(salary) AS avg_salary,
+    COUNT(*) AS num_employees
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 100000
+ORDER BY avg_salary DESC;
+
+-- Complex example: WHERE + GROUP BY + HAVING
+SELECT
+    department,
+    COUNT(*) AS num_employees,
+    AVG(salary) AS avg_salary
+FROM employees
+WHERE hire_date >= '2020-01-01'  -- Filter before grouping
+GROUP BY department
+HAVING COUNT(*) >= 5             -- Filter after grouping
+ORDER BY avg_salary DESC;</code></pre>
+            </div>
+
+            <div class="tip-box">
+                <strong><i class="fas fa-lightbulb"></i> Remember:</strong>
+                <ul>
+                    <li><strong>WHERE</strong> filters individual rows BEFORE grouping</li>
+                    <li><strong>HAVING</strong> filters groups AFTER grouping</li>
+                    <li>Use WHERE for column filters, HAVING for aggregate filters</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Joins -->
+        <div id="joins" class="sql-section">
+            <h2><i class="fas fa-link"></i> SQL Joins - The Most Important Concept</h2>
+            <p>Joins combine data from multiple tables. This is critical for data engineering!</p>
+
+            <h3>Sample Tables</h3>
+            <div class="table-visual">
+                <p><strong>employees table:</strong></p>
+                <table>
+                    <tr>
+                        <th>employee_id</th>
+                        <th>name</th>
+                        <th>department_id</th>
+                    </tr>
+                    <tr><td>1</td><td>Alice</td><td>10</td></tr>
+                    <tr><td>2</td><td>Bob</td><td>20</td></tr>
+                    <tr><td>3</td><td>Charlie</td><td>NULL</td></tr>
+                </table>
+                <br>
+                <p><strong>departments table:</strong></p>
+                <table>
+                    <tr>
+                        <th>department_id</th>
+                        <th>department_name</th>
+                    </tr>
+                    <tr><td>10</td><td>Engineering</td></tr>
+                    <tr><td>20</td><td>Sales</td></tr>
+                    <tr><td>30</td><td>Marketing</td></tr>
+                </table>
+            </div>
+
+            <h3>1. INNER JOIN</h3>
+            <div class="code-example">
+                <div class="code-example-title">INNER JOIN - Only Matching Records</div>
+                <pre><code class="language-sql">-- Basic INNER JOIN
+SELECT
+    e.employee_id,
+    e.name,
+    d.department_name
+FROM employees e
+INNER JOIN departments d
+    ON e.department_id = d.department_id;
+
+-- Result: Only Alice and Bob (Charlie has NULL department)
+
+-- Multiple table join
+SELECT
+    e.name AS employee_name,
+    d.department_name,
+    p.project_name
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.department_id
+INNER JOIN projects p ON e.employee_id = p.employee_id;</code></pre>
+            </div>
+
+            <h3>2. LEFT JOIN (LEFT OUTER JOIN)</h3>
+            <div class="code-example">
+                <div class="code-example-title">LEFT JOIN - All from Left Table</div>
+                <pre><code class="language-sql">-- LEFT JOIN - keep all employees, even without department
+SELECT
+    e.employee_id,
+    e.name,
+    d.department_name
+FROM employees e
+LEFT JOIN departments d
+    ON e.department_id = d.department_id;
+
+-- Result: Alice (Engineering), Bob (Sales), Charlie (NULL)
+
+-- Find employees WITHOUT department
+SELECT
+    e.employee_id,
+    e.name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.department_id
+WHERE d.department_id IS NULL;</code></pre>
+            </div>
+
+            <h3>3. RIGHT JOIN (RIGHT OUTER JOIN)</h3>
+            <div class="code-example">
+                <div class="code-example-title">RIGHT JOIN - All from Right Table</div>
+                <pre><code class="language-sql">-- RIGHT JOIN - keep all departments, even without employees
+SELECT
+    e.name,
+    d.department_name
+FROM employees e
+RIGHT JOIN departments d
+    ON e.department_id = d.department_id;
+
+-- Result: Alice (Engineering), Bob (Sales), NULL (Marketing)
+
+-- Find departments without employees
+SELECT
+    d.department_id,
+    d.department_name
+FROM employees e
+RIGHT JOIN departments d ON e.department_id = d.department_id
+WHERE e.employee_id IS NULL;</code></pre>
+            </div>
+
+            <h3>4. FULL OUTER JOIN</h3>
+            <div class="code-example">
+                <div class="code-example-title">FULL OUTER JOIN - All Records</div>
+                <pre><code class="language-sql">-- FULL OUTER JOIN - all employees AND all departments
+SELECT
+    e.name,
+    d.department_name
+FROM employees e
+FULL OUTER JOIN departments d
+    ON e.department_id = d.department_id;
+
+-- Result: All combinations + unmatched from both sides</code></pre>
+            </div>
+
+            <h3>5. CROSS JOIN</h3>
+            <div class="code-example">
+                <div class="code-example-title">CROSS JOIN - Cartesian Product</div>
+                <pre><code class="language-sql">-- CROSS JOIN - every combination
+SELECT
+    e.name,
+    d.department_name
+FROM employees e
+CROSS JOIN departments d;
+
+-- Result: 3 employees × 3 departments = 9 rows
+
+-- Useful for generating date ranges or combinations
+SELECT
+    d.date,
+    p.product_id
+FROM date_dimension d
+CROSS JOIN products p
+WHERE d.date BETWEEN '2024-01-01' AND '2024-12-31';</code></pre>
+            </div>
+
+            <h3>6. SELF JOIN</h3>
+            <div class="code-example">
+                <div class="code-example-title">SELF JOIN - Join Table to Itself</div>
+                <pre><code class="language-sql">-- Find employees and their managers
+SELECT
+    e.name AS employee_name,
+    m.name AS manager_name
+FROM employees e
+LEFT JOIN employees m
+    ON e.manager_id = m.employee_id;
+
+-- Find employees in the same department
+SELECT
+    e1.name AS employee1,
+    e2.name AS employee2,
+    e1.department_id
+FROM employees e1
+JOIN employees e2
+    ON e1.department_id = e2.department_id
+    AND e1.employee_id < e2.employee_id;  -- Avoid duplicates</code></pre>
+            </div>
+
+            <div class="practice-exercise">
+                <h4><i class="fas fa-tasks"></i> Practice Exercise: Complex Join</h4>
+                <p>Write a query to find:</p>
+                <ol>
+                    <li>All employees</li>
+                    <li>Their department name</li>
+                    <li>Their manager's name</li>
+                    <li>Count of projects they're working on</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Subqueries -->
+        <div id="subqueries" class="sql-section">
+            <h2><i class="fas fa-layer-group"></i> Subqueries</h2>
+
+            <h3>1. Subquery in WHERE Clause</h3>
+            <div class="code-example">
+                <div class="code-example-title">WHERE Subqueries</div>
+                <pre><code class="language-sql">-- Find employees earning more than average
+SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+);
+
+-- Find employees in departments with > 10 people
+SELECT name, department_id
+FROM employees
+WHERE department_id IN (
+    SELECT department_id
+    FROM employees
+    GROUP BY department_id
+    HAVING COUNT(*) > 10
+);
+
+-- Find employees NOT assigned to any project
+SELECT name
+FROM employees
+WHERE employee_id NOT IN (
+    SELECT DISTINCT employee_id
+    FROM project_assignments
+);</code></pre>
+            </div>
+
+            <h3>2. Subquery in SELECT (Scalar Subquery)</h3>
+            <div class="code-example">
+                <div class="code-example-title">SELECT Subqueries</div>
+                <pre><code class="language-sql">-- Add department employee count to each row
+SELECT
+    e.name,
+    e.department_id,
+    (SELECT COUNT(*)
+     FROM employees e2
+     WHERE e2.department_id = e.department_id) AS dept_size
+FROM employees e;
+
+-- Show salary vs department average
+SELECT
+    name,
+    salary,
+    (SELECT AVG(salary)
+     FROM employees e2
+     WHERE e2.department_id = e.department_id) AS dept_avg,
+    salary - (SELECT AVG(salary)
+              FROM employees e2
+              WHERE e2.department_id = e.department_id) AS diff_from_avg
+FROM employees e;</code></pre>
+            </div>
+
+            <h3>3. Subquery in FROM (Derived Table)</h3>
+            <div class="code-example">
+                <div class="code-example-title">FROM Subqueries</div>
+                <pre><code class="language-sql">-- Find departments with above-average employee count
+SELECT *
+FROM (
+    SELECT
+        department_id,
+        COUNT(*) AS emp_count
+    FROM employees
+    GROUP BY department_id
+) dept_stats
+WHERE emp_count > (
+    SELECT AVG(emp_count)
+    FROM (
+        SELECT department_id, COUNT(*) AS emp_count
+        FROM employees
+        GROUP BY department_id
+    ) subq
+);</code></pre>
+            </div>
+
+            <h3>4. Correlated Subquery</h3>
+            <div class="code-example">
+                <div class="code-example-title">Correlated Subqueries</div>
+                <pre><code class="language-sql">-- Find employees earning more than their department average
+SELECT
+    e1.name,
+    e1.salary,
+    e1.department_id
+FROM employees e1
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees e2
+    WHERE e2.department_id = e1.department_id
+);
+
+-- EXISTS - check if condition exists
+SELECT
+    d.department_name
+FROM departments d
+WHERE EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.department_id = d.department_id
+    AND e.salary > 100000
+);</code></pre>
+            </div>
+        </div>
+
+        <!-- Window Functions -->
+        <div id="window-functions" class="sql-section">
+            <h2><i class="fas fa-window-maximize"></i> Window Functions (Advanced)</h2>
+            <p>Window functions are CRUCIAL for data engineering. They perform calculations across rows related to the current row.</p>
+
+            <h3>1. ROW_NUMBER, RANK, DENSE_RANK</h3>
+            <div class="code-example">
+                <div class="code-example-title">Ranking Functions</div>
+                <pre><code class="language-sql">-- ROW_NUMBER - unique sequential number
+SELECT
+    name,
+    department_id,
+    salary,
+    ROW_NUMBER() OVER (ORDER BY salary DESC) AS row_num
+FROM employees;
+
+-- RANK - same values get same rank, gaps in sequence
+SELECT
+    name,
+    department_id,
+    salary,
+    RANK() OVER (ORDER BY salary DESC) AS rank
+FROM employees;
+
+-- DENSE_RANK - same values get same rank, no gaps
+SELECT
+    name,
+    department_id,
+    salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS dense_rank
+FROM employees;
+
+-- Partition by department
+SELECT
+    name,
+    department_id,
+    salary,
+    ROW_NUMBER() OVER (
+        PARTITION BY department_id
+        ORDER BY salary DESC
+    ) AS dept_rank
+FROM employees;
+
+-- Find top 3 earners in each department
+SELECT *
+FROM (
+    SELECT
+        name,
+        department_id,
+        salary,
+        ROW_NUMBER() OVER (
+            PARTITION BY department_id
+            ORDER BY salary DESC
+        ) AS rn
+    FROM employees
+) ranked
+WHERE rn <= 3;</code></pre>
+            </div>
+
+            <h3>2. Aggregate Window Functions</h3>
+            <div class="code-example">
+                <div class="code-example-title">Running Totals and Moving Averages</div>
+                <pre><code class="language-sql">-- Running total
+SELECT
+    order_date,
+    amount,
+    SUM(amount) OVER (
+        ORDER BY order_date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM orders;
+
+-- Simpler syntax for running total
+SELECT
+    order_date,
+    amount,
+    SUM(amount) OVER (ORDER BY order_date) AS running_total
+FROM orders;
+
+-- Moving average (last 7 days)
+SELECT
+    order_date,
+    amount,
+    AVG(amount) OVER (
+        ORDER BY order_date
+        ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+    ) AS moving_avg_7days
+FROM orders;
+
+-- Department-wise running total
+SELECT
+    department_id,
+    order_date,
+    amount,
+    SUM(amount) OVER (
+        PARTITION BY department_id
+        ORDER BY order_date
+    ) AS dept_running_total
+FROM orders;</code></pre>
+            </div>
+
+            <h3>3. LAG and LEAD</h3>
+            <div class="code-example">
+                <div class="code-example-title">Access Previous/Next Row</div>
+                <pre><code class="language-sql">-- LAG - get previous row value
+SELECT
+    order_date,
+    amount,
+    LAG(amount, 1) OVER (ORDER BY order_date) AS prev_day_amount,
+    amount - LAG(amount, 1) OVER (ORDER BY order_date) AS daily_change
+FROM daily_sales;
+
+-- LEAD - get next row value
+SELECT
+    order_date,
+    amount,
+    LEAD(amount, 1) OVER (ORDER BY order_date) AS next_day_amount
+FROM daily_sales;
+
+-- Calculate day-over-day growth rate
+SELECT
+    order_date,
+    revenue,
+    LAG(revenue) OVER (ORDER BY order_date) AS prev_revenue,
+    (revenue - LAG(revenue) OVER (ORDER BY order_date)) /
+        LAG(revenue) OVER (ORDER BY order_date) * 100 AS growth_rate
+FROM daily_revenue;</code></pre>
+            </div>
+
+            <h3>4. FIRST_VALUE and LAST_VALUE</h3>
+            <div class="code-example">
+                <div class="code-example-title">First and Last Values in Window</div>
+                <pre><code class="language-sql">-- Compare each salary to department min and max
+SELECT
+    name,
+    department_id,
+    salary,
+    FIRST_VALUE(salary) OVER (
+        PARTITION BY department_id
+        ORDER BY salary
+    ) AS dept_min_salary,
+    LAST_VALUE(salary) OVER (
+        PARTITION BY department_id
+        ORDER BY salary
+        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ) AS dept_max_salary
+FROM employees;</code></pre>
+            </div>
+        </div>
+
+        <!-- CTEs -->
+        <div id="ctes" class="sql-section">
+            <h2><i class="fas fa-sitemap"></i> Common Table Expressions (CTEs)</h2>
+            <p>CTEs make complex queries readable and maintainable. Essential for production data pipelines!</p>
+
+            <h3>1. Basic CTE (WITH Clause)</h3>
+            <div class="code-example">
+                <div class="code-example-title">WITH Clause</div>
+                <pre><code class="language-sql">-- Simple CTE
+WITH high_earners AS (
+    SELECT *
+    FROM employees
+    WHERE salary > 100000
+)
+SELECT
+    department_id,
+    COUNT(*) AS num_high_earners
+FROM high_earners
+GROUP BY department_id;
+
+-- Multiple CTEs
+WITH
+dept_stats AS (
+    SELECT
+        department_id,
+        AVG(salary) AS avg_salary,
+        COUNT(*) AS emp_count
+    FROM employees
+    GROUP BY department_id
+),
+high_performing_depts AS (
+    SELECT *
+    FROM dept_stats
+    WHERE avg_salary > 90000
+)
+SELECT
+    e.name,
+    e.salary,
+    d.avg_salary AS dept_avg
+FROM employees e
+JOIN high_performing_depts d
+    ON e.department_id = d.department_id;</code></pre>
+            </div>
+
+            <h3>2. Recursive CTE</h3>
+            <div class="code-example">
+                <div class="code-example-title">Recursive CTEs</div>
+                <pre><code class="language-sql">-- Generate date series
+WITH RECURSIVE date_series AS (
+    SELECT DATE '2024-01-01' AS date
+    UNION ALL
+    SELECT date + INTERVAL '1 day'
+    FROM date_series
+    WHERE date < '2024-12-31'
+)
+SELECT * FROM date_series;
+
+-- Employee hierarchy (org chart)
+WITH RECURSIVE emp_hierarchy AS (
+    -- Anchor: Start with CEO (no manager)
+    SELECT
+        employee_id,
+        name,
+        manager_id,
+        1 AS level,
+        name AS path
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    -- Recursive: Add reports
+    SELECT
+        e.employee_id,
+        e.name,
+        e.manager_id,
+        eh.level + 1,
+        eh.path || ' -> ' || e.name
+    FROM employees e
+    JOIN emp_hierarchy eh
+        ON e.manager_id = eh.employee_id
+)
+SELECT * FROM emp_hierarchy
+ORDER BY level, path;</code></pre>
+            </div>
+
+            <div class="tip-box">
+                <strong><i class="fas fa-star"></i> CTE Best Practices:</strong>
+                <ul>
+                    <li>Use CTEs for readability - break complex queries into steps</li>
+                    <li>Name CTEs descriptively (dept_stats, not cte1)</li>
+                    <li>CTEs can reference earlier CTEs in the same query</li>
+                    <li>In some databases, CTEs can improve performance by caching results</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data Manipulation -->
+        <div id="dml" class="sql-section">
+            <h2><i class="fas fa-edit"></i> Data Manipulation (INSERT, UPDATE, DELETE)</h2>
+
+            <h3>1. INSERT</h3>
+            <div class="code-example">
+                <div class="code-example-title">Inserting Data</div>
+                <pre><code class="language-sql">-- Insert single row
+INSERT INTO employees (name, department_id, salary)
+VALUES ('Alice Smith', 10, 95000);
+
+-- Insert multiple rows
+INSERT INTO employees (name, department_id, salary)
+VALUES
+    ('Bob Jones', 20, 85000),
+    ('Charlie Brown', 10, 92000),
+    ('Diana Prince', 30, 98000);
+
+-- Insert from SELECT
+INSERT INTO employees_backup
+SELECT * FROM employees
+WHERE hire_date < '2020-01-01';
+
+-- Insert with default values
+INSERT INTO employees (name, department_id)
+VALUES ('Eve Adams', 10);  -- salary will be NULL or default</code></pre>
+            </div>
+
+            <h3>2. UPDATE</h3>
+            <div class="code-example">
+                <div class="code-example-title">Updating Data</div>
+                <pre><code class="language-sql">-- Update single column
+UPDATE employees
+SET salary = 100000
+WHERE employee_id = 1;
+
+-- Update multiple columns
+UPDATE employees
+SET
+    salary = salary * 1.1,
+    last_updated = CURRENT_TIMESTAMP
+WHERE department_id = 10;
+
+-- Update with JOIN
+UPDATE employees e
+SET salary = salary * 1.05
+FROM departments d
+WHERE e.department_id = d.department_id
+  AND d.department_name = 'Engineering';
+
+-- Update with subquery
+UPDATE employees
+SET salary = (
+    SELECT AVG(salary) * 1.1
+    FROM employees e2
+    WHERE e2.department_id = employees.department_id
+)
+WHERE performance_rating = 'Excellent';</code></pre>
+            </div>
+
+            <h3>3. DELETE</h3>
+            <div class="code-example">
+                <div class="code-example-title">Deleting Data</div>
+                <pre><code class="language-sql">-- Delete specific rows
+DELETE FROM employees
+WHERE employee_id = 5;
+
+-- Delete with condition
+DELETE FROM employees
+WHERE hire_date < '2015-01-01'
+  AND status = 'Inactive';
+
+-- Delete with subquery
+DELETE FROM employees
+WHERE department_id IN (
+    SELECT department_id
+    FROM departments
+    WHERE is_active = FALSE
+);
+
+-- Delete all rows (keep table structure)
+DELETE FROM temp_table;
+
+-- TRUNCATE - faster for deleting all rows
+TRUNCATE TABLE temp_table;</code></pre>
+            </div>
+
+            <div class="warning-box">
+                <strong><i class="fas fa-exclamation-triangle"></i> Warning:</strong> Always use WHERE clause with UPDATE/DELETE! Test with SELECT first!
+            </div>
+        </div>
+
+        <div class="sql-section">
+            <h2>Continue Learning</h2>
+            <p>This covers the essential SQL for Data Engineering. Additional topics include:</p>
+            <ul>
+                <li>Indexes and Query Optimization</li>
+                <li>Stored Procedures and Functions</li>
+                <li>Transactions and ACID properties</li>
+                <li>Views and Materialized Views</li>
+                <li>Performance Tuning</li>
+            </ul>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="../index.html" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AWS Data Engineer Bootcamp. Master SQL!</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Complete Guide - Basics to Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .learning-nav {
+            position: sticky;
+            top: 60px;
+            background: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .learning-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .learning-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .learning-nav a:hover {
+            background: var(--primary-color);
+        }
+        .topic-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .topic-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        .topic-section h3 {
+            color: var(--secondary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .code-example {
+            margin: 1.5rem 0;
+        }
+        .code-example-title {
+            background: var(--bg-dark);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px 4px 0 0;
+            font-weight: bold;
+        }
+        .output-example {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-left: 4px solid var(--success-color);
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .tip-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .practice-exercise {
+            background: #e3f2fd;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-python"></i>
+                <span>Python Complete Guide</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#basics">Basics</a></li>
+                <li><a href="#intermediate">Intermediate</a></li>
+                <li><a href="#advanced">Advanced</a></li>
+                <li><a href="#data-engineering">For Data Engineering</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+        <div class="learning-nav">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#basics">Basics</a></li>
+                <li><a href="#data-structures">Data Structures</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#oop">OOP</a></li>
+                <li><a href="#file-handling">File I/O</a></li>
+                <li><a href="#error-handling">Error Handling</a></li>
+                <li><a href="#modules">Modules</a></li>
+                <li><a href="#advanced">Advanced</a></li>
+                <li><a href="#data-engineering">Data Engineering</a></li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div id="intro" class="topic-section">
+            <h2><i class="fas fa-rocket"></i> Introduction to Python</h2>
+            <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It's the most popular language for data engineering due to its extensive libraries and ease of use.</p>
+
+            <h3>Why Python for Data Engineering?</h3>
+            <ul>
+                <li><strong>Easy to Learn:</strong> Clean syntax and readability</li>
+                <li><strong>Rich Ecosystem:</strong> Pandas, NumPy, PySpark, etc.</li>
+                <li><strong>Integration:</strong> Works with all major data platforms</li>
+                <li><strong>Community:</strong> Huge community and support</li>
+            </ul>
+
+            <h3>Setting Up Python</h3>
+            <div class="code-example">
+                <div class="code-example-title">Install Python (Windows)</div>
+                <pre><code class="language-bash"># Download from python.org
+# Or use chocolatey
+choco install python
+
+# Verify installation
+python --version</code></pre>
+            </div>
+
+            <div class="code-example">
+                <div class="code-example-title">Your First Python Program</div>
+                <pre><code class="language-python"># hello.py
+print("Hello, Data Engineer!")
+
+# Run it
+# python hello.py</code></pre>
+            </div>
+        </div>
+
+        <!-- Basics -->
+        <div id="basics" class="topic-section">
+            <h2><i class="fas fa-play"></i> Python Basics</h2>
+
+            <h3>1. Variables and Data Types</h3>
+            <div class="code-example">
+                <div class="code-example-title">Variables and Basic Types</div>
+                <pre><code class="language-python"># Variables (no declaration needed)
+name = "Alice"              # String
+age = 28                    # Integer
+salary = 75000.50           # Float
+is_employed = True          # Boolean
+data = None                 # NoneType
+
+# Print type
+print(type(name))           # <class 'str'>
+print(type(age))            # <class 'int'>
+
+# Type conversion
+age_str = str(age)          # "28"
+price = float("99.99")      # 99.99
+count = int("42")           # 42</code></pre>
+            </div>
+
+            <h3>2. Strings</h3>
+            <div class="code-example">
+                <div class="code-example-title">String Operations</div>
+                <pre><code class="language-python"># String creation
+single = 'Hello'
+double = "World"
+multi = '''This is a
+multi-line string'''
+
+# String methods
+text = "  Data Engineering  "
+print(text.strip())         # "Data Engineering"
+print(text.upper())         # "  DATA ENGINEERING  "
+print(text.lower())         # "  data engineering  "
+print(text.replace("Data", "Cloud"))  # "  Cloud Engineering  "
+
+# String formatting
+name = "John"
+age = 30
+
+# Method 1: f-strings (Python 3.6+) - BEST
+message = f"My name is {name} and I'm {age} years old"
+
+# Method 2: format()
+message = "My name is {} and I'm {} years old".format(name, age)
+
+# Method 3: % operator (old style)
+message = "My name is %s and I'm %d years old" % (name, age)
+
+# String slicing
+text = "Python"
+print(text[0])      # 'P'
+print(text[-1])     # 'n'
+print(text[0:3])    # 'Pyt'
+print(text[::-1])   # 'nohtyP' (reverse)</code></pre>
+            </div>
+
+            <h3>3. Numbers and Operators</h3>
+            <div class="code-example">
+                <div class="code-example-title">Arithmetic Operations</div>
+                <pre><code class="language-python"># Basic operations
+a, b = 10, 3
+
+print(a + b)    # 13 (addition)
+print(a - b)    # 7 (subtraction)
+print(a * b)    # 30 (multiplication)
+print(a / b)    # 3.333... (division)
+print(a // b)   # 3 (floor division)
+print(a % b)    # 1 (modulus/remainder)
+print(a ** b)   # 1000 (exponentiation)
+
+# Comparison operators
+print(a == b)   # False
+print(a != b)   # True
+print(a > b)    # True
+print(a >= b)   # True
+
+# Logical operators
+x, y = True, False
+print(x and y)  # False
+print(x or y)   # True
+print(not x)    # False</code></pre>
+            </div>
+
+            <h3>4. Input/Output</h3>
+            <div class="code-example">
+                <div class="code-example-title">Input and Output</div>
+                <pre><code class="language-python"># Output
+print("Hello, World!")
+print("Name:", "Alice", "Age:", 25)  # Multiple values
+print("Value:", 100, sep=" | ")      # Custom separator
+
+# Input
+name = input("Enter your name: ")
+age = int(input("Enter your age: "))  # Convert to int
+
+print(f"Hello {name}, you are {age} years old")</code></pre>
+            </div>
+        </div>
+
+        <!-- Data Structures -->
+        <div id="data-structures" class="topic-section">
+            <h2><i class="fas fa-database"></i> Data Structures</h2>
+
+            <h3>1. Lists (Ordered, Mutable)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Working with Lists</div>
+                <pre><code class="language-python"># Creating lists
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+nested = [[1, 2], [3, 4], [5, 6]]
+
+# Accessing elements
+print(numbers[0])       # 1
+print(numbers[-1])      # 5
+print(numbers[1:4])     # [2, 3, 4]
+
+# List methods
+fruits = ['apple', 'banana']
+fruits.append('orange')         # Add to end
+fruits.insert(1, 'mango')       # Insert at index
+fruits.extend(['grape', 'kiwi'])# Add multiple
+fruits.remove('banana')         # Remove by value
+popped = fruits.pop()           # Remove and return last
+popped = fruits.pop(0)          # Remove and return at index
+
+# List operations
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+print(len(numbers))     # 8
+print(max(numbers))     # 9
+print(min(numbers))     # 1
+print(sum(numbers))     # 31
+numbers.sort()          # Sort in place
+numbers.reverse()       # Reverse in place
+count = numbers.count(1)# Count occurrences
+
+# List comprehension (IMPORTANT for Data Engineering)
+squares = [x**2 for x in range(10)]
+# [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+even_squares = [x**2 for x in range(10) if x % 2 == 0]
+# [0, 4, 16, 36, 64]
+
+# Nested list comprehension
+matrix = [[i*j for j in range(1, 4)] for i in range(1, 4)]
+# [[1, 2, 3], [2, 4, 6], [3, 6, 9]]</code></pre>
+            </div>
+
+            <h3>2. Tuples (Ordered, Immutable)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Working with Tuples</div>
+                <pre><code class="language-python"># Creating tuples
+coordinates = (10, 20)
+single = (1,)  # Note the comma!
+person = ("Alice", 28, "Engineer")
+
+# Accessing (same as lists)
+print(coordinates[0])   # 10
+print(person[-1])       # "Engineer"
+
+# Tuple unpacking
+x, y = coordinates
+name, age, job = person
+
+# Why use tuples?
+# 1. Immutable (can't change)
+# 2. Faster than lists
+# 3. Can be dictionary keys
+# 4. Return multiple values from functions
+
+def get_user():
+    return ("Alice", 28, "Engineer")
+
+name, age, job = get_user()</code></pre>
+            </div>
+
+            <h3>3. Dictionaries (Key-Value Pairs)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Working with Dictionaries</div>
+                <pre><code class="language-python"># Creating dictionaries
+user = {
+    "name": "Alice",
+    "age": 28,
+    "job": "Data Engineer",
+    "skills": ["Python", "SQL", "AWS"]
+}
+
+# Accessing values
+print(user["name"])             # "Alice"
+print(user.get("age"))          # 28
+print(user.get("city", "NYC"))  # "NYC" (default if not found)
+
+# Modifying dictionaries
+user["age"] = 29                # Update
+user["city"] = "San Francisco"  # Add new key
+del user["job"]                 # Delete key
+removed = user.pop("city")      # Remove and return
+
+# Dictionary methods
+print(user.keys())              # dict_keys(['name', 'age', 'skills'])
+print(user.values())            # dict_values([...])
+print(user.items())             # dict_items([...])
+
+# Looping through dictionaries
+for key in user:
+    print(key, user[key])
+
+for key, value in user.items():
+    print(f"{key}: {value}")
+
+# Dictionary comprehension
+squares = {x: x**2 for x in range(5)}
+# {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+# Nested dictionaries (JSON-like)
+company = {
+    "employees": [
+        {"name": "Alice", "dept": "Engineering"},
+        {"name": "Bob", "dept": "Sales"}
+    ],
+    "location": "NYC"
+}
+
+print(company["employees"][0]["name"])  # "Alice"</code></pre>
+            </div>
+
+            <h3>4. Sets (Unordered, Unique)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Working with Sets</div>
+                <pre><code class="language-python"># Creating sets
+numbers = {1, 2, 3, 4, 5}
+duplicates = {1, 2, 2, 3, 3, 3}  # {1, 2, 3}
+
+# Set operations
+numbers.add(6)          # Add element
+numbers.remove(1)       # Remove (error if not found)
+numbers.discard(10)     # Remove (no error)
+
+# Set mathematics
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+
+print(a | b)    # {1, 2, 3, 4, 5, 6} (union)
+print(a & b)    # {3, 4} (intersection)
+print(a - b)    # {1, 2} (difference)
+print(a ^ b)    # {1, 2, 5, 6} (symmetric difference)
+
+# Use cases in Data Engineering
+# 1. Remove duplicates
+data = [1, 2, 2, 3, 3, 3, 4]
+unique = list(set(data))  # [1, 2, 3, 4]
+
+# 2. Find unique values
+ids = {100, 101, 102, 103}
+new_ids = {102, 103, 104, 105}
+truly_new = new_ids - ids  # {104, 105}</code></pre>
+            </div>
+
+            <div class="tip-box">
+                <strong><i class="fas fa-lightbulb"></i> Data Structure Choice Guide:</strong>
+                <ul>
+                    <li><strong>List:</strong> Ordered collection, allow duplicates, need to modify</li>
+                    <li><strong>Tuple:</strong> Ordered collection, immutable, function returns</li>
+                    <li><strong>Dictionary:</strong> Key-value pairs, fast lookups, JSON-like data</li>
+                    <li><strong>Set:</strong> Unique elements, mathematical operations, deduplication</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Control Flow -->
+        <div id="control-flow" class="topic-section">
+            <h2><i class="fas fa-code-branch"></i> Control Flow</h2>
+
+            <h3>1. If-Elif-Else</h3>
+            <div class="code-example">
+                <div class="code-example-title">Conditional Statements</div>
+                <pre><code class="language-python"># Basic if-else
+age = 18
+if age >= 18:
+    print("Adult")
+else:
+    print("Minor")
+
+# If-elif-else
+score = 85
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+else:
+    grade = "F"
+
+# Ternary operator (one-line if-else)
+status = "Adult" if age >= 18 else "Minor"
+
+# Multiple conditions
+temperature = 75
+is_sunny = True
+
+if temperature > 70 and is_sunny:
+    print("Great weather!")
+elif temperature > 70 or is_sunny:
+    print("Decent weather")
+else:
+    print("Stay inside")
+
+# Checking membership
+fruits = ['apple', 'banana', 'orange']
+if 'apple' in fruits:
+    print("We have apples!")
+
+# Data Engineering example
+data_quality_score = 0.95
+
+if data_quality_score >= 0.95:
+    status = "EXCELLENT"
+elif data_quality_score >= 0.85:
+    status = "GOOD"
+elif data_quality_score >= 0.70:
+    status = "ACCEPTABLE"
+else:
+    status = "POOR - NEEDS REVIEW"
+    print("Alert: Data quality below threshold!")</code></pre>
+            </div>
+
+            <h3>2. Loops</h3>
+            <div class="code-example">
+                <div class="code-example-title">For Loops</div>
+                <pre><code class="language-python"># For loop with range
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+for i in range(1, 6):
+    print(i)  # 1, 2, 3, 4, 5
+
+for i in range(0, 10, 2):
+    print(i)  # 0, 2, 4, 6, 8
+
+# Loop through list
+fruits = ['apple', 'banana', 'orange']
+for fruit in fruits:
+    print(fruit)
+
+# Loop with index
+for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")
+
+# Loop through dictionary
+user = {"name": "Alice", "age": 28}
+for key, value in user.items():
+    print(f"{key} = {value}")
+
+# Data Engineering: Processing records
+records = [
+    {"id": 1, "value": 100},
+    {"id": 2, "value": 200},
+    {"id": 3, "value": 300}
+]
+
+total = 0
+for record in records:
+    total += record["value"]
+    print(f"Processing record {record['id']}")
+
+print(f"Total: {total}")</code></pre>
+            </div>
+
+            <div class="code-example">
+                <div class="code-example-title">While Loops</div>
+                <pre><code class="language-python"># Basic while loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# While with break
+while True:
+    user_input = input("Enter 'quit' to exit: ")
+    if user_input == 'quit':
+        break
+    print(f"You entered: {user_input}")
+
+# While with continue
+number = 0
+while number < 10:
+    number += 1
+    if number % 2 == 0:
+        continue  # Skip even numbers
+    print(number)  # Only prints odd numbers
+
+# Data Engineering: Retry logic
+max_retries = 3
+attempts = 0
+success = False
+
+while attempts < max_retries and not success:
+    try:
+        # Simulate API call
+        data = fetch_data()  # Your function here
+        success = True
+    except Exception as e:
+        attempts += 1
+        print(f"Attempt {attempts} failed: {e}")
+        time.sleep(2)  # Wait before retry
+
+if not success:
+    print("Failed after maximum retries")</code></pre>
+            </div>
+        </div>
+
+        <!-- Functions -->
+        <div id="functions" class="topic-section">
+            <h2><i class="fas fa-cog"></i> Functions</h2>
+
+            <h3>1. Basic Functions</h3>
+            <div class="code-example">
+                <div class="code-example-title">Function Basics</div>
+                <pre><code class="language-python"># Simple function
+def greet():
+    print("Hello!")
+
+greet()  # Call the function
+
+# Function with parameters
+def greet_person(name):
+    print(f"Hello, {name}!")
+
+greet_person("Alice")
+
+# Function with return value
+def add(a, b):
+    return a + b
+
+result = add(5, 3)  # 8
+
+# Multiple return values
+def get_stats(numbers):
+    return min(numbers), max(numbers), sum(numbers)
+
+minimum, maximum, total = get_stats([1, 2, 3, 4, 5])
+
+# Default parameters
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+print(greet("Alice"))              # "Hello, Alice!"
+print(greet("Bob", "Hi"))          # "Hi, Bob!"
+
+# Keyword arguments
+def create_user(name, age, city="Unknown"):
+    return {
+        "name": name,
+        "age": age,
+        "city": city
+    }
+
+user = create_user(name="Alice", age=28, city="NYC")
+user = create_user(age=30, name="Bob")  # Order doesn't matter</code></pre>
+            </div>
+
+            <h3>2. Advanced Functions</h3>
+            <div class="code-example">
+                <div class="code-example-title">*args and **kwargs</div>
+                <pre><code class="language-python"># *args - variable number of arguments
+def sum_all(*args):
+    return sum(args)
+
+print(sum_all(1, 2, 3))        # 6
+print(sum_all(1, 2, 3, 4, 5))  # 15
+
+# **kwargs - variable keyword arguments
+def create_profile(**kwargs):
+    return kwargs
+
+profile = create_profile(name="Alice", age=28, city="NYC")
+# {'name': 'Alice', 'age': 28, 'city': 'NYC'}
+
+# Combining all
+def func(a, b, *args, **kwargs):
+    print(f"a: {a}, b: {b}")
+    print(f"args: {args}")
+    print(f"kwargs: {kwargs}")
+
+func(1, 2, 3, 4, 5, x=10, y=20)
+
+# Lambda functions (anonymous functions)
+square = lambda x: x ** 2
+print(square(5))  # 25
+
+add = lambda a, b: a + b
+print(add(3, 4))  # 7
+
+# Lambda with map, filter, reduce
+numbers = [1, 2, 3, 4, 5]
+
+# map - apply function to each element
+squared = list(map(lambda x: x**2, numbers))
+# [1, 4, 9, 16, 25]
+
+# filter - keep elements that match condition
+evens = list(filter(lambda x: x % 2 == 0, numbers))
+# [2, 4]
+
+# reduce - reduce to single value
+from functools import reduce
+total = reduce(lambda a, b: a + b, numbers)
+# 15</code></pre>
+            </div>
+
+            <h3>3. Data Engineering Functions</h3>
+            <div class="code-example">
+                <div class="code-example-title">Practical Data Engineering Functions</div>
+                <pre><code class="language-python">import json
+from datetime import datetime
+
+def validate_record(record, required_fields):
+    """
+    Validate if record has all required fields
+    """
+    missing_fields = []
+    for field in required_fields:
+        if field not in record or record[field] is None:
+            missing_fields.append(field)
+
+    return len(missing_fields) == 0, missing_fields
+
+def clean_data(data):
+    """
+    Clean and standardize data
+    """
+    cleaned = []
+    for record in data:
+        # Remove null values
+        if record.get('value') is not None:
+            # Standardize date format
+            if 'date' in record:
+                record['date'] = datetime.strptime(
+                    record['date'], '%Y-%m-%d'
+                ).isoformat()
+            cleaned.append(record)
+    return cleaned
+
+def transform_records(records, mapping):
+    """
+    Transform records using field mapping
+    """
+    transformed = []
+    for record in records:
+        new_record = {}
+        for old_field, new_field in mapping.items():
+            if old_field in record:
+                new_record[new_field] = record[old_field]
+        transformed.append(new_record)
+    return transformed
+
+# Usage example
+raw_data = [
+    {"user_id": 1, "user_name": "Alice", "amount": 100},
+    {"user_id": 2, "user_name": "Bob", "amount": None},
+    {"user_id": 3, "user_name": "Charlie", "amount": 300}
+]
+
+# Validate
+required = ["user_id", "user_name", "amount"]
+for record in raw_data:
+    is_valid, missing = validate_record(record, required)
+    if not is_valid:
+        print(f"Invalid record: missing {missing}")
+
+# Transform
+mapping = {
+    "user_id": "id",
+    "user_name": "name",
+    "amount": "total"
+}
+transformed = transform_records(raw_data, mapping)</code></pre>
+            </div>
+
+            <div class="practice-exercise">
+                <h4><i class="fas fa-tasks"></i> Practice Exercise: Build a Data Validator</h4>
+                <p>Create a function that validates email addresses, phone numbers, and dates in a dataset.</p>
+                <pre><code class="language-python"># Exercise: Complete this function
+import re
+
+def validate_dataset(records):
+    """
+    Validate records and return valid and invalid ones
+    Returns: (valid_records, invalid_records, errors)
+    """
+    # Your code here
+    pass
+
+# Test data
+test_data = [
+    {"email": "alice@example.com", "phone": "555-1234"},
+    {"email": "invalid-email", "phone": "555-5678"},
+    {"email": "bob@example.com", "phone": "not-a-phone"}
+]</code></pre>
+            </div>
+        </div>
+
+        <!-- Continue with more sections... -->
+        <div class="topic-section">
+            <p style="text-align: center; color: #666; padding: 2rem;">
+                <em>Continue to the next sections for OOP, File Handling, Error Handling, and Advanced Topics...</em>
+            </p>
+            <div style="text-align: center;">
+                <a href="#oop" class="btn btn-primary">Continue Learning</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AWS Data Engineer Bootcamp. Keep coding!</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

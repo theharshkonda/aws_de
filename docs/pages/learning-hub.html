@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Hub - Complete Data Engineering Guide</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .learning-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+        .learning-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .learning-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .category-card.python { border-color: #3776ab; }
+        .category-card.sql { border-color: #0066cc; }
+        .category-card.pyspark { border-color: #e25a1c; }
+        .category-card.aws { border-color: #ff9900; }
+        .category-card.foundations { border-color: #28a745; }
+        .category-card.excel { border-color: #217346; }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .category-card.python .category-icon { color: #3776ab; }
+        .category-card.sql .category-icon { color: #0066cc; }
+        .category-card.pyspark .category-icon { color: #e25a1c; }
+        .category-card.aws .category-icon { color: #ff9900; }
+        .category-card.foundations .category-icon { color: #28a745; }
+        .category-card.excel .category-icon { color: #217346; }
+
+        .topic-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        .topic-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .topic-list li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .learning-path {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+        .path-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .path-step {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+        .path-step:before {
+            content: "";
+            position: absolute;
+            left: -1.5rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #667eea;
+        }
+        .path-step:after {
+            content: "";
+            position: absolute;
+            left: -1.45rem;
+            top: 12px;
+            width: 2px;
+            height: calc(100% - 12px);
+            background: #ddd;
+        }
+        .path-step:last-child:after {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Learning Hub</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="topics-index.html">All Topics</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#path">Learning Path</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+
+        <div class="learning-hero">
+            <h1><i class="fas fa-rocket"></i> Data Engineering Learning Hub</h1>
+            <p style="font-size: 1.2rem;">Complete guide from Basics to Professional Level</p>
+            <p>Master Python, SQL, PySpark, AWS, Excel, and Data Engineering Fundamentals</p>
+            <div style="margin-top: 1.5rem;">
+                <a href="topics-index.html" class="btn" style="background: white; color: #667eea; padding: 0.8rem 2rem;">
+                    <i class="fas fa-list"></i> View Complete Topics Index
+                </a>
+            </div>
+        </div>
+
+        <div id="categories" class="learning-categories">
+
+            <!-- Python -->
+            <div class="category-card python">
+                <div class="category-icon">
+                    <i class="fab fa-python"></i>
+                </div>
+                <h2>Python Complete Guide</h2>
+                <p>From basics to advanced data engineering with Python</p>
+                <ul class="topic-list">
+                    <li>Variables & Data Types</li>
+                    <li>Data Structures (Lists, Dicts, Sets)</li>
+                    <li>Functions & OOP</li>
+                    <li>File I/O & Error Handling</li>
+                    <li>Data Engineering Libraries</li>
+                    <li>APIs & Automation</li>
+                </ul>
+                <a href="python-complete.html" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    <i class="fas fa-book-open"></i> Start Learning Python
+                </a>
+            </div>
+
+            <!-- SQL -->
+            <div class="category-card sql">
+                <div class="category-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h2>SQL Complete Guide</h2>
+                <p>Master SQL from basics to advanced query optimization</p>
+                <ul class="topic-list">
+                    <li>SELECT, WHERE, ORDER BY</li>
+                    <li>Aggregations & GROUP BY</li>
+                    <li>All types of JOINs</li>
+                    <li>Subqueries & CTEs</li>
+                    <li>Window Functions</li>
+                    <li>Query Optimization</li>
+                </ul>
+                <a href="sql-complete.html" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background: #0066cc;">
+                    <i class="fas fa-book-open"></i> Start Learning SQL
+                </a>
+            </div>
+
+            <!-- PySpark -->
+            <div class="category-card pyspark">
+                <div class="category-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h2>PySpark Complete Guide</h2>
+                <p>Big Data processing with Apache Spark</p>
+                <ul class="topic-list">
+                    <li>Spark Architecture</li>
+                    <li>DataFrames & RDDs</li>
+                    <li>Transformations & Actions</li>
+                    <li>Joins & Aggregations</li>
+                    <li>Window Functions</li>
+                    <li>Performance Optimization</li>
+                </ul>
+                <a href="pyspark-complete.html" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background: #e25a1c;">
+                    <i class="fas fa-book-open"></i> Start Learning PySpark
+                </a>
+            </div>
+
+            <!-- AWS -->
+            <div class="category-card aws">
+                <div class="category-icon">
+                    <i class="fab fa-aws"></i>
+                </div>
+                <h2>AWS Data Services</h2>
+                <p>Complete guide to AWS services for Data Engineering</p>
+                <ul class="topic-list">
+                    <li>S3, Glue, Athena</li>
+                    <li>Redshift & EMR</li>
+                    <li>Kinesis & Lambda</li>
+                    <li>DynamoDB & RDS</li>
+                    <li>Step Functions & MWAA</li>
+                    <li>Security & IAM</li>
+                </ul>
+                <a href="aws-complete.html" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background: #ff9900;">
+                    <i class="fas fa-book-open"></i> Start Learning AWS
+                </a>
+            </div>
+
+            <!-- Foundations -->
+            <div class="category-card foundations">
+                <div class="category-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h2>Data Engineering Foundations</h2>
+                <p>Core concepts every data engineer must know</p>
+                <ul class="topic-list">
+                    <li>Data Lifecycle</li>
+                    <li>Data Formats & Storage</li>
+                    <li>Data Modeling (Star, Snowflake)</li>
+                    <li>ETL vs ELT</li>
+                    <li>Data Architecture Patterns</li>
+                    <li>Data Governance</li>
+                </ul>
+                <a href="foundations-complete.html" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background: #28a745;">
+                    <i class="fas fa-book-open"></i> Start Learning Foundations
+                </a>
+            </div>
+
+            <!-- Excel -->
+            <div class="category-card excel">
+                <div class="category-icon">
+                    <i class="fas fa-file-excel"></i>
+                </div>
+                <h2>Excel for Data Engineering</h2>
+                <p>Essential Excel skills for data analysis</p>
+                <ul class="topic-list">
+                    <li>Formulas & Functions</li>
+                    <li>Pivot Tables</li>
+                    <li>VLOOKUP, INDEX-MATCH</li>
+                    <li>Data Cleaning</li>
+                    <li>Power Query</li>
+                    <li>Charts & Dashboards</li>
+                </ul>
+                <a href="excel-complete.html" class="btn btn-primary" style="width: 100%; margin-top: 1rem; background: #217346;">
+                    <i class="fas fa-book-open"></i> Start Learning Excel
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Learning Path -->
+        <div id="path" class="learning-path">
+            <h2 style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-route"></i> Recommended Learning Path
+            </h2>
+            <div class="path-timeline">
+
+                <div class="path-step">
+                    <h3>Week 1-2: Python Fundamentals</h3>
+                    <p>Start with Python basics - variables, data structures, functions, and OOP. Complete 100+ exercises.</p>
+                    <strong>Time: 60 hours | Goal: Build solid Python foundation</strong>
+                </div>
+
+                <div class="path-step">
+                    <h3>Week 2-3: SQL Mastery</h3>
+                    <p>Learn SQL from basics to advanced. Focus heavily on JOINs, window functions, and CTEs.</p>
+                    <strong>Time: 40 hours | Goal: Write complex production queries</strong>
+                </div>
+
+                <div class="path-step">
+                    <h3>Week 3-4: Excel & Data Analysis</h3>
+                    <p>Master Excel for quick data analysis, reporting, and prototyping.</p>
+                    <strong>Time: 20 hours | Goal: Create professional dashboards</strong>
+                </div>
+
+                <div class="path-step">
+                    <h3>Week 4-5: Data Engineering Foundations</h3>
+                    <p>Understand data lifecycle, modeling, formats, and architecture patterns.</p>
+                    <strong>Time: 30 hours | Goal: Design data systems</strong>
+                </div>
+
+                <div class="path-step">
+                    <h3>Week 5-6: PySpark</h3>
+                    <p>Learn distributed data processing with Apache Spark. Focus on DataFrames and optimization.</p>
+                    <strong>Time: 50 hours | Goal: Process big data efficiently</strong>
+                </div>
+
+                <div class="path-step">
+                    <h3>Week 6-8: AWS Data Services</h3>
+                    <p>Master AWS services: S3, Glue, Athena, Redshift, EMR, Kinesis, Lambda.</p>
+                    <strong>Time: 60 hours | Goal: Build cloud data pipelines</strong>
+                </div>
+
+                <div class="path-step">
+                    <h3>Week 8: Capstone Project</h3>
+                    <p>Build end-to-end data pipeline combining all skills. Document and present.</p>
+                    <strong>Time: 40 hours | Goal: Portfolio-ready project</strong>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Quick Reference -->
+        <div id="resources" style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h2 style="text-align: center; margin-bottom: 2rem;">
+                <i class="fas fa-book"></i> Quick Reference & Resources
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+
+                <div>
+                    <h3><i class="fas fa-code"></i> Code Examples</h3>
+                    <ul>
+                        <li><a href="#python-snippets">Python Snippets</a></li>
+                        <li><a href="#sql-queries">SQL Query Library</a></li>
+                        <li><a href="#pyspark-patterns">PySpark Patterns</a></li>
+                        <li><a href="#aws-templates">AWS CloudFormation</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3><i class="fas fa-question-circle"></i> Interview Prep</h3>
+                    <ul>
+                        <li><a href="interview.html">200+ Questions</a></li>
+                        <li><a href="#python-interview">Python Interview</a></li>
+                        <li><a href="#sql-interview">SQL Interview</a></li>
+                        <li><a href="#system-design">System Design</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+                    <ul>
+                        <li><a href="#project-etl">ETL Pipeline</a></li>
+                        <li><a href="#project-streaming">Real-time Streaming</a></li>
+                        <li><a href="#project-warehouse">Data Warehouse</a></li>
+                        <li><a href="#project-lakehouse">Data Lakehouse</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3><i class="fas fa-certificate"></i> Certifications</h3>
+                    <ul>
+                        <li><a href="#aws-dea">AWS Data Engineer Associate</a></li>
+                        <li><a href="#aws-saa">AWS Solutions Architect</a></li>
+                        <li><a href="#databricks">Databricks Certification</a></li>
+                        <li><a href="#snowflake">Snowflake Certification</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Study Plan -->
+        <div style="background: #e3f2fd; padding: 2rem; border-radius: 12px; margin-top: 3rem; border-left: 5px solid #2196f3;">
+            <h2><i class="fas fa-calendar-alt"></i> Daily Study Plan</h2>
+            <p><strong>Recommended: 4-6 hours per day for 8 weeks</strong></p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                <div style="background: white; padding: 1rem; border-radius: 8px;">
+                    <h4>Morning (2 hours)</h4>
+                    <p>Theory & Concepts<br>Watch tutorials<br>Read documentation</p>
+                </div>
+                <div style="background: white; padding: 1rem; border-radius: 8px;">
+                    <h4>Afternoon (2 hours)</h4>
+                    <p>Hands-on Practice<br>Code exercises<br>Build mini-projects</p>
+                </div>
+                <div style="background: white; padding: 1rem; border-radius: 8px;">
+                    <h4>Evening (2 hours)</h4>
+                    <p>Review & Reinforce<br>Interview questions<br>Document learning</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Tracking -->
+        <div style="background: white; padding: 2rem; border-radius: 12px; margin-top: 3rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h2 style="text-align: center;"><i class="fas fa-chart-line"></i> Track Your Progress</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Use the progress tracker to monitor your learning journey</p>
+            <div style="text-align: center;">
+                <a href="../index.html#progress" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">
+                    <i class="fas fa-tasks"></i> Go to Progress Dashboard
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div style="text-align: center;">
+                <h3>Ready to Start Your Journey?</h3>
+                <p>Choose your first topic above and begin learning!</p>
+                <a href="../index.html" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

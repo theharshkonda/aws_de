@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PySpark Complete Guide - Basics to Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .spark-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .spark-section h2 {
+            color: #e25a1c;
+            border-bottom: 3px solid #e25a1c;
+            padding-bottom: 0.5rem;
+        }
+        .architecture-diagram {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-fire"></i>
+                <span>PySpark Complete Guide</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#basics">Basics</a></li>
+                <li><a href="#dataframes">DataFrames</a></li>
+                <li><a href="#advanced">Advanced</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+
+        <!-- Introduction -->
+        <div id="intro" class="spark-section">
+            <h2><i class="fas fa-bolt"></i> Introduction to PySpark</h2>
+            <p>PySpark is the Python API for Apache Spark - a distributed computing framework for processing Big Data. It's MANDATORY for Data Engineering!</p>
+
+            <h3>Why PySpark?</h3>
+            <ul>
+                <li><strong>Scalability:</strong> Process terabytes of data across clusters</li>
+                <li><strong>Speed:</strong> 100x faster than Hadoop MapReduce (in-memory processing)</li>
+                <li><strong>Versatility:</strong> Batch processing, streaming, ML, graph processing</li>
+                <li><strong>Industry Standard:</strong> Used by all major tech companies</li>
+            </ul>
+
+            <h3>Spark Architecture</h3>
+            <div class="architecture-diagram">
+                <pre>
+┌─────────────────────────────────────────────┐
+│          Driver Program (SparkContext)      │
+│         - Coordinates execution             │
+│         - Manages cluster                   │
+└──────────────────┬──────────────────────────┘
+                   │
+        ┌──────────┴──────────┐
+        │   Cluster Manager   │
+        │  (YARN, Mesos, K8s) │
+        └──────────┬──────────┘
+                   │
+     ┌─────────────┼─────────────┐
+     │             │             │
+┌────▼────┐  ┌────▼────┐  ┌────▼────┐
+│ Worker  │  │ Worker  │  │ Worker  │
+│  Node   │  │  Node   │  │  Node   │
+│         │  │         │  │         │
+│ Executor│  │ Executor│  │ Executor│
+│  Tasks  │  │  Tasks  │  │  Tasks  │
+└─────────┘  └─────────┘  └─────────┘
+                </pre>
+            </div>
+
+            <h3>Installation</h3>
+            <div class="code-example">
+                <div class="code-example-title">Install PySpark</div>
+                <pre><code class="language-bash"># Install PySpark
+pip install pyspark
+
+# Verify installation
+pyspark --version
+
+# Install with Jupyter support
+pip install pyspark jupyter</code></pre>
+            </div>
+        </div>
+
+        <!-- Basics -->
+        <div id="basics" class="spark-section">
+            <h2><i class="fas fa-play"></i> PySpark Basics</h2>
+
+            <h3>1. Creating Spark Session</h3>
+            <div class="code-example">
+                <div class="code-example-title">Initialize Spark</div>
+                <pre><code class="language-python">from pyspark.sql import SparkSession
+
+# Create Spark Session (entry point for Spark functionality)
+spark = SparkSession.builder \
+    .appName("MyDataEngineeringApp") \
+    .master("local[*]") \
+    .config("spark.driver.memory", "4g") \
+    .getOrCreate()
+
+# Check Spark version
+print(spark.version)
+
+# View Spark UI (monitoring)
+print(spark.sparkContext.uiWebUrl)
+
+# Stop Spark session when done
+# spark.stop()</code></pre>
+            </div>
+
+            <h3>2. Creating DataFrames</h3>
+            <div class="code-example">
+                <div class="code-example-title">DataFrame Creation Methods</div>
+                <pre><code class="language-python"># Method 1: From Python list
+data = [
+    (1, "Alice", 25, "Engineering"),
+    (2, "Bob", 30, "Sales"),
+    (3, "Charlie", 35, "Engineering"),
+]
+columns = ["id", "name", "age", "department"]
+
+df = spark.createDataFrame(data, columns)
+df.show()
+
+# Method 2: From dictionary
+data_dict = [
+    {"id": 1, "name": "Alice", "age": 25},
+    {"id": 2, "name": "Bob", "age": 30},
+]
+df = spark.createDataFrame(data_dict)
+
+# Method 3: Read from CSV
+df = spark.read.csv("data.csv", header=True, inferSchema=True)
+
+# Method 4: Read from JSON
+df = spark.read.json("data.json")
+
+# Method 5: Read from Parquet (BEST for Big Data)
+df = spark.read.parquet("data.parquet")
+
+# Method 6: Read from database
+df = spark.read \
+    .format("jdbc") \
+    .option("url", "jdbc:postgresql://localhost:5432/mydb") \
+    .option("dbtable", "employees") \
+    .option("user", "username") \
+    .option("password", "password") \
+    .load()
+
+# Method 7: From Pandas DataFrame
+import pandas as pd
+pandas_df = pd.DataFrame(data, columns=columns)
+spark_df = spark.createDataFrame(pandas_df)</code></pre>
+            </div>
+
+            <h3>3. Basic DataFrame Operations</h3>
+            <div class="code-example">
+                <div class="code-example-title">Exploring DataFrames</div>
+                <pre><code class="language-python"># Show data (default 20 rows)
+df.show()
+
+# Show with options
+df.show(n=5, truncate=False, vertical=True)
+
+# Print schema
+df.printSchema()
+
+# Get column names
+print(df.columns)
+
+# Get row count
+print(df.count())
+
+# Get summary statistics
+df.describe().show()
+
+# Get specific stats
+df.select("age").summary("count", "min", "max", "mean").show()
+
+# Convert to Pandas (for small datasets only!)
+pandas_df = df.toPandas()
+
+# Sample data
+df.sample(fraction=0.1).show()  # 10% sample
+df.limit(100).show()  # First 100 rows</code></pre>
+            </div>
+        </div>
+
+        <!-- DataFrames -->
+        <div id="dataframes" class="spark-section">
+            <h2><i class="fas fa-table"></i> DataFrame Operations</h2>
+
+            <h3>1. Selecting Columns</h3>
+            <div class="code-example">
+                <div class="code-example-title">Select Operations</div>
+                <pre><code class="language-python">from pyspark.sql.functions import col, lit
+
+# Select columns
+df.select("name", "age").show()
+
+# Multiple ways to select
+df.select(df.name, df.age).show()
+df.select(col("name"), col("age")).show()
+df.select(df["name"], df["age"]).show()
+
+# Select with expressions
+df.select(
+    col("name"),
+    col("age"),
+    (col("age") + 5).alias("age_in_5_years")
+).show()
+
+# Select all columns plus new ones
+df.select("*", lit("USA").alias("country")).show()
+
+# Drop columns
+df.drop("age", "department").show()
+
+# Rename columns
+df.withColumnRenamed("name", "employee_name").show()
+
+# Select distinct
+df.select("department").distinct().show()</code></pre>
+            </div>
+
+            <h3>2. Filtering Data</h3>
+            <div class="code-example">
+                <div class="code-example-title">Filter/Where Operations</div>
+                <pre><code class="language-python">from pyspark.sql.functions import col
+
+# Basic filtering
+df.filter(col("age") > 30).show()
+df.where(col("age") > 30).show()  # Same as filter
+
+# String conditions
+df.filter("age > 30").show()
+
+# Multiple conditions with &, |, ~
+df.filter(
+    (col("age") > 25) &
+    (col("department") == "Engineering")
+).show()
+
+df.filter(
+    (col("age") < 25) |
+    (col("age") > 60)
+).show()
+
+# NOT condition
+df.filter(~(col("age") > 30)).show()
+
+# IN operator
+df.filter(col("department").isin(["Engineering", "Sales"])).show()
+
+# LIKE operator
+df.filter(col("name").like("A%")).show()  # Starts with A
+
+# IS NULL / IS NOT NULL
+df.filter(col("age").isNull()).show()
+df.filter(col("age").isNotNull()).show()
+
+# BETWEEN
+df.filter(col("age").between(25, 35)).show()</code></pre>
+            </div>
+
+            <h3>3. Adding and Modifying Columns</h3>
+            <div class="code-example">
+                <div class="code-example-title">Column Transformations</div>
+                <pre><code class="language-python">from pyspark.sql.functions import col, lit, when
+
+# Add new column with constant value
+df = df.withColumn("country", lit("USA"))
+
+# Add calculated column
+df = df.withColumn("age_squared", col("age") ** 2)
+df = df.withColumn("age_in_10_years", col("age") + 10)
+
+# Conditional column (CASE WHEN)
+df = df.withColumn(
+    "age_group",
+    when(col("age") < 30, "Young")
+    .when(col("age") < 50, "Middle")
+    .otherwise("Senior")
+)
+
+# Multiple conditions
+df = df.withColumn(
+    "bonus",
+    when((col("department") == "Sales") & (col("age") > 30), 5000)
+    .when((col("department") == "Engineering"), 7000)
+    .otherwise(3000)
+)
+
+# Modify existing column
+df = df.withColumn("age", col("age") + 1)
+
+# Cast column type
+df = df.withColumn("age", col("age").cast("string"))</code></pre>
+            </div>
+
+            <h3>4. Aggregations</h3>
+            <div class="code-example">
+                <div class="code-example-title">Aggregate Functions</div>
+                <pre><code class="language-python">from pyspark.sql.functions import (
+    count, sum, avg, min, max, stddev,
+    countDistinct, collect_list, collect_set
+)
+
+# Basic aggregations
+df.select(
+    count("*").alias("total_records"),
+    avg("age").alias("average_age"),
+    min("age").alias("min_age"),
+    max("age").alias("max_age"),
+    stddev("age").alias("std_age")
+).show()
+
+# GROUP BY
+df.groupBy("department").agg(
+    count("*").alias("num_employees"),
+    avg("age").alias("avg_age"),
+    min("age").alias("min_age"),
+    max("age").alias("max_age")
+).show()
+
+# Multiple grouping columns
+df.groupBy("department", "age_group").agg(
+    count("*").alias("count")
+).show()
+
+# Collect values into list
+df.groupBy("department").agg(
+    collect_list("name").alias("employee_names"),
+    collect_set("age").alias("unique_ages")
+).show(truncate=False)
+
+# Using agg() for multiple aggregations
+df.groupBy("department").agg({
+    "age": "avg",
+    "id": "count",
+    "age": "max"
+}).show()</code></pre>
+            </div>
+
+            <h3>5. Sorting</h3>
+            <div class="code-example">
+                <div class="code-example-title">Sort/OrderBy</div>
+                <pre><code class="language-python">from pyspark.sql.functions import col, asc, desc
+
+# Sort ascending (default)
+df.orderBy("age").show()
+df.sort("age").show()  # Same as orderBy
+
+# Sort descending
+df.orderBy(col("age").desc()).show()
+
+# Multiple columns
+df.orderBy(
+    col("department").asc(),
+    col("age").desc()
+).show()
+
+# Using desc() function
+df.orderBy(desc("age")).show()</code></pre>
+            </div>
+
+            <h3>6. Joins</h3>
+            <div class="code-example">
+                <div class="code-example-title">PySpark Joins</div>
+                <pre><code class="language-python"># Sample data
+employees = spark.createDataFrame([
+    (1, "Alice", 10),
+    (2, "Bob", 20),
+    (3, "Charlie", None)
+], ["emp_id", "name", "dept_id"])
+
+departments = spark.createDataFrame([
+    (10, "Engineering"),
+    (20, "Sales"),
+    (30, "Marketing")
+], ["dept_id", "dept_name"])
+
+# INNER JOIN (default)
+result = employees.join(
+    departments,
+    employees.dept_id == departments.dept_id,
+    "inner"
+)
+result.show()
+
+# LEFT JOIN
+result = employees.join(
+    departments,
+    employees.dept_id == departments.dept_id,
+    "left"
+)
+result.show()
+
+# RIGHT JOIN
+result = employees.join(
+    departments,
+    employees.dept_id == departments.dept_id,
+    "right"
+)
+
+# FULL OUTER JOIN
+result = employees.join(
+    departments,
+    employees.dept_id == departments.dept_id,
+    "outer"
+)
+
+# LEFT SEMI JOIN (like IN)
+result = employees.join(
+    departments,
+    employees.dept_id == departments.dept_id,
+    "left_semi"
+)
+
+# LEFT ANTI JOIN (like NOT IN)
+result = employees.join(
+    departments,
+    employees.dept_id == departments.dept_id,
+    "left_anti"
+)
+
+# Join on multiple columns
+result = df1.join(
+    df2,
+    (df1.id == df2.id) & (df1.date == df2.date),
+    "inner"
+)
+
+# Broadcast join for small tables (optimization)
+from pyspark.sql.functions import broadcast
+result = large_df.join(
+    broadcast(small_df),
+    "key"
+)</code></pre>
+            </div>
+        </div>
+
+        <!-- Functions -->
+        <div id="functions" class="spark-section">
+            <h2><i class="fas fa-function"></i> PySpark Functions</h2>
+
+            <h3>1. String Functions</h3>
+            <div class="code-example">
+                <div class="code-example-title">String Manipulation</div>
+                <pre><code class="language-python">from pyspark.sql.functions import (
+    upper, lower, trim, ltrim, rtrim,
+    substring, concat, concat_ws,
+    length, split, regexp_extract, regexp_replace
+)
+
+df = df.withColumn("name_upper", upper(col("name")))
+df = df.withColumn("name_lower", lower(col("name")))
+
+# Trim whitespace
+df = df.withColumn("name_trimmed", trim(col("name")))
+
+# Substring
+df = df.withColumn("first_letter", substring(col("name"), 1, 1))
+
+# Concatenate
+df = df.withColumn("full_info", concat(col("name"), lit(" - "), col("department")))
+
+# Concat with separator
+df = df.withColumn("info", concat_ws("|", col("name"), col("age"), col("department")))
+
+# String length
+df = df.withColumn("name_length", length(col("name")))
+
+# Split string
+df = df.withColumn("name_parts", split(col("name"), " "))
+
+# Regular expressions
+df = df.withColumn("email_domain",
+    regexp_extract(col("email"), r'@(.+)', 1)
+)
+
+df = df.withColumn("phone_cleaned",
+    regexp_replace(col("phone"), r'[^0-9]', '')
+)</code></pre>
+            </div>
+
+            <h3>2. Date and Time Functions</h3>
+            <div class="code-example">
+                <div class="code-example-title">Date/Time Operations</div>
+                <pre><code class="language-python">from pyspark.sql.functions import (
+    current_date, current_timestamp,
+    date_format, to_date, to_timestamp,
+    year, month, dayofmonth, dayofweek,
+    datediff, date_add, date_sub,
+    months_between, add_months
+)
+
+# Current date and timestamp
+df = df.withColumn("current_date", current_date())
+df = df.withColumn("current_timestamp", current_timestamp())
+
+# Convert string to date
+df = df.withColumn("hire_date", to_date(col("hire_date_str"), "yyyy-MM-dd"))
+
+# Convert string to timestamp
+df = df.withColumn("created_at",
+    to_timestamp(col("created_str"), "yyyy-MM-dd HH:mm:ss")
+)
+
+# Format date
+df = df.withColumn("formatted_date",
+    date_format(col("hire_date"), "MM/dd/yyyy")
+)
+
+# Extract date parts
+df = df.withColumn("hire_year", year(col("hire_date")))
+df = df.withColumn("hire_month", month(col("hire_date")))
+df = df.withColumn("hire_day", dayofmonth(col("hire_date")))
+df = df.withColumn("day_of_week", dayofweek(col("hire_date")))
+
+# Date arithmetic
+df = df.withColumn("days_employed",
+    datediff(current_date(), col("hire_date"))
+)
+
+df = df.withColumn("anniversary_date",
+    add_months(col("hire_date"), 12)
+)
+
+df = df.withColumn("tenure_months",
+    months_between(current_date(), col("hire_date"))
+)</code></pre>
+            </div>
+
+            <h3>3. Window Functions</h3>
+            <div class="code-example">
+                <div class="code-example-title">Window Functions in PySpark</div>
+                <pre><code class="language-python">from pyspark.sql.window import Window
+from pyspark.sql.functions import (
+    row_number, rank, dense_rank,
+    lag, lead, first, last,
+    sum, avg, count
+)
+
+# Define window specification
+window_spec = Window.partitionBy("department").orderBy(col("age").desc())
+
+# Row number
+df = df.withColumn("row_num", row_number().over(window_spec))
+
+# Rank
+df = df.withColumn("rank", rank().over(window_spec))
+df = df.withColumn("dense_rank", dense_rank().over(window_spec))
+
+# Find top N per group
+top_employees = df.filter(col("row_num") <= 3)
+
+# LAG and LEAD
+df = df.withColumn("prev_age", lag("age", 1).over(window_spec))
+df = df.withColumn("next_age", lead("age", 1).over(window_spec))
+
+# Running total
+window_running = Window.partitionBy("department").orderBy("date") \
+    .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+df = df.withColumn("running_total", sum("amount").over(window_running))
+
+# Moving average (last 3 rows)
+window_moving = Window.partitionBy("department").orderBy("date") \
+    .rowsBetween(-2, 0)
+
+df = df.withColumn("moving_avg_3", avg("amount").over(window_moving))
+
+# First and last values
+df = df.withColumn("first_value", first("age").over(window_spec))
+df = df.withColumn("last_value", last("age").over(window_spec))</code></pre>
+            </div>
+
+            <h3>4. User Defined Functions (UDFs)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Custom Functions</div>
+                <pre><code class="language-python">from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType, IntegerType
+
+# Simple UDF
+def categorize_age(age):
+    if age < 30:
+        return "Young"
+    elif age < 50:
+        return "Middle"
+    else:
+        return "Senior"
+
+# Register UDF
+categorize_age_udf = udf(categorize_age, StringType())
+
+# Use UDF
+df = df.withColumn("age_category", categorize_age_udf(col("age")))
+
+# UDF with multiple parameters
+def calculate_bonus(salary, performance):
+    multiplier = {
+        "Excellent": 0.15,
+        "Good": 0.10,
+        "Average": 0.05
+    }.get(performance, 0)
+    return salary * multiplier
+
+calculate_bonus_udf = udf(calculate_bonus, IntegerType())
+
+df = df.withColumn("bonus",
+    calculate_bonus_udf(col("salary"), col("performance"))
+)
+
+# Pandas UDF (Vectorized, faster)
+from pyspark.sql.functions import pandas_udf
+import pandas as pd
+
+@pandas_udf(StringType())
+def categorize_age_pandas(ages: pd.Series) -> pd.Series:
+    return ages.apply(lambda age:
+        "Young" if age < 30 else
+        "Middle" if age < 50 else
+        "Senior"
+    )
+
+df = df.withColumn("age_category", categorize_age_pandas(col("age")))</code></pre>
+            </div>
+
+            <div class="tip-box">
+                <strong><i class="fas fa-lightbulb"></i> UDF Best Practices:</strong>
+                <ul>
+                    <li>Avoid UDFs when built-in functions can do the job (UDFs are slower)</li>
+                    <li>Use Pandas UDFs (vectorized) instead of regular UDFs</li>
+                    <li>Always specify return type</li>
+                    <li>Test UDFs on small data first</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Performance -->
+        <div id="performance" class="spark-section">
+            <h2><i class="fas fa-tachometer-alt"></i> Performance Optimization</h2>
+
+            <h3>1. Partitioning</h3>
+            <div class="code-example">
+                <div class="code-example-title">Partitioning Strategies</div>
+                <pre><code class="language-python"># Check number of partitions
+print(df.rdd.getNumPartitions())
+
+# Repartition (full shuffle)
+df = df.repartition(10)
+
+# Repartition by column (for joins/aggregations)
+df = df.repartition(10, "department")
+
+# Coalesce (reduce partitions, no shuffle)
+df = df.coalesce(5)
+
+# Write with partitioning
+df.write.partitionBy("year", "month").parquet("output/")</code></pre>
+            </div>
+
+            <h3>2. Caching and Persistence</h3>
+            <div class="code-example">
+                <div class="code-example-title">Cache DataFrames</div>
+                <pre><code class="language-python">from pyspark import StorageLevel
+
+# Cache in memory (default)
+df.cache()
+df.persist()
+
+# Cache with storage level
+df.persist(StorageLevel.MEMORY_AND_DISK)
+
+# Use cached DataFrame multiple times
+df.cache()
+df.count()  # Trigger caching
+df.filter(col("age") > 30).show()  # Uses cache
+df.groupBy("department").count().show()  # Uses cache
+
+# Unpersist when done
+df.unpersist()
+
+# Check if cached
+print(df.is_cached)</code></pre>
+            </div>
+
+            <h3>3. Broadcast Joins</h3>
+            <div class="code-example">
+                <div class="code-example-title">Optimize Small Table Joins</div>
+                <pre><code class="language-python">from pyspark.sql.functions import broadcast
+
+# Broadcast small table (< 10MB)
+large_df = spark.read.parquet("large_data.parquet")
+small_df = spark.read.parquet("small_lookup.parquet")
+
+# Regular join (shuffles both tables)
+result = large_df.join(small_df, "key")
+
+# Broadcast join (no shuffle of large table)
+result = large_df.join(broadcast(small_df), "key")
+
+# Configure broadcast threshold
+spark.conf.set("spark.sql.autoBroadcastJoinThreshold", 10485760)  # 10MB</code></pre>
+            </div>
+
+            <h3>4. File Formats</h3>
+            <div class="code-example">
+                <div class="code-example-title">Optimal File Formats</div>
+                <pre><code class="language-python"># Parquet (BEST for analytics)
+df.write.mode("overwrite").parquet("output.parquet")
+df = spark.read.parquet("output.parquet")
+
+# ORC (good for Hive)
+df.write.mode("overwrite").orc("output.orc")
+
+# Avro (good for streaming)
+df.write.format("avro").save("output.avro")
+
+# Compression
+df.write.option("compression", "snappy").parquet("output.parquet")
+df.write.option("compression", "gzip").parquet("output.parquet")
+
+# Delta Lake (ACID transactions, time travel)
+df.write.format("delta").mode("overwrite").save("delta_table")</code></pre>
+            </div>
+
+            <div class="warning-box">
+                <strong><i class="fas fa-exclamation-triangle"></i> Performance Tips:</strong>
+                <ul>
+                    <li>Use Parquet/ORC for columnar storage</li>
+                    <li>Cache DataFrames used multiple times</li>
+                    <li>Avoid UDFs when possible</li>
+                    <li>Partition large datasets</li>
+                    <li>Use broadcast for small table joins</li>
+                    <li>Avoid collect() on large datasets</li>
+                    <li>Use filter() early to reduce data size</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Real World Example -->
+        <div id="example" class="spark-section">
+            <h2><i class="fas fa-project-diagram"></i> Real-World Data Engineering Example</h2>
+
+            <div class="code-example">
+                <div class="code-example-title">ETL Pipeline with PySpark</div>
+                <pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.window import Window
+
+# Initialize Spark
+spark = SparkSession.builder \
+    .appName("ETL Pipeline") \
+    .config("spark.sql.adaptive.enabled", "true") \
+    .getOrCreate()
+
+# EXTRACT: Read from multiple sources
+sales_df = spark.read.parquet("s3://bucket/raw/sales/")
+customers_df = spark.read.parquet("s3://bucket/raw/customers/")
+products_df = spark.read.parquet("s3://bucket/raw/products/")
+
+# TRANSFORM: Clean and enrich data
+
+# 1. Data Quality Checks
+sales_df = sales_df.filter(
+    col("amount").isNotNull() &
+    (col("amount") > 0) &
+    col("customer_id").isNotNull()
+)
+
+# 2. Remove duplicates
+sales_df = sales_df.dropDuplicates(["transaction_id"])
+
+# 3. Add derived columns
+sales_df = sales_df.withColumn(
+    "transaction_date",
+    to_date(col("timestamp"))
+).withColumn(
+    "year",
+    year(col("transaction_date"))
+).withColumn(
+    "month",
+    month(col("transaction_date"))
+)
+
+# 4. Join with dimension tables
+enriched_df = sales_df \
+    .join(broadcast(customers_df), "customer_id", "left") \
+    .join(broadcast(products_df), "product_id", "left")
+
+# 5. Calculate metrics
+window_spec = Window.partitionBy("customer_id").orderBy("transaction_date")
+
+final_df = enriched_df.withColumn(
+    "running_total",
+    sum("amount").over(
+        window_spec.rowsBetween(Window.unboundedPreceding, Window.currentRow)
+    )
+).withColumn(
+    "customer_ltv",
+    sum("amount").over(Window.partitionBy("customer_id"))
+).withColumn(
+    "transaction_rank",
+    row_number().over(window_spec)
+)
+
+# 6. Aggregate for reporting
+daily_summary = final_df.groupBy("year", "month", "transaction_date").agg(
+    count("*").alias("num_transactions"),
+    sum("amount").alias("total_revenue"),
+    avg("amount").alias("avg_transaction_value"),
+    countDistinct("customer_id").alias("unique_customers")
+)
+
+# LOAD: Write to data warehouse
+
+# Partition by year and month for efficient querying
+final_df.write \
+    .mode("overwrite") \
+    .partitionBy("year", "month") \
+    .parquet("s3://bucket/processed/sales/")
+
+# Write summary table
+daily_summary.write \
+    .mode("overwrite") \
+    .format("delta") \
+    .save("s3://bucket/gold/daily_sales_summary/")
+
+# Write to Redshift
+daily_summary.write \
+    .format("jdbc") \
+    .option("url", "jdbc:redshift://...") \
+    .option("dbtable", "analytics.daily_sales") \
+    .option("user", "username") \
+    .option("password", "password") \
+    .mode("overwrite") \
+    .save()
+
+spark.stop()</code></pre>
+            </div>
+        </div>
+
+        <div class="spark-section">
+            <h2>Next Steps</h2>
+            <ul>
+                <li>Practice with real datasets on AWS EMR</li>
+                <li>Learn Spark Streaming for real-time processing</li>
+                <li>Study Delta Lake for ACID transactions</li>
+                <li>Understand Spark SQL optimization</li>
+            </ul>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="../index.html" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AWS Data Engineer Bootcamp. Master PySpark!</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

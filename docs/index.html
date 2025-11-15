@@ -17,6 +17,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="active">Home</a></li>
+                <li><a href="pages/learning-hub.html">Learning Hub</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#weeks">Weeks</a></li>
                 <li><a href="#resources">Resources</a></li>
@@ -61,8 +62,11 @@
                     </div>
                 </div>
                 <div class="hero-buttons">
-                    <a href="#roadmap" class="btn btn-primary">
-                        <i class="fas fa-rocket"></i> Start Learning
+                    <a href="pages/learning-hub.html" class="btn btn-primary">
+                        <i class="fas fa-graduation-cap"></i> Access Learning Hub
+                    </a>
+                    <a href="#roadmap" class="btn btn-secondary">
+                        <i class="fas fa-rocket"></i> View Roadmap
                     </a>
                     <a href="#progress" class="btn btn-secondary">
                         <i class="fas fa-chart-line"></i> Track Progress
@@ -79,19 +83,19 @@
             <div class="quick-start-grid">
                 <div class="quick-start-card">
                     <div class="card-icon">
-                        <i class="fas fa-download"></i>
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3>1. Setup Environment</h3>
-                    <p>Install Python, VS Code, and essential packages</p>
-                    <a href="pages/setup.html" class="card-link">Setup Guide →</a>
+                    <h3>1. Learning Hub</h3>
+                    <p>Access comprehensive guides: Python, SQL, PySpark, AWS, Excel, Foundations</p>
+                    <a href="pages/learning-hub.html" class="card-link">Open Learning Hub →</a>
                 </div>
                 <div class="quick-start-card">
                     <div class="card-icon">
-                        <i class="fas fa-book"></i>
+                        <i class="fas fa-download"></i>
                     </div>
-                    <h3>2. Week 1-2: Python & SQL</h3>
-                    <p>Master the fundamentals of Python and SQL</p>
-                    <a href="pages/week1-2.html" class="card-link">Start Week 1 →</a>
+                    <h3>2. Setup Environment</h3>
+                    <p>Install Python, VS Code, and essential packages</p>
+                    <a href="pages/setup.html" class="card-link">Setup Guide →</a>
                 </div>
                 <div class="quick-start-card">
                     <div class="card-icon">
@@ -108,6 +112,69 @@
                     <h3>4. Track Progress</h3>
                     <p>Monitor your daily learning and achievements</p>
                     <a href="#progress" class="card-link">My Dashboard →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Foundations Section -->
+    <section id="foundations" class="section">
+        <div class="container">
+            <h2 class="section-title">Foundations of Data Engineering</h2>
+            <p class="section-subtitle">These are non-negotiable core fundamentals.</p>
+            <div class="weeks-grid">
+                <div class="week-card">
+                    <div class="week-header week-1">
+                        <h3>1.1 Data Lifecycle</h3>
+                    </div>
+                    <div class="week-body">
+                        <ul class="week-topics">
+                            <li><b>Generation:</b> sources, APIs, events</li>
+                            <li><b>Storage:</b> databases, data lakes</li>
+                            <li><b>Ingestion:</b> batch, streaming</li>
+                            <li><b>Transformation:</b> ETL, ELT</li>
+                            <li><b>Serving:</b> warehouses, dashboards</li>
+                            <li><b>Governance:</b> security, quality</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="week-card">
+                    <div class="week-header week-3">
+                        <h3>1.2 Data Formats</h3>
+                    </div>
+                    <div class="week-body">
+                        <ul class="week-topics">
+                            <li>CSV, JSON, XML</li>
+                            <li>Parquet, ORC, Avro</li>
+                            <li>Compression (gzip, snappy)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="week-card">
+                    <div class="week-header week-4">
+                        <h3>1.3 Data Modeling</h3>
+                    </div>
+                    <div class="week-body">
+                        <ul class="week-topics">
+                            <li>OLTP vs OLAP</li>
+                            <li>Star & Snowflake Schema</li>
+                            <li>Denormalization</li>
+                            <li>Partitioning & Indexing</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="week-card">
+                    <div class="week-header week-5">
+                        <h3>1.4 Data Architecture</h3>
+                    </div>
+                    <div class="week-body">
+                        <ul class="week-topics">
+                            <li>ACID vs BASE</li>
+                            <li>CAP Theorem</li>
+                            <li>Lambda & Lakehouse</li>
+                            <li>Microservices & Events</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

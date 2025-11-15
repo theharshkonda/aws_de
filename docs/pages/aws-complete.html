@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Complete Guide - Data Engineering Services</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .aws-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .aws-section h2 {
+            color: #ff9900;
+            border-bottom: 3px solid #ff9900;
+            padding-bottom: 0.5rem;
+        }
+        .service-card {
+            background: #f8f9fa;
+            border-left: 4px solid #ff9900;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        .architecture-diagram {
+            background: #232f3e;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        .cost-alert {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fab fa-aws"></i>
+                <span>AWS Complete Guide</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#storage">Storage</a></li>
+                <li><a href="#etl">ETL</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+
+        <!-- Introduction -->
+        <div id="intro" class="aws-section">
+            <h2><i class="fab fa-aws"></i> AWS for Data Engineering</h2>
+            <p>Amazon Web Services (AWS) is the leading cloud platform for data engineering. This guide covers all essential AWS services for building data pipelines, warehouses, and analytics platforms.</p>
+
+            <h3>AWS Data Engineering Architecture</h3>
+            <div class="architecture-diagram">
+                <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                      DATA SOURCES                                │
+│  APIs │ Databases │ Files │ Streaming Data │ SaaS Apps          │
+└───────────────────────┬─────────────────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                   INGESTION LAYER                                │
+│  Kinesis Data Streams │ Kinesis Firehose │ DMS │ AppFlow        │
+│  Lambda │ API Gateway │ AWS Transfer Family                      │
+└───────────────────────┬─────────────────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                   STORAGE LAYER (Data Lake)                      │
+│                         Amazon S3                                │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐                  │
+│  │  Bronze  │ -> │  Silver  │ -> │   Gold   │                  │
+│  │   Raw    │    │  Cleaned │    │Aggregated│                  │
+│  └──────────┘    └──────────┘    └──────────┘                  │
+└───────────────────────┬─────────────────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│              PROCESSING/TRANSFORMATION LAYER                     │
+│  AWS Glue (ETL) │ EMR (Spark) │ Lambda │ Step Functions        │
+│  Glue DataBrew │ Athena │ Kinesis Analytics                     │
+└───────────────────────┬─────────────────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                   SERVING LAYER                                  │
+│  Redshift (DW) │ Athena (SQL) │ RDS │ DynamoDB                  │
+│  OpenSearch │ ElastiCache                                        │
+└───────────────────────┬─────────────────────────────────────────┘
+                        │
+                        ▼
+┌─────────────────────────────────────────────────────────────────┐
+│               ANALYTICS & BI LAYER                               │
+│  QuickSight │ SageMaker │ External BI Tools                     │
+└─────────────────────────────────────────────────────────────────┘
+
+           ORCHESTRATION: MWAA (Airflow) / Step Functions
+           GOVERNANCE: Lake Formation / Glue Data Catalog
+           MONITORING: CloudWatch / CloudTrail
+           SECURITY: IAM / KMS / VPC
+                </pre>
+            </div>
+        </div>
+
+        <!-- AWS Account Setup -->
+        <div id="setup" class="aws-section">
+            <h2><i class="fas fa-user-plus"></i> AWS Account Setup</h2>
+
+            <h3>1. Create Free AWS Account</h3>
+            <div class="code-example">
+                <div class="code-example-title">Step-by-Step Setup</div>
+                <pre><code class="language-bash"># 1. Go to https://aws.amazon.com/free/
+# 2. Click "Create a Free Account"
+# 3. Provide:
+#    - Email address
+#    - Account name
+#    - Password
+# 4. Contact Information:
+#    - Personal or Business account
+#    - Full name, phone, address
+# 5. Payment Information:
+#    - Credit/debit card (won't be charged for free tier)
+# 6. Identity Verification:
+#    - Phone verification
+# 7. Choose Support Plan:
+#    - Select "Basic Support - Free"</code></pre>
+            </div>
+
+            <div class="cost-alert">
+                <strong><i class="fas fa-exclamation-triangle"></i> Cost Management Tips:</strong>
+                <ul>
+                    <li>Set up billing alerts (Budget: $10/month)</li>
+                    <li>Enable cost allocation tags</li>
+                    <li>Use AWS Cost Explorer</li>
+                    <li>Always delete resources after practice</li>
+                    <li>Stick to free tier services when learning</li>
+                </ul>
+            </div>
+
+            <h3>2. AWS Free Tier Services</h3>
+            <div class="service-card">
+                <h4>Always Free Services</h4>
+                <ul>
+                    <li><strong>Lambda:</strong> 1 million requests/month</li>
+                    <li><strong>DynamoDB:</strong> 25 GB storage</li>
+                    <li><strong>CloudWatch:</strong> 10 custom metrics</li>
+                    <li><strong>SNS:</strong> 1 million publishes</li>
+                    <li><strong>SQS:</strong> 1 million requests</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <h4>12 Months Free Services</h4>
+                <ul>
+                    <li><strong>EC2:</strong> 750 hours/month (t2.micro)</li>
+                    <li><strong>RDS:</strong> 750 hours/month (db.t2.micro)</li>
+                    <li><strong>S3:</strong> 5 GB standard storage</li>
+                    <li><strong>Redshift:</strong> 750 hours/month (dc2.large)</li>
+                    <li><strong>Glue:</strong> 1 million objects stored</li>
+                </ul>
+            </div>
+
+            <h3>3. AWS CLI Setup</h3>
+            <div class="code-example">
+                <div class="code-example-title">Install and Configure AWS CLI</div>
+                <pre><code class="language-bash"># Install AWS CLI (Windows)
+msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi
+
+# Install AWS CLI (Linux/Mac)
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+# Verify installation
+aws --version
+
+# Configure AWS CLI
+aws configure
+# AWS Access Key ID: YOUR_ACCESS_KEY
+# AWS Secret Access Key: YOUR_SECRET_KEY
+# Default region: us-east-1
+# Default output format: json
+
+# Test configuration
+aws s3 ls
+aws sts get-caller-identity</code></pre>
+            </div>
+
+            <h3>4. Create IAM User</h3>
+            <div class="code-example">
+                <div class="code-example-title">IAM User Setup (Console)</div>
+                <pre><code class="language-plaintext">1. Go to IAM Console
+2. Click "Users" → "Add User"
+3. Username: data-engineer-dev
+4. Access type:
+   ☑ Programmatic access (Access Key)
+   ☑ AWS Management Console access
+5. Permissions:
+   - Attach existing policies:
+     * AdministratorAccess (for learning)
+     * Or create custom policy with needed permissions
+6. Tags (optional):
+   - Environment: Development
+   - Team: DataEngineering
+7. Create User
+8. SAVE Access Key ID and Secret Access Key!</code></pre>
+            </div>
+        </div>
+
+        <!-- Amazon S3 -->
+        <div id="storage" class="aws-section">
+            <h2><i class="fas fa-database"></i> Amazon S3 (Simple Storage Service)</h2>
+            <p>S3 is the foundation of AWS data lakes - infinite scalability, 99.999999999% durability.</p>
+
+            <h3>1. S3 Concepts</h3>
+            <div class="service-card">
+                <h4>Key Concepts</h4>
+                <ul>
+                    <li><strong>Bucket:</strong> Container for objects (globally unique name)</li>
+                    <li><strong>Object:</strong> File stored in bucket (up to 5TB)</li>
+                    <li><strong>Key:</strong> Unique identifier for object (path/filename)</li>
+                    <li><strong>Prefix:</strong> Folder-like structure (e.g., data/2024/01/)</li>
+                    <li><strong>Storage Classes:</strong> Standard, IA, Glacier, etc.</li>
+                </ul>
+            </div>
+
+            <h3>2. Creating S3 Buckets</h3>
+            <div class="code-example">
+                <div class="code-example-title">S3 Operations with AWS CLI</div>
+                <pre><code class="language-bash"># Create bucket
+aws s3 mb s3://my-data-lake-bucket-12345
+
+# List buckets
+aws s3 ls
+
+# Upload file
+aws s3 cp local-file.csv s3://my-data-lake-bucket-12345/data/
+
+# Upload folder
+aws s3 cp data/ s3://my-data-lake-bucket-12345/data/ --recursive
+
+# Download file
+aws s3 cp s3://my-data-lake-bucket-12345/data/file.csv ./
+
+# List objects in bucket
+aws s3 ls s3://my-data-lake-bucket-12345/data/
+
+# Sync local folder with S3
+aws s3 sync ./data s3://my-data-lake-bucket-12345/data/
+
+# Delete object
+aws s3 rm s3://my-data-lake-bucket-12345/data/file.csv
+
+# Delete bucket
+aws s3 rb s3://my-data-lake-bucket-12345 --force</code></pre>
+            </div>
+
+            <h3>3. S3 with Python (Boto3)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Python S3 Operations</div>
+                <pre><code class="language-python">import boto3
+import pandas as pd
+from io import StringIO
+
+# Create S3 client
+s3 = boto3.client('s3')
+
+# Create S3 resource (higher-level)
+s3_resource = boto3.resource('s3')
+
+# 1. Upload file
+s3.upload_file('local-file.csv', 'my-bucket', 'data/file.csv')
+
+# 2. Download file
+s3.download_file('my-bucket', 'data/file.csv', 'downloaded.csv')
+
+# 3. List objects
+response = s3.list_objects_v2(Bucket='my-bucket', Prefix='data/')
+for obj in response.get('Contents', []):
+    print(obj['Key'], obj['Size'], obj['LastModified'])
+
+# 4. Read CSV directly into Pandas
+obj = s3.get_object(Bucket='my-bucket', Key='data/file.csv')
+df = pd.read_csv(obj['Body'])
+
+# 5. Write Pandas DataFrame to S3
+csv_buffer = StringIO()
+df.to_csv(csv_buffer, index=False)
+s3.put_object(Bucket='my-bucket', Key='output/result.csv', Body=csv_buffer.getvalue())
+
+# 6. Read Parquet from S3
+df = pd.read_parquet('s3://my-bucket/data/file.parquet')
+
+# 7. Write Parquet to S3
+df.to_parquet('s3://my-bucket/output/result.parquet', index=False)
+
+# 8. Delete object
+s3.delete_object(Bucket='my-bucket', Key='data/file.csv')
+
+# 9. Copy object
+s3.copy_object(
+    CopySource={'Bucket': 'source-bucket', 'Key': 'file.csv'},
+    Bucket='dest-bucket',
+    Key='copied-file.csv'
+)
+
+# 10. Generate presigned URL (temporary access)
+url = s3.generate_presigned_url(
+    'get_object',
+    Params={'Bucket': 'my-bucket', 'Key': 'data/file.csv'},
+    ExpiresIn=3600  # 1 hour
+)</code></pre>
+            </div>
+
+            <h3>4. S3 Data Lake Architecture</h3>
+            <div class="code-example">
+                <div class="code-example-title">Recommended Folder Structure</div>
+                <pre><code class="language-plaintext">my-data-lake-bucket/
+├── bronze/          # Raw data (as ingested)
+│   ├── sales/
+│   │   ├── year=2024/
+│   │   │   ├── month=01/
+│   │   │   │   ├── day=01/
+│   │   │   │   │   └── data.parquet
+│   ├── customers/
+│   └── products/
+│
+├── silver/          # Cleaned, validated data
+│   ├── sales_cleaned/
+│   ├── customers_validated/
+│   └── products_enriched/
+│
+├── gold/            # Business-level aggregates
+│   ├── daily_sales_summary/
+│   ├── customer_360/
+│   └── product_analytics/
+│
+├── scripts/         # ETL scripts
+│   ├── glue/
+│   └── spark/
+│
+└── logs/            # Pipeline logs
+    └── etl-runs/</code></pre>
+            </div>
+
+            <div class="tip-box">
+                <strong><i class="fas fa-lightbulb"></i> S3 Best Practices:</strong>
+                <ul>
+                    <li>Use partitioning for large datasets (year/month/day)</li>
+                    <li>Store data in Parquet/ORC for analytics</li>
+                    <li>Enable versioning for critical data</li>
+                    <li>Use lifecycle policies to archive old data</li>
+                    <li>Encrypt sensitive data (SSE-S3 or SSE-KMS)</li>
+                    <li>Use S3 Select for efficient querying</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- AWS Glue -->
+        <div id="etl" class="aws-section">
+            <h2><i class="fas fa-exchange-alt"></i> AWS Glue (ETL Service)</h2>
+            <p>AWS Glue is a fully managed ETL service that makes it easy to prepare data for analytics.</p>
+
+            <h3>1. Glue Components</h3>
+            <div class="service-card">
+                <h4>Glue Services</h4>
+                <ul>
+                    <li><strong>Glue Data Catalog:</strong> Centralized metadata repository</li>
+                    <li><strong>Glue Crawlers:</strong> Automatically discover and catalog data</li>
+                    <li><strong>Glue ETL Jobs:</strong> Serverless Apache Spark jobs</li>
+                    <li><strong>Glue DataBrew:</strong> Visual data preparation tool</li>
+                    <li><strong>Glue Studio:</strong> Visual ETL job creation</li>
+                </ul>
+            </div>
+
+            <h3>2. Creating Glue Database and Table</h3>
+            <div class="code-example">
+                <div class="code-example-title">AWS CLI - Glue Database</div>
+                <pre><code class="language-bash"># Create Glue database
+aws glue create-database \
+    --database-input '{"Name": "sales_database", "Description": "Sales data"}'
+
+# List databases
+aws glue get-databases
+
+# Create table manually
+aws glue create-table \
+    --database-name sales_database \
+    --table-input '{
+        "Name": "sales_data",
+        "StorageDescriptor": {
+            "Columns": [
+                {"Name": "order_id", "Type": "int"},
+                {"Name": "customer_id", "Type": "int"},
+                {"Name": "amount", "Type": "double"},
+                {"Name": "order_date", "Type": "date"}
+            ],
+            "Location": "s3://my-bucket/data/sales/",
+            "InputFormat": "org.apache.hadoop.mapred.TextInputFormat",
+            "OutputFormat": "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat",
+            "SerdeInfo": {
+                "SerializationLibrary": "org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe"
+            }
+        }
+    }'</code></pre>
+            </div>
+
+            <h3>3. Glue Crawler</h3>
+            <div class="code-example">
+                <div class="code-example-title">Create and Run Crawler</div>
+                <pre><code class="language-python">import boto3
+
+glue = boto3.client('glue')
+
+# Create crawler
+glue.create_crawler(
+    Name='sales-data-crawler',
+    Role='arn:aws:iam::123456789012:role/GlueServiceRole',
+    DatabaseName='sales_database',
+    Targets={
+        'S3Targets': [
+            {
+                'Path': 's3://my-bucket/data/sales/',
+                'Exclusions': []
+            }
+        ]
+    },
+    SchemaChangePolicy={
+        'UpdateBehavior': 'UPDATE_IN_DATABASE',
+        'DeleteBehavior': 'LOG'
+    }
+)
+
+# Start crawler
+glue.start_crawler(Name='sales-data-crawler')
+
+# Get crawler status
+response = glue.get_crawler(Name='sales-data-crawler')
+print(response['Crawler']['State'])  # READY, RUNNING, STOPPING</code></pre>
+            </div>
+
+            <h3>4. Glue ETL Job (PySpark)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Sample Glue ETL Script</div>
+                <pre><code class="language-python">import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from awsglue.dynamicframe import DynamicFrame
+
+# Get job parameters
+args = getResolvedOptions(sys.argv, ['JOB_NAME', 'output_path'])
+
+# Initialize contexts
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# 1. Read from Glue Data Catalog
+datasource = glueContext.create_dynamic_frame.from_catalog(
+    database="sales_database",
+    table_name="sales_data"
+)
+
+# 2. Convert to Spark DataFrame for transformations
+df = datasource.toDF()
+
+# 3. Data transformations
+from pyspark.sql.functions import col, when, year, month, sum
+
+# Clean data
+df_cleaned = df.filter(
+    col("amount").isNotNull() &
+    (col("amount") > 0)
+)
+
+# Add derived columns
+df_enriched = df_cleaned.withColumn(
+    "year", year(col("order_date"))
+).withColumn(
+    "month", month(col("order_date"))
+).withColumn(
+    "amount_category",
+    when(col("amount") < 100, "Low")
+    .when(col("amount") < 500, "Medium")
+    .otherwise("High")
+)
+
+# Aggregate data
+df_aggregated = df_enriched.groupBy("year", "month", "customer_id").agg(
+    sum("amount").alias("total_amount"),
+    count("*").alias("order_count")
+)
+
+# 4. Convert back to DynamicFrame
+output_dyf = DynamicFrame.fromDF(df_aggregated, glueContext, "output")
+
+# 5. Write to S3 in Parquet format
+glueContext.write_dynamic_frame.from_options(
+    frame=output_dyf,
+    connection_type="s3",
+    connection_options={
+        "path": args['output_path'],
+        "partitionKeys": ["year", "month"]
+    },
+    format="parquet"
+)
+
+job.commit()</code></pre>
+            </div>
+
+            <h3>5. Create and Run Glue Job</h3>
+            <div class="code-example">
+                <div class="code-example-title">Boto3 - Create Glue Job</div>
+                <pre><code class="language-python">import boto3
+
+glue = boto3.client('glue')
+
+# Upload script to S3 first
+s3 = boto3.client('s3')
+s3.upload_file('etl_script.py', 'my-bucket', 'scripts/etl_script.py')
+
+# Create Glue job
+response = glue.create_job(
+    Name='sales-etl-job',
+    Role='arn:aws:iam::123456789012:role/GlueServiceRole',
+    Command={
+        'Name': 'glueetl',
+        'ScriptLocation': 's3://my-bucket/scripts/etl_script.py',
+        'PythonVersion': '3'
+    },
+    DefaultArguments={
+        '--job-language': 'python',
+        '--output_path': 's3://my-bucket/processed/sales/',
+        '--enable-continuous-cloudwatch-log': 'true'
+    },
+    GlueVersion='4.0',
+    NumberOfWorkers=10,
+    WorkerType='G.1X',  # G.1X, G.2X, G.025X
+    Timeout=60  # minutes
+)
+
+# Run job
+run_response = glue.start_job_run(
+    JobName='sales-etl-job',
+    Arguments={
+        '--output_path': 's3://my-bucket/processed/sales/2024-01-15/'
+    }
+)
+
+job_run_id = run_response['JobRunId']
+print(f"Job started: {job_run_id}")
+
+# Monitor job
+status = glue.get_job_run(JobName='sales-etl-job', RunId=job_run_id)
+print(status['JobRun']['JobRunState'])  # RUNNING, SUCCEEDED, FAILED</code></pre>
+            </div>
+        </div>
+
+        <!-- Amazon Athena -->
+        <div id="analytics" class="aws-section">
+            <h2><i class="fas fa-search"></i> Amazon Athena</h2>
+            <p>Athena is a serverless interactive query service to analyze data in S3 using standard SQL.</p>
+
+            <h3>1. Creating Athena Tables</h3>
+            <div class="code-example">
+                <div class="code-example-title">Athena DDL</div>
+                <pre><code class="language-sql">-- Create external table pointing to S3
+CREATE EXTERNAL TABLE IF NOT EXISTS sales_database.sales_data (
+    order_id INT,
+    customer_id INT,
+    product_id INT,
+    amount DOUBLE,
+    order_date DATE
+)
+PARTITIONED BY (
+    year INT,
+    month INT
+)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
+STORED AS PARQUET
+LOCATION 's3://my-bucket/data/sales/'
+TBLPROPERTIES ('parquet.compression'='SNAPPY');
+
+-- Add partitions
+MSCK REPAIR TABLE sales_database.sales_data;
+
+-- Or add specific partition
+ALTER TABLE sales_database.sales_data
+ADD PARTITION (year=2024, month=1)
+LOCATION 's3://my-bucket/data/sales/year=2024/month=1/';</code></pre>
+            </div>
+
+            <h3>2. Querying with Athena</h3>
+            <div class="code-example">
+                <div class="code-example-title">Athena SQL Queries</div>
+                <pre><code class="language-sql">-- Basic query
+SELECT *
+FROM sales_database.sales_data
+WHERE year = 2024 AND month = 1
+LIMIT 100;
+
+-- Aggregation with window function
+SELECT
+    customer_id,
+    order_date,
+    amount,
+    SUM(amount) OVER (
+        PARTITION BY customer_id
+        ORDER BY order_date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS running_total
+FROM sales_database.sales_data
+WHERE year = 2024;
+
+-- Complex analytics query
+WITH monthly_stats AS (
+    SELECT
+        year,
+        month,
+        COUNT(*) AS order_count,
+        SUM(amount) AS total_revenue,
+        AVG(amount) AS avg_order_value
+    FROM sales_database.sales_data
+    GROUP BY year, month
+)
+SELECT
+    year,
+    month,
+    order_count,
+    total_revenue,
+    avg_order_value,
+    LAG(total_revenue) OVER (ORDER BY year, month) AS prev_month_revenue,
+    (total_revenue - LAG(total_revenue) OVER (ORDER BY year, month)) /
+        LAG(total_revenue) OVER (ORDER BY year, month) * 100 AS growth_pct
+FROM monthly_stats
+ORDER BY year DESC, month DESC;</code></pre>
+            </div>
+
+            <h3>3. Athena with Python (Boto3)</h3>
+            <div class="code-example">
+                <div class="code-example-title">Run Athena Queries from Python</div>
+                <pre><code class="language-python">import boto3
+import time
+import pandas as pd
+
+athena = boto3.client('athena')
+s3 = boto3.client('s3')
+
+def run_athena_query(query, database, output_location):
+    """Run Athena query and return results as DataFrame"""
+
+    # Start query execution
+    response = athena.start_query_execution(
+        QueryString=query,
+        QueryExecutionContext={'Database': database},
+        ResultConfiguration={'OutputLocation': output_location}
+    )
+
+    query_execution_id = response['QueryExecutionId']
+
+    # Wait for query to complete
+    while True:
+        result = athena.get_query_execution(QueryExecutionId=query_execution_id)
+        state = result['QueryExecution']['Status']['State']
+
+        if state == 'SUCCEEDED':
+            break
+        elif state in ['FAILED', 'CANCELLED']:
+            raise Exception(f"Query {state}: {result['QueryExecution']['Status']['StateChangeReason']}")
+
+        time.sleep(1)
+
+    # Get results
+    results = athena.get_query_results(QueryExecutionId=query_execution_id)
+
+    # Parse results into DataFrame
+    columns = [col['Label'] for col in results['ResultSet']['ResultSetMetadata']['ColumnInfo']]
+    rows = [[data.get('VarCharValue', '') for data in row['Data']]
+            for row in results['ResultSet']['Rows'][1:]]
+
+    df = pd.DataFrame(rows, columns=columns)
+    return df
+
+# Example usage
+query = """
+SELECT
+    year,
+    month,
+    COUNT(*) as order_count,
+    SUM(amount) as total_revenue
+FROM sales_database.sales_data
+WHERE year = 2024
+GROUP BY year, month
+"""
+
+df = run_athena_query(
+    query=query,
+    database='sales_database',
+    output_location='s3://my-bucket/athena-results/'
+)
+
+print(df)</code></pre>
+            </div>
+        </div>
+
+        <!-- Amazon Redshift -->
+        <div id="redshift" class="aws-section">
+            <h2><i class="fas fa-warehouse"></i> Amazon Redshift (Data Warehouse)</h2>
+            <p>Redshift is a fast, fully managed data warehouse optimized for analytics on petabyte-scale data.</p>
+
+            <h3>1. Redshift Architecture</h3>
+            <div class="architecture-diagram">
+                <pre>
+┌─────────────────────────────────────────────────┐
+│         Redshift Cluster Architecture            │
+│                                                  │
+│  ┌────────────────────────────────────────┐    │
+│  │        Leader Node                      │    │
+│  │  - Query Planning                       │    │
+│  │  - Query Coordination                   │    │
+│  │  - Aggregates Results                   │    │
+│  └────────────┬───────────────────────────┘    │
+│               │                                  │
+│    ┌──────────┼──────────┐                     │
+│    │          │          │                      │
+│  ┌─▼──┐    ┌─▼──┐    ┌─▼──┐                   │
+│  │Node│    │Node│    │Node│  Compute Nodes     │
+│  │ 1  │    │ 2  │    │ 3  │  - Execute queries │
+│  │    │    │    │    │    │  - Store data      │
+│  └────┘    └────┘    └────┘                    │
+│                                                  │
+│  Each Node has multiple slices (CPUs)          │
+└─────────────────────────────────────────────────┘
+                </pre>
+            </div>
+
+            <h3>2. Create Redshift Cluster</h3>
+            <div class="code-example">
+                <div class="code-example-title">AWS CLI - Create Cluster</div>
+                <pre><code class="language-bash"># Create Redshift cluster
+aws redshift create-cluster \
+    --cluster-identifier my-redshift-cluster \
+    --node-type dc2.large \
+    --master-username admin \
+    --master-user-password MyPassword123! \
+    --number-of-nodes 2 \
+    --cluster-type multi-node \
+    --db-name sales_dw \
+    --publicly-accessible
+
+# Get cluster endpoint
+aws redshift describe-clusters \
+    --cluster-identifier my-redshift-cluster \
+    --query 'Clusters[0].Endpoint.Address'</code></pre>
+            </div>
+
+            <h3>3. Loading Data into Redshift</h3>
+            <div class="code-example">
+                <div class="code-example-title">COPY Command (Best Practice)</div>
+                <pre><code class="language-sql">-- Create table
+CREATE TABLE sales (
+    order_id INTEGER,
+    customer_id INTEGER,
+    product_id INTEGER,
+    amount DECIMAL(10,2),
+    order_date DATE
+)
+DISTKEY(customer_id)
+SORTKEY(order_date);
+
+-- Load from S3 using COPY (fastest method)
+COPY sales
+FROM 's3://my-bucket/data/sales/'
+IAM_ROLE 'arn:aws:iam::123456789012:role/RedshiftRole'
+FORMAT AS PARQUET;
+
+-- Load CSV from S3
+COPY sales
+FROM 's3://my-bucket/data/sales.csv'
+IAM_ROLE 'arn:aws:iam::123456789012:role/RedshiftRole'
+CSV
+IGNOREHEADER 1;
+
+-- Load with partition
+COPY sales
+FROM 's3://my-bucket/data/sales/year=2024/month=01/'
+IAM_ROLE 'arn:aws:iam::123456789012:role/RedshiftRole'
+FORMAT AS PARQUET;</code></pre>
+            </div>
+
+            <h3>4. Redshift Best Practices</h3>
+            <div class="service-card">
+                <h4>Performance Optimization</h4>
+                <ul>
+                    <li><strong>Distribution Keys (DISTKEY):</strong> Distribute data evenly across nodes</li>
+                    <li><strong>Sort Keys (SORTKEY):</strong> Order data for faster queries</li>
+                    <li><strong>Compression:</strong> Automatic column compression</li>
+                    <li><strong>Vacuum:</strong> Reclaim space and re-sort rows</li>
+                    <li><strong>Analyze:</strong> Update statistics for query planner</li>
+                </ul>
+            </div>
+
+            <div class="code-example">
+                <div class="code-example-title">Maintenance Commands</div>
+                <pre><code class="language-sql">-- Vacuum to reclaim space
+VACUUM sales;
+
+-- Analyze to update statistics
+ANALYZE sales;
+
+-- Deep copy (rebuild table)
+CREATE TABLE sales_new (LIKE sales);
+INSERT INTO sales_new SELECT * FROM sales;
+DROP TABLE sales;
+ALTER TABLE sales_new RENAME TO sales;</code></pre>
+            </div>
+        </div>
+
+        <!-- Continue with EMR, Kinesis, Lambda in next section... -->
+        <div class="aws-section">
+            <h2>More AWS Services Coming Soon</h2>
+            <p>This guide covers the essential AWS services for data engineering. Additional topics include:</p>
+            <ul>
+                <li>Amazon EMR (Elastic MapReduce) - Managed Hadoop/Spark</li>
+                <li>Amazon Kinesis - Real-time data streaming</li>
+                <li>AWS Lambda - Serverless computing</li>
+                <li>AWS Step Functions - Workflow orchestration</li>
+                <li>Amazon DynamoDB - NoSQL database</li>
+                <li>AWS DMS - Database Migration Service</li>
+                <li>Amazon MWAA - Managed Airflow</li>
+                <li>AWS Lake Formation - Data lake governance</li>
+            </ul>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="learning-hub.html" class="btn btn-primary">Back to Learning Hub</a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AWS Data Engineer Bootcamp. Master AWS!</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>
