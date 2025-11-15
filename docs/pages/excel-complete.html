@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Complete Guide - Basics to Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .learning-nav {
+            position: sticky;
+            top: 60px;
+            background: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            z-index: 10;
+        }
+        .learning-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .learning-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        .learning-nav a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .topic-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .topic-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        .topic-section h3 {
+            color: var(--secondary-color);
+            margin-top: 1.2rem;
+            margin-bottom: 0.4rem;
+        }
+        .topic-section ul {
+            margin-left: 1.2rem;
+        }
+        .tip-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .formula-example {
+            background: #f4f4f4;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-file-excel"></i>
+                <span>Excel Complete Guide</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="learning-hub.html">Learning Hub</a></li>
+                <li><a href="#basics">Basics</a></li>
+                <li><a href="#lookup">Lookups</a></li>
+                <li><a href="#analysis">Analysis</a></li>
+                <li><a href="#power-query">Power Query</a></li>
+                <li><a href="#dashboards">Dashboards</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+
+        <div class="learning-nav">
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#basics">Formulas & Functions</a></li>
+                <li><a href="#lookup">Lookup Functions</a></li>
+                <li><a href="#analysis">Pivot Tables</a></li>
+                <li><a href="#cleaning">Data Cleaning</a></li>
+                <li><a href="#power-query">Power Query</a></li>
+                <li><a href="#dashboards">Charts & Dashboards</a></li>
+            </ul>
+        </div>
+
+        <!-- Introduction -->
+        <div id="intro" class="topic-section">
+            <h2><i class="fas fa-rocket"></i> Excel for Data Engineering</h2>
+            <p>Excel is still one of the most widely used tools for <strong>exploring data, quick analysis, and sharing results</strong> with non‑technical stakeholders.</p>
+            <p>As a data engineer, you can use Excel to:</p>
+            <ul>
+                <li>Validate small samples from your pipelines (e.g., CSV exports).</li>
+                <li>Create quick summary reports for business teams.</li>
+                <li>Prototype transformations before automating them with Python/SQL.</li>
+            </ul>
+        </div>
+
+        <!-- Basics -->
+        <div id="basics" class="topic-section">
+            <h2><i class="fas fa-equals"></i> Formulas & Functions (Basics)</h2>
+            <h3>Math & Aggregation</h3>
+            <ul>
+                <li><strong>SUM, AVERAGE, MIN, MAX</strong> – basic aggregations.</li>
+                <li><strong>COUNT, COUNTA, COUNTIF</strong> – counting rows and conditions.</li>
+                <li><strong>IF</strong> – simple conditional logic.</li>
+                <li><strong>AND, OR</strong> – combine multiple conditions.</li>
+            </ul>
+            <div class="formula-example">
+                =IF(C2 &gt;= 1000, "High Value", "Standard")
+            </div>
+
+            <h3>Text Functions</h3>
+            <ul>
+                <li><strong>LEFT, RIGHT, MID</strong> – extract text segments.</li>
+                <li><strong>LEN</strong> – length of text (useful for validation).</li>
+                <li><strong>TRIM</strong> – remove extra spaces (great for cleaning).</li>
+                <li><strong>CONCAT / TEXTJOIN</strong> – combine columns.</li>
+            </ul>
+            <div class="formula-example">
+                =TRIM(A2) &amp; " " &amp; TRIM(B2)
+            </div>
+        </div>
+
+        <!-- Lookups -->
+        <div id="lookup" class="topic-section">
+            <h2><i class="fas fa-search"></i> Lookup Functions (VLOOKUP, INDEX/MATCH, XLOOKUP)</h2>
+            <p>Lookup functions let you join tables in Excel, similar to SQL joins.</p>
+
+            <h3>VLOOKUP</h3>
+            <div class="formula-example">
+                =VLOOKUP(A2, Customers!$A$2:$D$1000, 3, FALSE)
+            </div>
+            <p>Look up the customer ID in <strong>A2</strong> and return the 3rd column from the Customers table.</p>
+
+            <h3>INDEX + MATCH</h3>
+            <div class="formula-example">
+                =INDEX(Customers!$C$2:$C$1000, MATCH(A2, Customers!$A$2:$A$1000, 0))
+            </div>
+            <p>More flexible than VLOOKUP because the key does not need to be in the first column.</p>
+        </div>
+
+        <!-- Analysis -->
+        <div id="analysis" class="topic-section">
+            <h2><i class="fas fa-table"></i> Pivot Tables (Analysis)</h2>
+            <p>Pivot tables give you drag‑and‑drop analytics without writing code.</p>
+            <ul>
+                <li>Drag fields to <strong>Rows</strong>, <strong>Columns</strong>, and <strong>Values</strong>.</li>
+                <li>Use filters and slicers to explore subsets.</li>
+                <li>Use <strong>Value Field Settings</strong> to choose SUM, COUNT, AVERAGE, etc.</li>
+            </ul>
+            <div class="tip-box">
+                Use pivot tables to quickly compare your Excel aggregates with your SQL/warehouse results.
+            </div>
+        </div>
+
+        <!-- Cleaning -->
+        <div id="cleaning" class="topic-section">
+            <h2><i class="fas fa-broom"></i> Data Cleaning</h2>
+            <ul>
+                <li>Remove duplicates with <strong>Data → Remove Duplicates</strong>.</li>
+                <li>Use filters/sorting to spot missing or strange values.</li>
+                <li>Use <strong>Text to Columns</strong> to split combined fields.</li>
+                <li>Use conditional formatting to highlight outliers.</li>
+            </ul>
+        </div>
+
+        <!-- Power Query -->
+        <div id="power-query" class="topic-section">
+            <h2><i class="fas fa-plug"></i> Power Query</h2>
+            <p>Power Query lets you connect to files, databases, and web sources and build repeatable transformation steps.</p>
+            <ul>
+                <li>Connect to CSV, Excel, SQL Server, and more.</li>
+                <li>Apply step‑by‑step transformations: filter, split, merge, pivot/unpivot.</li>
+                <li>Refresh the query when new data arrives – no manual rework.</li>
+            </ul>
+            <div class="tip-box">
+                Prototype in Power Query first, then translate successful transformations into Python/SQL pipelines.
+            </div>
+        </div>
+
+        <!-- Dashboards -->
+        <div id="dashboards" class="topic-section">
+            <h2><i class="fas fa-chart-line"></i> Charts & Dashboards</h2>
+            <ul>
+                <li>Use bar/line charts for trends and comparisons.</li>
+                <li>Combine pivot tables and charts into dashboards.</li>
+                <li>Use slicers/timelines for interactive filtering.</li>
+                <li>Link dashboards to CSV/Excel exports from your warehouse.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

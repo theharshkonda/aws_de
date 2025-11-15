@@ -977,6 +977,395 @@ deep[0][0] = 99  <span class="comment"># Doesn't affect original</span></code></
                             </ul>
                         </div>
                     </div>
+
+                    <!-- AWS Core Services & DEA Exam Domains -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-medium"></span> AWS Core & Exam-Style Questions
+                    </h3>
+
+                    <!-- S3 vs EBS / Storage & Security / Cost -->
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain the difference between Amazon S3 and EBS.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>S3:</strong> Object storage, accessed over HTTP(S), ideal for data lakes, backups, logs. Highly durable (11 9s), virtually unlimited capacity, pay-per-GB.</li>
+                                <li><strong>EBS:</strong> Block storage attached to a single EC2 instance (like a disk). Low-latency access for databases or applications, sized in GB, charged for provisioned capacity.</li>
+                                <li>Use <strong>S3</strong> for shared, large, immutable files; use <strong>EBS</strong> for OS disks and low-latency transactional workloads on EC2.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is IAM in AWS?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> IAM (Identity and Access Management) lets you securely control access to AWS resources.
+                            <ul>
+                                <li>Define <strong>users</strong>, <strong>groups</strong>, <strong>roles</strong>, and <strong>policies</strong>.</li>
+                                <li>Apply least-privilege permissions (allow only the actions and resources required).</li>
+                                <li>Use IAM roles for services (EC2, Lambda, Glue) instead of embedding access keys.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Describe a VPC and its main components.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> A VPC (Virtual Private Cloud) is an isolated virtual network in AWS.
+                            <ul>
+                                <li><strong>Subnets:</strong> Segments of the VPC network (public/private).</li>
+                                <li><strong>Route tables:</strong> Control where traffic is sent.</li>
+                                <li><strong>Internet Gateway:</strong> Allows public internet access.</li>
+                                <li><strong>NAT Gateway:</strong> Allows private subnets to reach the internet securely.</li>
+                                <li><strong>Security Groups:</strong> Instance-level firewalls (stateful).</li>
+                                <li><strong>Network ACLs:</strong> Subnet-level rules (stateless).</li>
+                                <li><strong>VPC Endpoints:</strong> Private access to AWS services like S3/DynamoDB.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you secure data at rest on AWS?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Enable encryption for S3 buckets (SSE-S3 or SSE-KMS) and for EBS volumes.</li>
+                                <li>Use KMS CMKs (customer managed keys) for tighter control and auditing.</li>
+                                <li>Enable encryption for databases (RDS, DynamoDB, Redshift) at rest.</li>
+                                <li>Restrict access with IAM, bucket policies, and VPC endpoints (no public access).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are some strategies to reduce costs in AWS for data platforms?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Use appropriate storage classes (S3 Standard vs IA vs Glacier) with lifecycle policies.</li>
+                                <li>Right-size and auto-scale compute (EMR, Redshift RA3, Glue DPU sizes, Lambda timeouts).</li>
+                                <li>Use Spot/Reserved Instances where appropriate (EC2, EMR).</li>
+                                <li>Turn off idle clusters and dev environments.</li>
+                                <li>Use Cost Explorer and budgets; tag resources and apply FinOps practices.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Amazon S3 Deep Dive -->
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are S3 buckets?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> An S3 bucket is a top-level container for objects (files) in S3.
+                            <ul>
+                                <li>Globally unique name per region/account combination.</li>
+                                <li>Stores objects organized by keys (paths).</li>
+                                <li>Configured with region, permissions, encryption, lifecycle rules, versioning.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Describe the durability and availability of Amazon S3.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Durability: 99.999999999% (11 9s) – objects replicated across multiple AZs.</li>
+                                <li>Availability: typically 99.9%+ depending on storage class.</li>
+                                <li>Designed to sustain concurrent loss of data in an entire AZ.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are some storage classes available in S3?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Common classes:
+                            <ul>
+                                <li>S3 Standard</li>
+                                <li>S3 Standard-IA (Infrequent Access)</li>
+                                <li>S3 One Zone-IA</li>
+                                <li>S3 Intelligent-Tiering</li>
+                                <li>S3 Glacier Instant/ Flexible/ Deep Archive</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is S3 versioning and why is it useful?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> S3 versioning keeps multiple versions of an object in a bucket.
+                            <ul>
+                                <li>Protects against accidental overwrite or delete.</li>
+                                <li>You can restore older versions or permanently delete specific versions.</li>
+                                <li>Often combined with lifecycle rules to transition or expire old versions.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How does S3 encryption work?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>SSE-S3:</strong> AWS manages keys and encryption for you.</li>
+                                <li><strong>SSE-KMS:</strong> Uses KMS CMKs; gives more control and audit trail.</li>
+                                <li><strong>SSE-C:</strong> Customer-provided keys (you manage keys entirely).</li>
+                                <li>Client-side encryption: data encrypted before upload.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain S3 lifecycle policies.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Lifecycle policies automatically transition or expire objects based on rules.
+                            <ul>
+                                <li>Move objects from Standard to IA or Glacier after N days.</li>
+                                <li>Expire/delete objects or incomplete uploads after a certain time.</li>
+                                <li>Often used for cost optimization and compliance retention.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is the difference between S3 and S3 Glacier?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>S3:</strong> Low-latency access (ms), used for active data.</li>
+                                <li><strong>S3 Glacier:</strong> Archival storage with much lower cost but higher retrieval time (minutes to hours).</li>
+                                <li>Use Glacier for long-term archives and compliance data.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- VPC, EC2, EMR, Glue, Step Functions -->
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are subnets in a VPC?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Subnets are segments of a VPC CIDR block.
+                            <ul>
+                                <li>Public subnets have a route to an Internet Gateway.</li>
+                                <li>Private subnets have no direct internet route, often use NAT for outbound only.</li>
+                                <li>Useful for isolating workloads with different security requirements.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain the difference between a security group and a network ACL.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>Security Group:</strong> Stateful, attached to ENIs/instances, allows rules only; return traffic automatically allowed.</li>
+                                <li><strong>Network ACL:</strong> Stateless, attached to subnets, supports allow and deny rules; return traffic must be explicitly allowed.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you securely connect on‑premises to a VPC?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Use a <strong>Site-to-Site VPN</strong> over the internet.</li>
+                                <li>Use <strong>AWS Direct Connect</strong> for dedicated private links.</li>
+                                <li>Often combine both for redundancy (DX + VPN backup).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is Amazon EC2 and how do you secure an instance?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> EC2 provides resizable virtual servers.
+                            <ul>
+                                <li>Use security groups to restrict inbound traffic (e.g., SSH only from your IP).</li>
+                                <li>Use IAM roles for access to AWS services (no hard-coded keys).</li>
+                                <li>Keep OS and packages patched; use SSM Session Manager instead of public SSH where possible.</li>
+                                <li>Encrypt EBS volumes and limit root access.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is Amazon EMR and how does it integrate with other AWS services?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> EMR is a managed big-data framework for Hadoop/Spark.
+                            <ul>
+                                <li>Reads/writes data to S3 (data lake), HDFS, EMRFS.</li>
+                                <li>Uses EC2 or EKS as compute under the hood.</li>
+                                <li>Integrates with Glue Catalog for metadata, and with CloudWatch for logs/metrics.</li>
+                                <li>Can load data into Redshift or RDS after processing.</li>
+                                <li>Security using IAM roles, security groups, Kerberos (for HDFS), and encryption.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain the main components of AWS Glue and how it handles schema evolution.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>Glue Data Catalog:</strong> Central metadata store for tables.</li>
+                                <li><strong>Crawlers:</strong> Scan data sources and infer/update schema.</li>
+                                <li><strong>Jobs:</strong> ETL code (usually PySpark) that transforms data.</li>
+                                <li><strong>Triggers:</strong> Schedule or event-based job execution.</li>
+                                <li><strong>Job bookmarks:</strong> Track processed data to avoid reprocessing.</li>
+                                <li>Schema evolution: crawlers update table definitions; jobs handle new columns with null defaults or mappings.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are AWS Step Functions and how are they used in data pipelines?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Step Functions is a serverless orchestrator for workflows.
+                            <ul>
+                                <li>Define state machines (JSON/ASL) that call Lambda, Glue, EMR, and other services.</li>
+                                <li>Handle retries, backoff, error handling, and branching logic.</li>
+                                <li>Useful for multi-step ETL/ELT pipelines and data quality gates.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- DEA-C01 Domain-Style Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-medium"></span> AWS Data Engineer Exam Domains
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you read from streaming sources like Kinesis or MSK in data pipelines?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Use Kinesis Client Library (KCL), Lambda, or Spark Structured Streaming to consume Kinesis streams.</li>
+                                <li>For MSK (Kafka), use Kafka consumer APIs or Spark/Kafka connectors.</li>
+                                <li>Checkpoint offsets (DynamoDB, S3, or Kafka offsets) for fault tolerance.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you transform data from CSV to Parquet efficiently on AWS?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Use Glue or EMR Spark jobs to read CSV from S3 and write Parquet back to S3.</li>
+                                <li>Define a proper schema (avoid inferring on every run) and partition columns.</li>
+                                <li>Use compression (Snappy) and tune file sizes (~128–512 MB) for analytics engines.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you manage S3 lifecycle policies and data catalogs in a data platform?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Define lifecycle rules per prefix (bronze/silver/gold) and storage class needs.</li>
+                                <li>Use Glue Catalog for table definitions, partitions, and schema metadata.</li>
+                                <li>Ensure pipelines update partitions and that BI/SQL tools reference Glue tables.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you monitor and apply data quality checks in AWS-based pipelines?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Use CloudWatch metrics/logs and alarms for pipeline health (Glue/EMR/Lambda).</li>
+                                <li>Implement data validation in Spark/SQL (null checks, ranges, duplicates) or use tools like Deequ/Great Expectations.</li>
+                                <li>Send failures to DLQs (SQS) or quarantine buckets; notify via SNS/Slack.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you enforce least-privilege access and audit data access in AWS?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Define IAM roles/policies with resource- and action-level restrictions.</li>
+                                <li>Use Lake Formation for fine-grained permissions on tables/columns.</li>
+                                <li>Enable CloudTrail and S3 access logs to audit access.</li>
+                                <li>Use Macie to discover and protect PII and sensitive data.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 

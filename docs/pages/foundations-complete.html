@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Engineering Foundations - Fundamentals to Pro</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .learning-nav {
+            position: sticky;
+            top: 60px;
+            background: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            z-index: 10;
+        }
+        .learning-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .learning-nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        .learning-nav a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .topic-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .topic-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+        .topic-section h3 {
+            color: var(--secondary-color);
+            margin-top: 1.2rem;
+            margin-bottom: 0.4rem;
+        }
+        .topic-section ul {
+            margin-left: 1.2rem;
+        }
+        .code-example {
+            margin: 1.2rem 0;
+        }
+        .code-example-title {
+            background: var(--bg-dark);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px 4px 0 0;
+            font-size: 0.9rem;
+        }
+        pre {
+            margin: 0;
+        }
+        .tip-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .section-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-layer-group"></i>
+                <span>Data Engineering Foundations</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="learning-hub.html">Learning Hub</a></li>
+                <li><a href="#lifecycle">Lifecycle</a></li>
+                <li><a href="#data-formats">Data Formats</a></li>
+                <li><a href="#data-modeling">Data Modeling</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#tech-choices">Tech Choices</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 100px;">
+
+        <div class="learning-nav">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#lifecycle">1.1 Lifecycle</a></li>
+                <li><a href="#data-formats">1.2 Formats</a></li>
+                <li><a href="#data-modeling">1.3 Modeling</a></li>
+                <li><a href="#architecture">1.4 Architecture</a></li>
+                <li><a href="#tech-choices">1.5 Tech Choices</a></li>
+                <li><a href="#programming">2. Programming</a></li>
+                <li><a href="#storage">3. Storage</a></li>
+                <li><a href="#ingestion">4. Ingestion</a></li>
+                <li><a href="#transformation">5. Transformation</a></li>
+                <li><a href="#orchestration">6. Orchestration</a></li>
+                <li><a href="#big-data">7. Big Data</a></li>
+                <li><a href="#cloud-infra">8. Cloud Infra</a></li>
+                <li><a href="#governance">9. Governance</a></li>
+                <li><a href="#devops">10. DevOps</a></li>
+                <li><a href="#analytics">11. Analytics</a></li>
+                <li><a href="#soft-skills">12. Soft Skills</a></li>
+                <li><a href="#aws-exam-mapping">AWS Exam Mapping</a></li>
+            </ul>
+        </div>
+
+        <!-- Overview -->
+        <div id="overview" class="topic-section">
+            <h2><span class="section-badge">✅ 1</span> Foundations of Data Engineering</h2>
+            <p>This section is based on the <strong>Fundamentals of Data Engineering</strong> book. It gives you a clear mental model for how data moves through systems and what a data engineer is responsible for.</p>
+
+            <h3>What is Data Engineering?</h3>
+            <ul>
+                <li>Designing, building, and operating reliable data systems that move data from source systems to analytics and products.</li>
+                <li>Bridging business needs and technical solutions: translating questions into data models, tables, and pipelines.</li>
+                <li>Working with data scientists, analysts, and application teams so that everyone has trustworthy, well-modeled data.</li>
+                <li>Owning both <strong>technical responsibilities</strong> (pipelines, architecture, tooling) and <strong>business responsibilities</strong> (SLAs, data contracts, communication).</li>
+            </ul>
+
+            <p>Always think of data as flowing through stages: <strong>Generation → Storage → Ingestion → Transformation → Serving → Governance</strong>.</p>
+            <div class="tip-box">
+                <strong>Non‑negotiable:</strong> Whenever you design or explain a pipeline, walk through these lifecycle stages and call out reliability, quality, and security at each step.
+            </div>
+        </div>
+
+        <!-- 1.1 Lifecycle -->
+        <div id="lifecycle" class="topic-section">
+            <h2><span class="section-badge">1.1</span> Data Engineering Lifecycle</h2>
+
+            <h3>Generation (sources, APIs, events)</h3>
+            <ul>
+                <li>Web/mobile apps writing to OLTP databases (PostgreSQL, MySQL).</li>
+                <li>Event streams from user actions, logs, IoT devices.</li>
+                <li>Third‑party APIs (payments, CRM, marketing, etc.).</li>
+            </ul>
+
+            <div class="code-example">
+                <div class="code-example-title">Example: Fetching data from an API with Python</div>
+                <pre><code class="language-python">import requests
+
+resp = requests.get("https://api.example.com/orders", timeout=10)
+resp.raise_for_status()
+orders = resp.json()
+
+print("Fetched", len(orders), "orders")</code></pre>
+            </div>
+
+            <h3>Storage (databases, data lakes, files)</h3>
+            <ul>
+                <li><strong>OLTP DBs:</strong> transactional workloads, highly normalized.</li>
+                <li><strong>Data lakes:</strong> S3/HDFS with raw, semi‑structured files.</li>
+                <li><strong>Warehouses:</strong> Redshift, Snowflake, BigQuery for analytics.</li>
+            </ul>
+
+            <h3>Ingestion (batch vs streaming)</h3>
+            <ul>
+                <li><strong>Batch:</strong> periodic jobs (e.g., every hour or night).</li>
+                <li><strong>Streaming:</strong> near real‑time with Kinesis/Kafka/MSK.</li>
+            </ul>
+
+            <h3>Transformation, Serving, Governance</h3>
+            <ul>
+                <li><strong>Transformation:</strong> clean, join, aggregate (ETL/ELT).</li>
+                <li><strong>Serving:</strong> BI dashboards, APIs, data products.</li>
+                <li><strong>Governance:</strong> security, quality checks, lineage, access control.</li>
+            </ul>
+        </div>
+
+        <!-- 1.2 Data Formats -->
+        <div id="data-formats" class="topic-section">
+            <h2><span class="section-badge">1.2</span> Data Formats</h2>
+
+            <h3>CSV, JSON, XML</h3>
+            <ul>
+                <li><strong>CSV:</strong> simplest, tabular, but fragile (commas, newlines).</li>
+                <li><strong>JSON:</strong> nested, self‑describing, great for APIs and logs.</li>
+                <li><strong>XML:</strong> verbose but common in legacy/enterprise systems.</li>
+            </ul>
+
+            <h3>Parquet, ORC, Avro</h3>
+            <ul>
+                <li><strong>Parquet/ORC:</strong> columnar, compressed, ideal for analytics.</li>
+                <li><strong>Avro:</strong> schema + row‑based, often used in messaging.</li>
+            </ul>
+
+            <div class="code-example">
+                <div class="code-example-title">Example: Read CSV and write Parquet with PySpark</div>
+                <pre><code class="language-python">df = spark.read.option("header", True).csv("s3://raw/orders/")
+
+df_clean = df.dropDuplicates(["order_id"])
+
+df_clean.write.mode("overwrite").parquet("s3://analytics/orders_parquet/")</code></pre>
+            </div>
+
+            <h3>Compression (gzip, snappy, zstd)</h3>
+            <ul>
+                <li><strong>gzip:</strong> good ratio, slower, not splittable.</li>
+                <li><strong>snappy:</strong> fast, common default for Parquet/ORC.</li>
+                <li><strong>zstd:</strong> modern, great ratio and speed.</li>
+            </ul>
+            <div class="tip-box">
+                For big data on S3, a very common combo is <strong>Parquet + Snappy</strong>.
+            </div>
+        </div>
+
+        <!-- 1.3 Data Modeling -->
+        <div id="data-modeling" class="topic-section">
+            <h2><span class="section-badge">1.3</span> Data Modeling</h2>
+
+            <h3>OLTP vs OLAP</h3>
+            <ul>
+                <li><strong>OLTP:</strong> many small transactions, normalized tables.</li>
+                <li><strong>OLAP:</strong> heavy analytical queries, denormalized tables.</li>
+            </ul>
+
+            <h3>Star & Snowflake Schema</h3>
+            <ul>
+                <li><strong>Star:</strong> one fact table, multiple dimension tables.</li>
+                <li><strong>Snowflake:</strong> dimensions normalized into sub‑tables.</li>
+            </ul>
+
+            <div class="code-example">
+                <div class="code-example-title">Example: Simple star schema in SQL</div>
+                <pre><code class="language-sql">CREATE TABLE dim_customer (
+    customer_key  INTEGER IDENTITY PRIMARY KEY,
+    customer_id   VARCHAR(50),
+    name          VARCHAR(200),
+    country       VARCHAR(50)
+);
+
+CREATE TABLE fact_orders (
+    order_key     INTEGER IDENTITY PRIMARY KEY,
+    order_id      VARCHAR(50),
+    customer_key  INTEGER REFERENCES dim_customer(customer_key),
+    order_ts      TIMESTAMP,
+    total_amount  DECIMAL(10,2)
+);</code></pre>
+            </div>
+
+            <h3>Denormalization, Partitioning, Indexing</h3>
+            <ul>
+                <li>Denormalize to reduce joins and improve read performance.</li>
+                <li>Partition large tables by date, region, etc.</li>
+                <li>Use indexes on frequently filtered/joined columns (OLTP).</li>
+            </ul>
+        </div>
+
+        <!-- 1.4 Architecture Principles -->
+        <div id="architecture" class="topic-section">
+            <h2><span class="section-badge">1.4</span> Data Architecture Principles</h2>
+
+            <h3>ACID vs BASE</h3>
+            <ul>
+                <li><strong>ACID:</strong> strict consistency (RDS, PostgreSQL, MySQL).</li>
+                <li><strong>BASE:</strong> eventual consistency (many NoSQL, streaming systems).</li>
+            </ul>
+
+            <h3>Distributed Systems & CAP</h3>
+            <ul>
+                <li>In a network partition you must trade off availability vs consistency.</li>
+                <li>Most distributed data systems prefer eventual consistency for higher availability.</li>
+            </ul>
+
+            <h3>Lambda, Lakehouse, Event‑Driven</h3>
+            <ul>
+                <li><strong>Lambda:</strong> separate batch and streaming paths.</li>
+                <li><strong>Lakehouse:</strong> unified lake + warehouse (e.g., Delta/Iceberg).</li>
+                <li>Microservices publish events; data pipelines consume and build analytical views.</li>
+            </ul>
+            <h3>Principles of Good Data Architecture</h3>
+            <ul>
+                <li>Choose a small set of <strong>common components</strong> (databases, queues, formats) and reuse them.</li>
+                <li>Plan for failure: assume nodes, networks, and dependencies will break and design retries and fallbacks.</li>
+                <li>Architect for scalability: horizontal scaling, partitioning, and separating storage from compute.</li>
+                <li>Prefer <strong>loosely coupled</strong> systems with clear interfaces over huge monoliths.</li>
+                <li>Make reversible decisions when possible so you can evolve the stack as requirements change.</li>
+                <li>Prioritize security and FinOps (cost visibility and optimization) from day one.</li>
+            </ul>
+
+            <h3>Common Architecture Patterns</h3>
+            <ul>
+                <li><strong>Data warehouse:</strong> central analytical database with star/snowflake schemas.</li>
+                <li><strong>Data lake:</strong> raw and curated files on object storage (S3), queried with engines like Athena.</li>
+                <li><strong>Data lakehouse/platform:</strong> combines lake and warehouse features with metadata, governance, and BI access.</li>
+                <li><strong>Modern data stack:</strong> cloud warehouses, ELT tools, orchestration, and BI stitched together.</li>
+                <li><strong>Data mesh / domains:</strong> domain-oriented teams own data products with shared standards.</li>
+            </ul>
+        </div>
+
+        <!-- 1.5 Choosing Technologies -->
+        <div id="tech-choices" class="topic-section">
+            <h2><span class="section-badge">1.5</span> Choosing Technologies Across the Lifecycle</h2>
+            <p>Technology choices should follow your <strong>use cases, team skills, and constraints</strong>, not the other way around.</p>
+
+            <h3>Key Factors</h3>
+            <ul>
+                <li><strong>Team size & skills:</strong> prefer managed services and simpler tools for small teams.</li>
+                <li><strong>Speed to market:</strong> sometimes a managed, “good-enough” service beats a perfect open source setup.</li>
+                <li><strong>Interoperability:</strong> choose tools that integrate well (connectors, drivers, formats like Parquet/JSON).</li>
+                <li><strong>Total Cost of Ownership:</strong> include infra, licenses, development, and operations effort.</li>
+                <li><strong>FinOps:</strong> monitor, attribute, and optimize cost (auto‑sizing clusters, turning off idle resources).</li>
+            </ul>
+
+            <h3>Build vs Buy, Open Source vs Proprietary</h3>
+            <ul>
+                <li><strong>Build:</strong> more control, but more maintenance and on‑call burden.</li>
+                <li><strong>Buy/managed:</strong> faster and less ops, at the cost of vendor lock‑in and less flexibility.</li>
+                <li><strong>Open source:</strong> transparent and portable; you own reliability and upgrades.</li>
+                <li><strong>Proprietary/cloud‑native:</strong> deeply integrated, but harder to move away from.</li>
+            </ul>
+
+            <h3>Architecture Style Choices</h3>
+            <ul>
+                <li><strong>Monolith vs modular:</strong> monoliths are simple to start with; modular systems scale better for large teams.</li>
+                <li><strong>Servers vs serverless:</strong> long‑running clusters (EMR, self‑managed Spark) vs serverless Glue/Lambda.</li>
+                <li><strong>Cloud vs on‑prem/hybrid/multicloud:</strong> driven by compliance, latency, and cost.</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>Practical rule:</strong> start simple with managed services and clear interfaces; keep options open to swap components later.
+            </div>
+        </div>
+
+        <!-- 2. Programming Fundamentals -->
+        <div id="programming" class="topic-section">
+            <h2><span class="section-badge">✅ 2</span> Programming Fundamentals (Python, PySpark, SQL)</h2>
+
+            <h3>Python</h3>
+            <ul>
+                <li>Data manipulation with <strong>pandas</strong>.</li>
+                <li>APIs & requests, scripts & automation.</li>
+                <li>Error handling and logging (critical for production).</li>
+            </ul>
+
+            <div class="code-example">
+                <div class="code-example-title">Example: Python logging + error handling</div>
+                <pre><code class="language-python">import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+)
+
+try:
+    1 / 0
+except ZeroDivisionError as exc:
+    logging.error("Something went wrong: %s", exc)</code></pre>
+            </div>
+
+            <h3>PySpark</h3>
+            <ul>
+                <li>DataFrames, transformations & actions.</li>
+                <li>Joins, aggregations, window functions.</li>
+                <li>Performance: partitions, shuffles, broadcast joins.</li>
+            </ul>
+
+            <h3>SQL</h3>
+            <ul>
+                <li>Joins, aggregations, CTEs, subqueries.</li>
+                <li>Window functions for running totals, rankings.</li>
+                <li>Data cleaning with <code>CASE WHEN</code>, <code>COALESCE</code>, etc.</li>
+            </ul>
+
+            <div class="code-example">
+                <div class="code-example-title">Example: SQL window function</div>
+                <pre><code class="language-sql">SELECT
+    customer_id,
+    order_ts,
+    total_amount,
+    SUM(total_amount) OVER (
+        PARTITION BY customer_id
+        ORDER BY order_ts
+    ) AS customer_ltv
+FROM fact_orders;</code></pre>
+            </div>
+        </div>
+
+        <!-- 3–12: Short conceptual sections -->
+        <div id="storage" class="topic-section">
+            <h2><span class="section-badge">✅ 3</span> Storage Concepts</h2>
+            <ul>
+                <li>Relational DBs (RDS: PostgreSQL, MySQL) for OLTP workloads with strong consistency.</li>
+                <li>NoSQL (DynamoDB) for key-value and high-throughput workloads with eventual consistency.</li>
+                <li>Low-level building blocks: disks, SSDs, RAM, CPU, and networks underpin all storage systems.</li>
+                <li>Storage types: file storage, block storage, object storage (S3), and HDFS-style distributed file systems.</li>
+                <li>Indexes, partitioning, and clustering determine how fast you can find data.</li>
+                <li>Data lakes on S3 with Bronze → Silver → Gold zones for raw, cleaned, and business-ready data.</li>
+                <li>Warehouses (Redshift) with columnar storage, MPP, distribution and sort keys, compression.</li>
+                <li>Lakehouse/data platforms bring catalog, governance, and compute engines on top of the data lake.</li>
+                <li>Separation of storage and compute allows independent scaling and cost optimization.</li>
+                <li>Data lifecycle and retention policies decide how long data is kept and where (hot, warm, cold).</li>
+            </ul>
+
+            <h3>Modern Storage Layers</h3>
+            <ul>
+                <li><strong>Object storage:</strong> S3 (and similar) as the core of your lake, storing raw and curated data in open formats.</li>
+                <li><strong>Columnar formats (Parquet/ORC):</strong> store data by column, enabling very fast analytics and compression.</li>
+                <li><strong>Table formats (Delta/Iceberg/Hudi):</strong> add ACID transactions, schema evolution, and time travel on top of object storage.</li>
+                <li><strong>Lakehouse:</strong> combines these table formats, object storage, and a query engine (Spark/Athena/Redshift Spectrum) into a unified platform.</li>
+            </ul>
+        </div>
+
+        <div id="ingestion" class="topic-section">
+            <h2><span class="section-badge">✅ 4</span> Ingestion Systems</h2>
+            <ul>
+                <li>Batch: S3 batch, Glue crawlers, DMS, AppFlow, cron/EventBridge schedules.</li>
+                <li>Streaming: Kinesis Data Streams/Firehose, MSK (Kafka), DynamoDB streams.</li>
+                <li>Key design choices: bounded vs unbounded data, frequency, sync vs async ingestion.</li>
+                <li>Serialization/deserialization (JSON, Avro, Protobuf) and payload size impact throughput.</li>
+                <li>Reliability: retries, dead-letter queues, at-least-once vs exactly-once semantics.</li>
+                <li>Push vs pull vs poll patterns, late-arriving data, replay, and message ordering.</li>
+                <li>Ways to ingest: direct DB connections, CDC, APIs, queues/streams, managed connectors, SFTP/webhooks.</li>
+                <li>Patterns: Lambda vs Kappa, ETL vs ELT, CDC, API/file ingestion, data migration.</li>
+            </ul>
+
+            <h3>Batch vs Streaming in Practice</h3>
+            <ul>
+                <li><strong>Batch:</strong> great for large daily/hourly loads, backfills, and heavy transformations that are not time-critical.</li>
+                <li><strong>Streaming:</strong> needed when latency matters (fraud detection, monitoring, real-time dashboards).</li>
+                <li>Many real systems use both: streaming for “fresh” aggregates and batch for full recomputes and corrections.</li>
+            </ul>
+
+            <h3>Change Data Capture (CDC)</h3>
+            <ul>
+                <li>CDC captures <strong>row-level inserts, updates, and deletes</strong> from source systems instead of full reloads.</li>
+                <li>Often implemented via database logs (binlog, WAL), triggers, or DMS/third-party tools.</li>
+                <li>CDC streams changes into S3/Kinesis/Redshift so downstream systems are kept in sync incrementally.</li>
+                <li>Critical for near real-time data warehousing, microservices integration, and auditability.</li>
+            </ul>
+        </div>
+
+        <div id="transformation" class="topic-section">
+            <h2><span class="section-badge">✅ 5</span> Transformation Systems</h2>
+            <ul>
+                <li>ETL tools: Glue (PySpark), Lambda, EMR for large-scale batch/stream processing.</li>
+                <li>ELT in Redshift/Athena: SQL transforms, materialized views, Spectrum/federated queries.</li>
+                <li>Queries: understand how the query optimizer chooses plans and how to read execution plans.</li>
+                <li>Queries on streaming data: windowed aggregations and incremental updates.</li>
+                <li>Data modeling: conceptual → logical → physical models mapped to real tables and columns.</li>
+                <li>Data quality: validation, schema checks, nulls, duplicates, business rule constraints and alerts.</li>
+            </ul>
+
+            <h3>ETL vs ELT</h3>
+            <ul>
+                <li><strong>ETL:</strong> Transform data in an engine (Spark/Glue/EMR) <em>before</em> loading into the warehouse.</li>
+                <li><strong>ELT:</strong> Load raw/semi-processed data into the warehouse first, then transform with SQL inside it.</li>
+                <li>ETL is useful when you must clean or mask data before landing it in a central system.</li>
+                <li>ELT shines when your warehouse is powerful and you want simpler pipelines (fewer moving parts).</li>
+            </ul>
+
+            <h3>Query Optimization Basics</h3>
+            <ul>
+                <li>Only select the columns you need; avoid <code>SELECT *</code> in pipelines.</li>
+                <li>Filter early using predicates that can use indexes and partitions.</li>
+                <li>Design tables with appropriate distribution/partition keys and sort/cluster keys.</li>
+                <li>Keep statistics up to date so the optimizer can choose good plans.</li>
+                <li>Avoid unnecessary nested subqueries; prefer CTEs and clear joins.</li>
+            </ul>
+        </div>
+
+        <div id="orchestration" class="topic-section">
+            <h2><span class="section-badge">✅ 6</span> Orchestration & Workflow Management</h2>
+            <ul>
+                <li>AWS Step Functions, MWAA (Airflow), EventBridge, SNS + SQS.</li>
+                <li>Concepts: DAGs, dependencies, retries, idempotency, scheduling, notifications.</li>
+            </ul>
+            <p>Outside AWS, tools like <strong>Airflow</strong>, <strong>Dagster</strong>, and <strong>Prefect</strong> are popular for orchestrating complex DAGs, enforcing dependencies, and integrating with Git/CI/CD as part of a broader DataOps practice.</p>
+        </div>
+
+        <div id="big-data" class="topic-section">
+            <h2><span class="section-badge">✅ 7</span> Big Data & Distributed Systems</h2>
+            <ul>
+                <li>Distributed storage (S3/HDFS) and compute (Spark clusters).</li>
+                <li>Worker nodes vs driver, shuffles, distributed joins.</li>
+                <li>Autoscaling and cost vs performance trade‑offs.</li>
+            </ul>
+        </div>
+
+        <div id="cloud-infra" class="topic-section">
+            <h2><span class="section-badge">✅ 8</span> Cloud Infrastructure (AWS Focus)</h2>
+            <ul>
+                <li>Core: S3, Glue, Athena, Redshift, EMR, DynamoDB, Kinesis, SQS, Lambda, Step Functions, Lake Formation, DMS, API Gateway.</li>
+                <li>Supporting: CloudWatch, CloudTrail, IAM, KMS, VPC, Secrets Manager, Parameter Store.</li>
+            </ul>
+        </div>
+
+        <div id="governance" class="topic-section">
+            <h2><span class="section-badge">✅ 9</span> Data Governance</h2>
+            <ul>
+                <li>Metadata and Glue Catalog, lineage, classification, PII protection.</li>
+                <li>Retention/deletion policies, RBAC & ABAC, encryption with KMS.</li>
+            </ul>
+        </div>
+
+        <div id="devops" class="topic-section">
+            <h2><span class="section-badge">✅ 10</span> DevOps for Data Engineers</h2>
+            <ul>
+                <li>Git/GitHub, CI/CD (CodePipeline, GitHub Actions).</li>
+                <li>IaC: CloudFormation, Terraform, AWS CDK.</li>
+                <li>Docker, serverless deployments.</li>
+            </ul>
+        </div>
+
+        <div id="dataops-finops" class="topic-section">
+            <h2><span class="section-badge">✅ 10.1</span> DataOps & FinOps</h2>
+            <h3>DataOps</h3>
+            <ul>
+                <li>Apply software engineering best practices (Git, code review, CI/CD) to data pipelines.</li>
+                <li>Automated tests for schemas, data quality, and business rules before publishing data.</li>
+                <li>Strong observability: metrics, logs, and alerts for each pipeline step.</li>
+                <li>Promote changes through environments (dev → test → prod) with clear release processes.</li>
+            </ul>
+
+            <h3>FinOps</h3>
+            <ul>
+                <li>Tag resources (projects, teams, environments) so costs are attributable.</li>
+                <li>Set budgets and alerts for data platforms and heavy workloads (EMR, Redshift, Glue).</li>
+                <li>Continuously right-size storage and compute (instances, clusters, DPUs).</li>
+                <li>Choose storage classes and life-cycle rules to balance performance and cost.</li>
+            </ul>
+        </div>
+
+        <div id="analytics" class="topic-section">
+            <h2><span class="section-badge">✅ 11</span> Analytics Layer</h2>
+            <ul>
+                <li>Redshift and Athena queries.</li>
+                <li>QuickSight and BI concepts: aggregations, dashboards, KPIs.</li>
+            </ul>
+        </div>
+
+        <div id="soft-skills" class="topic-section">
+            <h2><span class="section-badge">✅ 12</span> Soft Skills & Problem Solving</h2>
+            <ul>
+                <li>Understanding business requirements and translating to pipelines.</li>
+                <li>Troubleshooting data flow and optimizing cost.</li>
+                <li>Clear communication with stakeholders.</li>
+            </ul>
+        </div>
+
+        <div id="aws-exam-mapping" class="topic-section">
+            <h2><span class="section-badge">🧠 BONUS</span> AWS Data Engineer Exam Mapping</h2>
+            <ul>
+                <li><strong>Domain 1 – Ingestion & Transformation:</strong> Kinesis, MSK, Glue, EMR, DMS, ETL design, PySpark.</li>
+                <li><strong>Domain 2 – Data Store Management:</strong> Redshift, S3, DynamoDB, data modeling, Glue Catalog, lifecycle.</li>
+                <li><strong>Domain 3 – Data Operations:</strong> CloudWatch monitoring, MWAA, Step Functions, troubleshooting.</li>
+                <li><strong>Domain 4 – Security & Governance:</strong> IAM, KMS, encryption, Lake Formation, auditing.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Interview Questions for This Topic -->
+    <div class="container" style="margin-top: 20px; margin-bottom: 60px;">
+        <div id="foundations-interview" class="topic-section">
+            <h2><i class="fas fa-question-circle"></i> Data Engineering Foundations Interview Questions</h2>
+            <ul>
+                <li>Walk through the data engineering lifecycle from generation to serving. Where do data quality and governance fit in?</li>
+                <li>Explain the difference between OLTP and OLAP systems and why both matter in a data platform.</li>
+                <li>Describe the trade‑offs between a data warehouse, data lake, and lakehouse architecture.</li>
+                <li>How would you design a data contract between a source team and the data platform team?</li>
+                <li>What is Change Data Capture (CDC) and how does it impact your ingestion and storage design?</li>
+                <li>How do you ensure reliability (retries, idempotency) and observability (logging/monitoring) in production pipelines?</li>
+                <li>Give an example of a technology choice trade‑off (e.g., managed vs open source, serverless vs servers) and how you would justify your decision.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+</body>
+</html>

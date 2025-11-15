@@ -110,6 +110,19 @@
             </div>
         </div>
 
+        <!-- Interview Questions for This Topic -->
+        <div id="sql-interview" class="sql-section">
+            <h2><i class="fas fa-question-circle"></i> SQL Interview Questions (Data Engineering Focus)</h2>
+            <ul>
+                <li>Explain the difference between INNER, LEFT, RIGHT, and FULL OUTER JOIN with examples.</li>
+                <li>What are window functions? Give an example of using them to calculate a running total or customer lifetime value.</li>
+                <li>How would you identify and remove duplicate records from a large fact table?</li>
+                <li>What is the difference between WHERE and HAVING? When is HAVING required?</li>
+                <li>How do you debug and optimize a slow SQL query running on millions of rows?</li>
+                <li>Explain the concept of partitioning and clustering/sort keys in a data warehouse like Redshift.</li>
+                <li>How would you design a schema for a sales analytics use case (fact and dimension tables)?</li>
+            </ul>
+        </div>
         <!-- Basics -->
         <div id="basics" class="sql-section">
             <h2><i class="fas fa-play"></i> SQL Basics</h2>
@@ -973,15 +986,44 @@ TRUNCATE TABLE temp_table;</code></pre>
             </div>
         </div>
 
+        <div id="optimization" class="sql-section">
+            <h2><i class="fas fa-tachometer-alt"></i> Query Optimization Basics</h2>
+            <p>In data engineering, slow SQL is often the bottleneck. You don’t need to be a full DBA, but you must understand basic optimization patterns.</p>
+            <ul>
+                <li>Always filter and project early – avoid <code>SELECT *</code> in production pipelines.</li>
+                <li>Use appropriate indexes and partition keys on frequently filtered/joined columns.</li>
+                <li>Join on keys with the same data type and collation; avoid functions on join columns.</li>
+                <li>Use EXPLAIN/EXPLAIN ANALYZE to inspect query plans and identify full scans or bad joins.</li>
+                <li>Aggregate on the warehouse, not in application code; push work down to the database.</li>
+            </ul>
+
+            <div class="code-example">
+                <div class="code-example-title">Example: Comparing Queries with and without Index</div>
+                <pre><code class="language-sql">-- Create index on frequently filtered column
+CREATE INDEX idx_orders_order_date ON fact_orders(order_date);
+
+-- Optimized query using the index and partition pruning
+EXPLAIN ANALYZE
+SELECT
+    customer_id,
+    SUM(total_amount) AS total_revenue
+FROM fact_orders
+WHERE order_date BETWEEN DATE '2024-01-01' AND DATE '2024-01-31'
+GROUP BY customer_id;</code></pre>
+            </div>
+
+            <p>When you see slow queries, start by checking: filters, joins, indexes/partitions, and table statistics.</p>
+        </div>
+
         <div class="sql-section">
             <h2>Continue Learning</h2>
             <p>This covers the essential SQL for Data Engineering. Additional topics include:</p>
             <ul>
-                <li>Indexes and Query Optimization</li>
+                <li>Advanced Indexes and Query Optimization</li>
                 <li>Stored Procedures and Functions</li>
                 <li>Transactions and ACID properties</li>
                 <li>Views and Materialized Views</li>
-                <li>Performance Tuning</li>
+                <li>Further Performance Tuning for specific databases</li>
             </ul>
             <div style="text-align: center; margin-top: 2rem;">
                 <a href="../index.html" class="btn btn-primary">Back to Home</a>

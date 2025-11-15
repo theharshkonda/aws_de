@@ -117,6 +117,23 @@
         </div>
     </section>
 
+    <!-- Zero to Pro Path Section -->
+    <section id="zero-to-pro" class="section">
+        <div class="container">
+            <h2 class="section-title">Zero ➜ Pro Data Engineer Path</h2>
+            <p class="section-subtitle">Follow this order to go from absolute beginner to job‑ready AWS Data Engineer.</p>
+            <ol style="margin-left: 1.25rem; line-height: 1.6;">
+                <li><strong>Foundations of Data Engineering</strong> – start with the <a href="pages/foundations-complete.html">Foundations guide</a> (lifecycle, architecture, storage, ingestion, governance).</li>
+                <li><strong>Programming Basics</strong> – complete <a href="pages/python-complete.html">Python Complete</a> (scripts, APIs, logging) and <a href="pages/excel-complete.html">Excel Complete</a> for quick analysis.</li>
+                <li><strong>SQL Mastery</strong> – work through <a href="pages/sql-complete.html">SQL Complete</a> (joins, window functions, optimization) and solve practice queries.</li>
+                <li><strong>Big Data & PySpark</strong> – finish <a href="pages/pyspark-complete.html">PySpark Complete</a> (DataFrames, partitions, shuffles, optimizations).</li>
+                <li><strong>AWS Data Stack</strong> – study <a href="pages/aws-complete.html">AWS Complete</a> (S3, Glue, Athena, Redshift, EMR, Kinesis, IAM, Lake Formation, KMS).</li>
+                <li><strong>Projects & Capstone</strong> – build the weekly projects (Week 1‑8 pages) and one end‑to‑end pipeline with CDC, quality checks, and cost‑aware design.</li>
+                <li><strong>Interview Prep</strong> – use <a href="pages/interview.html">Interview Prep</a> plus the interview sections on each guide page to practice questions.</li>
+            </ol>
+        </div>
+    </section>
+
     <!-- Foundations Section -->
     <section id="foundations" class="section">
         <div class="container">
@@ -177,6 +194,799 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Core Data Engineering Concepts -->
+    <section id="core-concepts" class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title">Core Data Engineering Concepts</h2>
+            <p class="section-subtitle">Deep dive into essential concepts every data engineer must master</p>
+
+            <!-- The Data Engineering Lifecycle -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-sync-alt"></i> The Data Engineering Lifecycle</h3>
+                </div>
+                <div class="concept-content">
+                    <p>The data engineering lifecycle represents the end-to-end journey of data from generation to consumption. Understanding this lifecycle is fundamental to designing robust data systems.</p>
+                    <div class="lifecycle-stages">
+                        <div class="stage-card">
+                            <h4>1. Generation</h4>
+                            <p>Data originates from various sources:</p>
+                            <ul>
+                                <li><strong>Application databases</strong> - transactional systems (OLTP)</li>
+                                <li><strong>APIs</strong> - REST, GraphQL, webhooks</li>
+                                <li><strong>Event streams</strong> - user clicks, IoT sensors</li>
+                                <li><strong>File systems</strong> - CSV, JSON, logs</li>
+                                <li><strong>Third-party data</strong> - external vendors, partners</li>
+                            </ul>
+                        </div>
+                        <div class="stage-card">
+                            <h4>2. Storage</h4>
+                            <p>Raw and processed data storage:</p>
+                            <ul>
+                                <li><strong>Data Lakes</strong> - S3, Azure Data Lake (raw, schema-on-read)</li>
+                                <li><strong>Data Warehouses</strong> - Redshift, Snowflake (structured, schema-on-write)</li>
+                                <li><strong>Lakehouses</strong> - Delta Lake, Iceberg (best of both)</li>
+                                <li><strong>Object Storage</strong> - S3, GCS, Azure Blob</li>
+                            </ul>
+                        </div>
+                        <div class="stage-card">
+                            <h4>3. Ingestion</h4>
+                            <p>Moving data from source to storage:</p>
+                            <ul>
+                                <li><strong>Batch</strong> - scheduled jobs, full/incremental loads</li>
+                                <li><strong>Streaming</strong> - real-time processing, Kinesis, Kafka</li>
+                                <li><strong>CDC</strong> - capturing database changes incrementally</li>
+                                <li><strong>Tools</strong> - AWS Glue, Fivetran, Airbyte</li>
+                            </ul>
+                        </div>
+                        <div class="stage-card">
+                            <h4>4. Transformation</h4>
+                            <p>Processing and enriching data:</p>
+                            <ul>
+                                <li><strong>ETL</strong> - Extract, Transform, Load (traditional)</li>
+                                <li><strong>ELT</strong> - Extract, Load, Transform (modern approach)</li>
+                                <li><strong>Tools</strong> - dbt, Spark, AWS Glue, Dataflow</li>
+                                <li><strong>Operations</strong> - cleaning, joining, aggregating, enriching</li>
+                            </ul>
+                        </div>
+                        <div class="stage-card">
+                            <h4>5. Serving</h4>
+                            <p>Making data available for consumption:</p>
+                            <ul>
+                                <li><strong>Analytics</strong> - BI dashboards, ad-hoc queries</li>
+                                <li><strong>ML Models</strong> - feature stores, model training</li>
+                                <li><strong>APIs</strong> - data products, microservices</li>
+                                <li><strong>Reports</strong> - scheduled exports, email alerts</li>
+                            </ul>
+                        </div>
+                        <div class="stage-card">
+                            <h4>6. Governance</h4>
+                            <p>Ensuring quality, security, and compliance:</p>
+                            <ul>
+                                <li><strong>Data Quality</strong> - validation, profiling, monitoring</li>
+                                <li><strong>Security</strong> - encryption, access control, auditing</li>
+                                <li><strong>Privacy</strong> - GDPR, CCPA, PII masking</li>
+                                <li><strong>Lineage</strong> - tracking data origins and transformations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Architecture Principles -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-building"></i> Data Architecture Principles</h3>
+                </div>
+                <div class="concept-content">
+                    <div class="architecture-grid">
+                        <div class="principle-card">
+                            <h4><i class="fas fa-expand-arrows-alt"></i> Scalability</h4>
+                            <p><strong>Horizontal vs. Vertical Scaling:</strong></p>
+                            <ul>
+                                <li><strong>Horizontal</strong> - add more nodes (distributed systems, cloud-native)</li>
+                                <li><strong>Vertical</strong> - increase resources per node (limited, expensive)</li>
+                            </ul>
+                            <p><strong>Design Patterns:</strong></p>
+                            <ul>
+                                <li>Partitioning and sharding data</li>
+                                <li>Load balancing across nodes</li>
+                                <li>Auto-scaling based on demand</li>
+                                <li>Caching frequently accessed data</li>
+                            </ul>
+                        </div>
+                        <div class="principle-card">
+                            <h4><i class="fas fa-puzzle-piece"></i> Loose Coupling</h4>
+                            <p><strong>Decoupling Components:</strong></p>
+                            <ul>
+                                <li>Microservices architecture</li>
+                                <li>Message queues (SQS, Kafka) between services</li>
+                                <li>API-first design</li>
+                                <li>Event-driven architectures</li>
+                            </ul>
+                            <p><strong>Benefits:</strong></p>
+                            <ul>
+                                <li>Independent scaling of components</li>
+                                <li>Easier testing and debugging</li>
+                                <li>Technology flexibility per service</li>
+                                <li>Reduced blast radius of failures</li>
+                            </ul>
+                        </div>
+                        <div class="principle-card">
+                            <h4><i class="fas fa-undo"></i> Reversible Decisions</h4>
+                            <p><strong>Avoid Lock-in:</strong></p>
+                            <ul>
+                                <li>Use open formats (Parquet, ORC, Avro)</li>
+                                <li>Abstract vendor-specific APIs</li>
+                                <li>Infrastructure as Code (Terraform, CloudFormation)</li>
+                                <li>Multi-cloud strategies where appropriate</li>
+                            </ul>
+                            <p><strong>Version Control Everything:</strong></p>
+                            <ul>
+                                <li>Schema evolution and versioning</li>
+                                <li>Code in Git repositories</li>
+                                <li>Infrastructure state management</li>
+                                <li>Rollback mechanisms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch vs Streaming -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-stream"></i> Batch vs Streaming Processing</h3>
+                </div>
+                <div class="concept-content">
+                    <div class="comparison-grid">
+                        <div class="comparison-card batch">
+                            <h4><i class="fas fa-layer-group"></i> Batch Processing</h4>
+                            <p><strong>Characteristics:</strong></p>
+                            <ul>
+                                <li>Processes large volumes of data at scheduled intervals</li>
+                                <li>High throughput, high latency (minutes to hours)</li>
+                                <li>Simpler to implement and debug</li>
+                                <li>Lower cost per record processed</li>
+                            </ul>
+                            <p><strong>Use Cases:</strong></p>
+                            <ul>
+                                <li>Daily sales reports and analytics</li>
+                                <li>Monthly aggregations for billing</li>
+                                <li>Historical data analysis</li>
+                                <li>ML model training on historical data</li>
+                            </ul>
+                            <p><strong>Tools:</strong></p>
+                            <ul>
+                                <li>Apache Spark (batch mode)</li>
+                                <li>AWS Glue ETL jobs</li>
+                                <li>dbt transformations</li>
+                                <li>Cron-scheduled scripts</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-card streaming">
+                            <h4><i class="fas fa-bolt"></i> Streaming Processing</h4>
+                            <p><strong>Characteristics:</strong></p>
+                            <ul>
+                                <li>Processes data in real-time as it arrives</li>
+                                <li>Low latency (milliseconds to seconds)</li>
+                                <li>More complex to implement (state management)</li>
+                                <li>Higher infrastructure cost</li>
+                            </ul>
+                            <p><strong>Use Cases:</strong></p>
+                            <ul>
+                                <li>Fraud detection (must be real-time)</li>
+                                <li>Real-time dashboards and monitoring</li>
+                                <li>Event-driven architectures</li>
+                                <li>Live recommendation engines</li>
+                            </ul>
+                            <p><strong>Tools:</strong></p>
+                            <ul>
+                                <li>Apache Kafka + Kafka Streams</li>
+                                <li>Amazon Kinesis (Data Streams, Analytics)</li>
+                                <li>Apache Flink, Spark Streaming</li>
+                                <li>AWS Lambda (event-driven)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="key-decision">
+                        <h4><i class="fas fa-lightbulb"></i> When to Choose What?</h4>
+                        <ul>
+                            <li><strong>Batch</strong> if: latency requirements are >1 hour, cost is critical, simple aggregations</li>
+                            <li><strong>Streaming</strong> if: latency must be <1 minute, need event-driven triggers, real-time decisions</li>
+                            <li><strong>Lambda Architecture</strong> - combine both: batch for accuracy, streaming for speed</li>
+                            <li><strong>Kappa Architecture</strong> - streaming-only with reprocessing capabilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Change Data Capture (CDC) -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-exchange-alt"></i> Change Data Capture (CDC)</h3>
+                </div>
+                <div class="concept-content">
+                    <p>CDC captures incremental changes in source databases and streams them to downstream systems in near real-time. This is critical for keeping data warehouses in sync without full table scans.</p>
+                    <div class="cdc-methods">
+                        <div class="cdc-card">
+                            <h4>1. Log-Based CDC (Best Practice)</h4>
+                            <p>Reads database transaction logs (binlog, WAL):</p>
+                            <ul>
+                                <li><strong>Tools:</strong> Debezium, AWS DMS, Fivetran</li>
+                                <li><strong>Pros:</strong> No schema changes, all operations captured, low overhead</li>
+                                <li><strong>Cons:</strong> Requires log access, complex setup</li>
+                                <li><strong>Example:</strong> MySQL binlog → Debezium → Kafka → S3/Redshift</li>
+                            </ul>
+                        </div>
+                        <div class="cdc-card">
+                            <h4>2. Trigger-Based CDC</h4>
+                            <p>Database triggers write changes to a shadow table:</p>
+                            <ul>
+                                <li><strong>Pros:</strong> Simple to implement, works on any DB</li>
+                                <li><strong>Cons:</strong> Performance overhead, schema changes required</li>
+                                <li><strong>Use case:</strong> Legacy systems without log access</li>
+                            </ul>
+                        </div>
+                        <div class="cdc-card">
+                            <h4>3. Timestamp-Based CDC</h4>
+                            <p>Queries tables with updated_at columns:</p>
+                            <ul>
+                                <li><strong>Pros:</strong> Very simple, no special permissions</li>
+                                <li><strong>Cons:</strong> Misses deletes, clock skew issues</li>
+                                <li><strong>Use case:</strong> Small tables, append-only data</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cdc-implementation">
+                        <h4>CDC in AWS</h4>
+                        <ul>
+                            <li><strong>AWS DMS</strong> - Full load + CDC from RDS/on-prem to S3/Redshift/Kinesis</li>
+                            <li><strong>Debezium on EC2/ECS</strong> - Open-source, log-based CDC to Kafka/Kinesis</li>
+                            <li><strong>Pattern:</strong> RDS (MySQL/Postgres) → DMS → Kinesis → Lambda → S3 → Glue → Redshift</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modern Storage Layers -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-database"></i> Modern Storage Layers</h3>
+                </div>
+                <div class="concept-content">
+                    <div class="storage-comparison">
+                        <div class="storage-card">
+                            <h4><i class="fas fa-hdd"></i> Object Storage (S3)</h4>
+                            <p><strong>Why S3 Dominates Data Engineering:</strong></p>
+                            <ul>
+                                <li>Infinitely scalable, pay-per-use</li>
+                                <li>99.999999999% durability (11 9s)</li>
+                                <li>Lifecycle policies (auto-archive to Glacier)</li>
+                                <li>Integrates with all AWS data services</li>
+                                <li>Supports all file formats</li>
+                            </ul>
+                            <p><strong>Best Practices:</strong></p>
+                            <ul>
+                                <li>Organize with prefixes: <code>s3://bucket/year=2024/month=01/day=15/</code></li>
+                                <li>Enable versioning for critical data</li>
+                                <li>Use S3 Select for querying without downloading</li>
+                                <li>Partition data for query performance</li>
+                            </ul>
+                        </div>
+                        <div class="storage-card">
+                            <h4><i class="fas fa-water"></i> Lakehouse Architecture</h4>
+                            <p><strong>Combines Data Lake + Data Warehouse:</strong></p>
+                            <ul>
+                                <li>Store raw data in S3 (like a lake)</li>
+                                <li>ACID transactions via Delta Lake/Iceberg (like a warehouse)</li>
+                                <li>Schema evolution and time travel</li>
+                                <li>Single source of truth for all workloads</li>
+                            </ul>
+                            <p><strong>Technologies:</strong></p>
+                            <ul>
+                                <li><strong>Delta Lake</strong> - Databricks, open-source</li>
+                                <li><strong>Apache Iceberg</strong> - Netflix, AWS support</li>
+                                <li><strong>Apache Hudi</strong> - Uber, incremental processing</li>
+                            </ul>
+                            <p><strong>AWS Implementation:</strong></p>
+                            <ul>
+                                <li>S3 + Glue Catalog + Athena + Iceberg tables</li>
+                                <li>EMR with Delta Lake</li>
+                            </ul>
+                        </div>
+                        <div class="storage-card">
+                            <h4><i class="fas fa-file-archive"></i> Parquet Format</h4>
+                            <p><strong>Why Parquet is the Standard:</strong></p>
+                            <ul>
+                                <li><strong>Columnar storage</strong> - read only needed columns (vs row-based CSV)</li>
+                                <li><strong>Compression</strong> - 10x smaller than JSON/CSV (Snappy, Gzip)</li>
+                                <li><strong>Predicate pushdown</strong> - skip irrelevant row groups</li>
+                                <li><strong>Schema embedded</strong> - self-describing files</li>
+                                <li><strong>Widely supported</strong> - Spark, Athena, Redshift Spectrum</li>
+                            </ul>
+                            <p><strong>Performance Example:</strong></p>
+                            <ul>
+                                <li>1TB CSV file with 100 columns</li>
+                                <li>Query needs only 5 columns</li>
+                                <li>CSV: reads entire 1TB</li>
+                                <li>Parquet: reads ~50GB (10x faster, 95% cost savings)</li>
+                            </ul>
+                            <p><strong>When to Use:</strong></p>
+                            <ul>
+                                <li>Analytical queries (OLAP)</li>
+                                <li>Data lake storage</li>
+                                <li>Large datasets (>1GB)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETL vs ELT -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-random"></i> ETL vs ELT</h3>
+                </div>
+                <div class="concept-content">
+                    <div class="etl-comparison">
+                        <div class="etl-card traditional">
+                            <h4>ETL (Traditional)</h4>
+                            <p><strong>Extract → Transform → Load</strong></p>
+                            <p>Transform data <em>before</em> loading into warehouse:</p>
+                            <ul>
+                                <li>Extract from source systems</li>
+                                <li>Transform in dedicated ETL server (Informatica, Talend, AWS Glue)</li>
+                                <li>Load cleaned data into warehouse</li>
+                            </ul>
+                            <p><strong>Pros:</strong></p>
+                            <ul>
+                                <li>Smaller warehouse storage (only clean data)</li>
+                                <li>Better for limited compute in warehouse</li>
+                                <li>Compliance: sensitive data never hits warehouse</li>
+                            </ul>
+                            <p><strong>Cons:</strong></p>
+                            <ul>
+                                <li>Slower (transformation bottleneck)</li>
+                                <li>Harder to debug (data already transformed)</li>
+                                <li>Inflexible (schema changes require ETL re-development)</li>
+                            </ul>
+                            <p><strong>When to Use:</strong></p>
+                            <ul>
+                                <li>On-premise warehouses with limited compute</li>
+                                <li>PII/PHI data requiring masking before storage</li>
+                            </ul>
+                        </div>
+                        <div class="etl-card modern">
+                            <h4>ELT (Modern Approach)</h4>
+                            <p><strong>Extract → Load → Transform</strong></p>
+                            <p>Load raw data first, transform <em>inside</em> warehouse:</p>
+                            <ul>
+                                <li>Extract from source systems</li>
+                                <li>Load raw data into warehouse (S3, Redshift, Snowflake)</li>
+                                <li>Transform using SQL (dbt, stored procedures)</li>
+                            </ul>
+                            <p><strong>Pros:</strong></p>
+                            <ul>
+                                <li>Faster ingestion (no transformation delay)</li>
+                                <li>Leverage warehouse compute (Redshift scales easily)</li>
+                                <li>Flexibility: re-transform raw data anytime</li>
+                                <li>Easier debugging (raw data preserved)</li>
+                            </ul>
+                            <p><strong>Cons:</strong></p>
+                            <ul>
+                                <li>More storage needed (raw + transformed)</li>
+                                <li>Raw data may contain sensitive info</li>
+                            </ul>
+                            <p><strong>When to Use:</strong></p>
+                            <ul>
+                                <li>Cloud warehouses with elastic compute (Redshift, Snowflake)</li>
+                                <li>Need to re-process historical data</li>
+                                <li><strong>This is the default for modern data stacks</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="elt-tools">
+                        <h4>Modern ELT Stack (AWS)</h4>
+                        <ul>
+                            <li><strong>Extract + Load:</strong> Fivetran, Airbyte, AWS Glue, DMS → S3</li>
+                            <li><strong>Transform:</strong> dbt (SQL-based transformations), Athena, Redshift</li>
+                            <li><strong>Orchestrate:</strong> Airflow, Dagster, Step Functions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Modeling -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-project-diagram"></i> Data Modeling</h3>
+                </div>
+                <div class="concept-content">
+                    <div class="modeling-types">
+                        <div class="model-card">
+                            <h4><i class="fas fa-star"></i> Star Schema (Most Common)</h4>
+                            <p><strong>Structure:</strong></p>
+                            <ul>
+                                <li><strong>Fact Table</strong> - center, contains metrics (sales_amount, quantity)</li>
+                                <li><strong>Dimension Tables</strong> - surround fact, contain attributes (customer, product, date)</li>
+                                <li>Foreign keys in fact table → primary keys in dimensions</li>
+                            </ul>
+                            <p><strong>Example: Sales Analytics</strong></p>
+                            <pre><code>Fact: fact_sales (sale_id, date_id, customer_id, product_id, store_id, sales_amount, quantity)
+Dimensions:
+  - dim_date (date_id, date, month, quarter, year)
+  - dim_customer (customer_id, name, segment, region)
+  - dim_product (product_id, name, category, brand)
+  - dim_store (store_id, name, city, state)</code></pre>
+                            <p><strong>Pros:</strong></p>
+                            <ul>
+                                <li>Simple queries (one JOIN per dimension)</li>
+                                <li>Fast aggregations</li>
+                                <li>Easy for BI tools to understand</li>
+                            </ul>
+                            <p><strong>Cons:</strong></p>
+                            <ul>
+                                <li>Denormalized dimensions (data duplication)</li>
+                                <li>Harder to maintain dimensional hierarchies</li>
+                            </ul>
+                        </div>
+                        <div class="model-card">
+                            <h4><i class="fas fa-snowflake"></i> Snowflake Schema</h4>
+                            <p>Normalized version of star schema - dimensions are normalized into sub-dimensions:</p>
+                            <ul>
+                                <li>dim_product → dim_category → dim_brand (3 tables instead of 1)</li>
+                                <li>Reduces data duplication</li>
+                                <li>More JOINs required (slower queries)</li>
+                            </ul>
+                            <p><strong>When to Use:</strong></p>
+                            <ul>
+                                <li>Storage is expensive (on-premise warehouses)</li>
+                                <li>Need strict normalization</li>
+                                <li>Most cloud warehouses prefer star schema</li>
+                            </ul>
+                        </div>
+                        <div class="model-card">
+                            <h4><i class="fas fa-table"></i> Normalization vs Denormalization</h4>
+                            <p><strong>Normalization (OLTP - transactional systems):</strong></p>
+                            <ul>
+                                <li>Reduce data duplication</li>
+                                <li>Third Normal Form (3NF) - minimize redundancy</li>
+                                <li>Good for writes, slower for reads</li>
+                                <li><strong>Use for:</strong> production databases (RDS, Postgres)</li>
+                            </ul>
+                            <p><strong>Denormalization (OLAP - analytical systems):</strong></p>
+                            <ul>
+                                <li>Combine tables to reduce JOINs</li>
+                                <li>Faster reads, slower writes</li>
+                                <li>More storage (duplicate data)</li>
+                                <li><strong>Use for:</strong> data warehouses (Redshift, BigQuery)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Query Optimization -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-tachometer-alt"></i> Query Optimization</h3>
+                </div>
+                <div class="concept-content">
+                    <div class="optimization-techniques">
+                        <div class="opt-card">
+                            <h4>1. Partitioning</h4>
+                            <p>Split large tables into smaller, manageable chunks:</p>
+                            <ul>
+                                <li><strong>S3:</strong> <code>s3://bucket/year=2024/month=01/day=15/data.parquet</code></li>
+                                <li><strong>Athena/Glue:</strong> <code>PARTITIONED BY (year, month, day)</code></li>
+                                <li><strong>Redshift:</strong> Distribution + Sort keys</li>
+                                <li><strong>Benefit:</strong> Query only relevant partitions (10x-100x speedup)</li>
+                            </ul>
+                            <p><strong>Example:</strong></p>
+                            <pre><code>-- Instead of scanning 365 days:
+SELECT * FROM sales WHERE date = '2024-01-15'
+
+-- With partitioning, only scan 1 partition:
+SELECT * FROM sales WHERE year=2024 AND month=1 AND day=15</code></pre>
+                        </div>
+                        <div class="opt-card">
+                            <h4>2. Indexing</h4>
+                            <p>Speed up lookups on specific columns:</p>
+                            <ul>
+                                <li><strong>B-tree indexes:</strong> equality/range queries</li>
+                                <li><strong>Hash indexes:</strong> exact matches only</li>
+                                <li><strong>Redshift Sort Keys:</strong> define sort order</li>
+                                <li><strong>Redshift Dist Keys:</strong> minimize data shuffling</li>
+                            </ul>
+                            <p><strong>When to Index:</strong></p>
+                            <ul>
+                                <li>Columns in WHERE clauses</li>
+                                <li>JOIN keys</li>
+                                <li>ORDER BY / GROUP BY columns</li>
+                            </ul>
+                        </div>
+                        <div class="opt-card">
+                            <h4>3. Predicate Pushdown</h4>
+                            <p>Apply filters early in query execution:</p>
+                            <ul>
+                                <li>Parquet: skip entire row groups based on min/max stats</li>
+                                <li>Athena: only read matching S3 files</li>
+                                <li>Spark: push filters to storage layer</li>
+                            </ul>
+                            <p><strong>Example:</strong></p>
+                            <pre><code>-- Bad: Filter after JOIN
+SELECT * FROM large_table t1
+JOIN huge_table t2 ON t1.id = t2.id
+WHERE t1.date = '2024-01-15'
+
+-- Good: Filter before JOIN
+SELECT * FROM large_table t1
+WHERE t1.date = '2024-01-15'
+JOIN huge_table t2 ON t1.id = t2.id</code></pre>
+                        </div>
+                        <div class="opt-card">
+                            <h4>4. Column Pruning</h4>
+                            <p>Select only needed columns (especially with Parquet):</p>
+                            <pre><code>-- Bad: Read all 100 columns
+SELECT * FROM wide_table
+
+-- Good: Read only 3 columns
+SELECT customer_id, sales_amount, date FROM wide_table
+
+-- With Parquet: 97% I/O reduction!</code></pre>
+                        </div>
+                        <div class="opt-card">
+                            <h4>5. Materialized Views</h4>
+                            <p>Pre-compute expensive aggregations:</p>
+                            <ul>
+                                <li>Redshift: <code>CREATE MATERIALIZED VIEW daily_sales AS SELECT date, SUM(amount) FROM sales GROUP BY date</code></li>
+                                <li>Refresh periodically (incremental or full)</li>
+                                <li>Trade-off: storage vs query speed</li>
+                            </ul>
+                        </div>
+                        <div class="opt-card">
+                            <h4>6. Compression</h4>
+                            <p>Reduce I/O and storage costs:</p>
+                            <ul>
+                                <li><strong>Parquet:</strong> Snappy (fast), Gzip (smaller)</li>
+                                <li><strong>Redshift:</strong> Auto-compression encoding per column</li>
+                                <li><strong>Benefit:</strong> 5-10x storage savings, faster scans</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="query-plan">
+                        <h4><i class="fas fa-search"></i> Always Use EXPLAIN</h4>
+                        <ul>
+                            <li><code>EXPLAIN</code> shows query execution plan</li>
+                            <li>Look for: full table scans, expensive JOINs, missing indexes</li>
+                            <li>Redshift: <code>EXPLAIN SELECT ...</code></li>
+                            <li>Athena: Query stats in console</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orchestration -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-sitemap"></i> Orchestration (Airflow, Dagster, etc.)</h3>
+                </div>
+                <div class="concept-content">
+                    <p>Orchestration tools schedule, monitor, and manage complex data pipelines with dependencies.</p>
+                    <div class="orchestration-grid">
+                        <div class="orch-card">
+                            <h4><i class="fas fa-wind"></i> Apache Airflow (Industry Standard)</h4>
+                            <p><strong>Concepts:</strong></p>
+                            <ul>
+                                <li><strong>DAG</strong> - Directed Acyclic Graph (pipeline definition)</li>
+                                <li><strong>Tasks</strong> - individual units of work (Python functions, bash commands)</li>
+                                <li><strong>Operators</strong> - task templates (PythonOperator, BashOperator, S3Operator)</li>
+                                <li><strong>Scheduler</strong> - triggers DAGs on schedule or events</li>
+                                <li><strong>Executor</strong> - runs tasks (Local, Celery, Kubernetes)</li>
+                            </ul>
+                            <p><strong>AWS Deployment:</strong></p>
+                            <ul>
+                                <li><strong>MWAA</strong> - Managed Workflows for Apache Airflow (fully managed)</li>
+                                <li><strong>Self-hosted</strong> - EC2 + RDS for metadata DB</li>
+                            </ul>
+                            <p><strong>Pros:</strong></p>
+                            <ul>
+                                <li>Massive community, 1000+ integrations</li>
+                                <li>Python-based (flexible)</li>
+                                <li>Great UI for monitoring</li>
+                            </ul>
+                            <p><strong>Cons:</strong></p>
+                            <ul>
+                                <li>Complex setup (unless using MWAA)</li>
+                                <li>DAGs defined in code (not GUI)</li>
+                            </ul>
+                        </div>
+                        <div class="orch-card">
+                            <h4><i class="fas fa-gem"></i> Dagster (Modern Alternative)</h4>
+                            <p><strong>Key Differences from Airflow:</strong></p>
+                            <ul>
+                                <li><strong>Software-defined assets</strong> - focus on data assets, not tasks</li>
+                                <li><strong>Type safety</strong> - Python type hints for data validation</li>
+                                <li><strong>Testing-first</strong> - easier to unit test pipelines</li>
+                                <li><strong>Data lineage</strong> - built-in asset dependency tracking</li>
+                            </ul>
+                            <p><strong>When to Use:</strong></p>
+                            <ul>
+                                <li>New projects (greenfield)</li>
+                                <li>Data quality is critical</li>
+                                <li>Need strong testing/observability</li>
+                            </ul>
+                        </div>
+                        <div class="orch-card">
+                            <h4><i class="fas fa-project-diagram"></i> AWS Step Functions</h4>
+                            <p><strong>Serverless orchestration for AWS services:</strong></p>
+                            <ul>
+                                <li>Define workflows in JSON (State Language)</li>
+                                <li>Native integrations: Lambda, Glue, EMR, Batch, ECS</li>
+                                <li>Visual workflow editor</li>
+                                <li>Pay-per-execution (no servers to manage)</li>
+                            </ul>
+                            <p><strong>Use Case Example:</strong></p>
+                            <pre><code>1. Lambda triggers on S3 upload
+2. Step Function starts:
+   a. Glue Crawler updates schema
+   b. Glue ETL job processes data
+   c. Lambda validates output
+   d. SNS sends success notification</code></pre>
+                            <p><strong>Pros:</strong></p>
+                            <ul>
+                                <li>Fully managed, serverless</li>
+                                <li>Great for AWS-only pipelines</li>
+                            </ul>
+                            <p><strong>Cons:</strong></p>
+                            <ul>
+                                <li>AWS lock-in</li>
+                                <li>Limited to AWS services</li>
+                            </ul>
+                        </div>
+                        <div class="orch-card">
+                            <h4><i class="fas fa-tools"></i> Other Tools</h4>
+                            <ul>
+                                <li><strong>Prefect</strong> - Python-based, easier than Airflow</li>
+                                <li><strong>Luigi</strong> - Spotify's tool (simpler than Airflow)</li>
+                                <li><strong>AWS Glue Workflows</strong> - basic orchestration for Glue jobs</li>
+                                <li><strong>dbt Cloud</strong> - orchestrates dbt transformations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="orchestration-best-practices">
+                        <h4>Orchestration Best Practices</h4>
+                        <ul>
+                            <li><strong>Idempotency</strong> - tasks should produce same result if re-run</li>
+                            <li><strong>Incremental processing</strong> - process only new data, not full reloads</li>
+                            <li><strong>Retry logic</strong> - auto-retry transient failures (network, API limits)</li>
+                            <li><strong>Alerting</strong> - SNS/email on failures</li>
+                            <li><strong>Backfills</strong> - ability to reprocess historical data</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DataOps & FinOps -->
+            <div class="concept-section">
+                <div class="concept-header">
+                    <h3><i class="fas fa-chart-line"></i> DataOps & FinOps</h3>
+                </div>
+                <div class="concept-content">
+                    <div class="ops-grid">
+                        <div class="ops-card dataops">
+                            <h4><i class="fas fa-cogs"></i> DataOps (Data + DevOps)</h4>
+                            <p>Apply DevOps principles to data pipelines:</p>
+                            <ul>
+                                <li><strong>Version Control</strong> - Git for all code, schemas, configs</li>
+                                <li><strong>CI/CD</strong> - automated testing + deployment
+                                    <ul>
+                                        <li>Unit tests for transformations (dbt tests)</li>
+                                        <li>Integration tests on sample data</li>
+                                        <li>GitHub Actions / GitLab CI</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Monitoring & Observability</strong>
+                                    <ul>
+                                        <li>Data quality checks (Great Expectations, dbt tests)</li>
+                                        <li>Pipeline health dashboards (Airflow UI, DataDog)</li>
+                                        <li>Schema drift detection</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Data Lineage</strong> - track data from source to dashboard
+                                    <ul>
+                                        <li>Tools: AWS Glue Data Catalog, Amundsen, DataHub</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Environment Management</strong>
+                                    <ul>
+                                        <li>Dev / Staging / Prod separation</li>
+                                        <li>Infrastructure as Code (Terraform)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p><strong>DataOps Workflow Example:</strong></p>
+                            <pre><code>1. Developer writes dbt model
+2. Git commit triggers CI pipeline:
+   - Run unit tests (dbt test)
+   - Deploy to dev environment
+   - Run integration tests
+3. PR review + approval
+4. Merge to main → auto-deploy to prod
+5. Monitoring alerts on data quality issues</code></pre>
+                        </div>
+                        <div class="ops-card finops">
+                            <h4><i class="fas fa-dollar-sign"></i> FinOps (Financial Operations)</h4>
+                            <p>Optimize cloud costs without sacrificing performance:</p>
+                            <ul>
+                                <li><strong>Cost Visibility</strong>
+                                    <ul>
+                                        <li>AWS Cost Explorer - track spend by service</li>
+                                        <li>Tag resources (project, team, env)</li>
+                                        <li>Athena query costs (data scanned)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Right-Sizing</strong>
+                                    <ul>
+                                        <li>Redshift: choose instance types based on workload</li>
+                                        <li>EMR: spot instances for batch jobs (70% savings)</li>
+                                        <li>Lambda: optimize memory allocation</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Storage Optimization</strong>
+                                    <ul>
+                                        <li>S3 Lifecycle policies: archive to Glacier after 90 days</li>
+                                        <li>Delete old logs, temp files</li>
+                                        <li>Use Parquet instead of JSON (10x smaller)</li>
+                                        <li>Enable S3 Intelligent-Tiering</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Query Optimization = Cost Savings</strong>
+                                    <ul>
+                                        <li>Athena charges per TB scanned</li>
+                                        <li>Partition data: <code>WHERE year=2024</code> scans 1/5th of data (80% savings)</li>
+                                        <li>Use Parquet + column pruning</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Auto-Scaling & Scheduling</strong>
+                                    <ul>
+                                        <li>Pause Redshift clusters during off-hours</li>
+                                        <li>EMR auto-scaling for variable workloads</li>
+                                        <li>Use Lambda instead of 24/7 EC2 for light workloads</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Reserved Instances & Savings Plans</strong>
+                                    <ul>
+                                        <li>1-3 year commitments for 30-70% discounts</li>
+                                        <li>Use for predictable workloads (Redshift, RDS)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p><strong>Cost Monitoring Example:</strong></p>
+                            <pre><code>Daily automated report:
+- S3 storage growth: +50GB (check for temp files)
+- Athena scans: 2TB today (optimize with partitions?)
+- Redshift idle time: 6 hours (pause overnight?)
+- Top expensive queries (EXPLAIN + optimize)</code></pre>
+                        </div>
+                    </div>
+                    <div class="ops-best-practices">
+                        <h4>DataOps + FinOps Best Practices</h4>
+                        <ul>
+                            <li><strong>Shift-left cost awareness</strong> - developers think about cost during design</li>
+                            <li><strong>Automate everything</strong> - no manual deployments or checks</li>
+                            <li><strong>Monitor continuously</strong> - catch issues before they become expensive</li>
+                            <li><strong>Document runbooks</strong> - how to respond to alerts</li>
+                            <li><strong>Blameless postmortems</strong> - learn from failures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
