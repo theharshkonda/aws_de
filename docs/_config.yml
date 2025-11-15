@@ -1,0 +1,23 @@
+# GitHub Pages Configuration
+title: AWS Data Engineer Bootcamp
+description: A comprehensive 8-week bootcamp to become an interview-ready AWS Data Engineer
+author: Your Name
+url: "https://yourusername.github.io"
+baseurl: "/aws-data-engineer-bootcamp"
+
+# Build settings
+markdown: kramdown
+theme: null
+
+# Exclude from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Include
+include:
+  - _pages
+  - assets

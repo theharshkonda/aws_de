@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1-2: Python & SQL | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .week-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .day-title {
+            font-size: 1.8rem;
+            color: #667eea;
+        }
+
+        .day-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        .topics-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .topics-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .topics-list li i {
+            color: #667eea;
+        }
+
+        .resource-link {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .resource-link:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .back-btn:hover {
+            background: #f5f7fa;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Week Hero -->
+    <section class="week-hero">
+        <div class="container">
+            <h1>Week 1-2: Python & SQL Fundamentals</h1>
+            <p>Master the foundation of data engineering with Python and SQL</p>
+            <div class="progress-bar-container" style="max-width: 600px; margin: 2rem auto;">
+                <div class="progress-bar" id="week-progress" style="width: 0%;">0%</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+
+            <h2 class="section-title">Week 1: Python</h2>
+
+            <!-- Day 1 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 1: Python Basics</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="1" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Python installation and setup</li>
+                    <li><i class="fas fa-check-circle"></i> Variables and data types</li>
+                    <li><i class="fas fa-check-circle"></i> Operators (arithmetic, comparison, logical)</li>
+                    <li><i class="fas fa-check-circle"></i> Input and output</li>
+                </ul>
+
+                <h4>Exercises</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-code"></i> Complete python_basics.py exercises (1-20)</li>
+                    <li><i class="fas fa-code"></i> Practice: Calculator program</li>
+                    <li><i class="fas fa-code"></i> Practice: Temperature converter</li>
+                </ul>
+
+                <h4>Resources</h4>
+                <div>
+                    <a href="https://docs.python.org/3/tutorial/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Python Official Tutorial
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=rfscVS0vtbw" target="_blank" class="resource-link">
+                        <i class="fab fa-youtube"></i> Python Full Course
+                    </a>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 2: Control Flow</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="2" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> If/else statements</li>
+                    <li><i class="fas fa-check-circle"></i> For loops and while loops</li>
+                    <li><i class="fas fa-check-circle"></i> Break, continue, range</li>
+                    <li><i class="fas fa-check-circle"></i> Nested loops</li>
+                </ul>
+
+                <h4>Exercises</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-code"></i> FizzBuzz problem</li>
+                    <li><i class="fas fa-code"></i> Number guessing game</li>
+                    <li><i class="fas fa-code"></i> Pattern printing exercises</li>
+                </ul>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 3: Functions</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="3" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Defining functions</li>
+                    <li><i class="fas fa-check-circle"></i> Parameters and return values</li>
+                    <li><i class="fas fa-check-circle"></i> Lambda functions</li>
+                    <li><i class="fas fa-check-circle"></i> Map, filter, reduce</li>
+                </ul>
+
+                <h4>Exercises</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-code"></i> Factorial calculator</li>
+                    <li><i class="fas fa-code"></i> Prime number checker</li>
+                    <li><i class="fas fa-code"></i> Data processor functions</li>
+                </ul>
+            </div>
+
+            <!-- Day 4-7 Preview -->
+            <div class="day-section">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Days 4-7: Data Structures & More</h3>
+                <ul class="topics-list">
+                    <li><i class="fas fa-list"></i> Day 4: Lists and Tuples</li>
+                    <li><i class="fas fa-list"></i> Day 5: Dictionaries and Sets</li>
+                    <li><i class="fas fa-list"></i> Day 6: File Handling (CSV, JSON)</li>
+                    <li><i class="fas fa-list"></i> Day 7: Mini Project - Data File Processor</li>
+                </ul>
+            </div>
+
+            <hr style="margin: 3rem 0;">
+
+            <h2 class="section-title">Week 2: SQL</h2>
+
+            <!-- Day 8 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 8: SQL Basics</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="8" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Install MySQL Workbench</li>
+                    <li><i class="fas fa-check-circle"></i> CREATE DATABASE, CREATE TABLE</li>
+                    <li><i class="fas fa-check-circle"></i> INSERT, SELECT, WHERE</li>
+                    <li><i class="fas fa-check-circle"></i> Basic filtering</li>
+                </ul>
+
+                <h4>Exercises</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-code"></i> Create sample database</li>
+                    <li><i class="fas fa-code"></i> Solve first 10 queries in sql_basics.sql</li>
+                    <li><i class="fas fa-code"></i> LeetCode: 5 easy SQL problems</li>
+                </ul>
+
+                <h4>Resources</h4>
+                <div>
+                    <a href="https://sqlbolt.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> SQLBolt Tutorial
+                    </a>
+                    <a href="https://leetcode.com/problemset/database/" target="_blank" class="resource-link">
+                        <i class="fas fa-code"></i> LeetCode SQL
+                    </a>
+                </div>
+            </div>
+
+            <!-- Days 9-14 Preview -->
+            <div class="day-section">
+                <h3 style="color: #667eea; margin-bottom: 1rem;">Days 9-14: Advanced SQL</h3>
+                <ul class="topics-list">
+                    <li><i class="fas fa-database"></i> Day 9: Filtering & Sorting</li>
+                    <li><i class="fas fa-database"></i> Day 10: Aggregate Functions</li>
+                    <li><i class="fas fa-database"></i> Day 11: GROUP BY & HAVING</li>
+                    <li><i class="fas fa-database"></i> Day 12: JOINs</li>
+                    <li><i class="fas fa-database"></i> Day 13: Subqueries & CTEs</li>
+                    <li><i class="fas fa-database"></i> Day 14: SQL Project & Review</li>
+                </ul>
+            </div>
+
+            <!-- Week Completion -->
+            <div class="day-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h3 style="color: white;">Week 1-2 Completion Checklist</h3>
+                <ul class="topics-list" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Completed 50+ Python exercises
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Solved 50+ SQL problems
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Built 1 Python mini project
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Created sample SQL database
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Comfortable with Python syntax
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Can write complex SQL queries
+                    </li>
+                </ul>
+
+                <button onclick="completeWeek()" class="btn btn-primary" style="margin-top: 1rem; background: white; color: #667eea;">
+                    <i class="fas fa-check-circle"></i> Mark Week 1-2 as Complete
+                </button>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const checked = document.querySelectorAll('.day-checkbox:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+
+            const progressBar = document.getElementById('week-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+
+            // Save to localStorage
+            localStorage.setItem('week1-2-progress', percentage);
+
+            // Update main progress
+            if (typeof updateWeekProgress === 'function') {
+                updateWeekProgress('1', percentage);
+            }
+        }
+
+        function completeWeek() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateProgress();
+            alert('Congratulations on completing Week 1-2! 🎉\n\nYou\'re now ready for Week 3: Statistics & Visualization');
+        }
+
+        // Load saved progress
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('week1-2-progress');
+            if (saved) {
+                const progressBar = document.getElementById('week-progress');
+                progressBar.style.width = saved + '%';
+                progressBar.textContent = saved + '%';
+            }
+        });
+    </script>
+</body>
+</html>
