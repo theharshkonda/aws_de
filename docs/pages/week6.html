@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6: Streaming & Advanced Processing | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .week-hero {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #43e97b;
+        }
+        .day-title {
+            font-size: 1.8rem;
+            color: #43e97b;
+        }
+        .day-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        .topics-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .topics-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topics-list li i {
+            color: #43e97b;
+        }
+        .code-snippet {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-snippet pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+        .code-title {
+            background: #43e97b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            margin-bottom: -0.5rem;
+            display: inline-block;
+        }
+        .resource-link {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #43e97b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .resource-link:hover {
+            background: #38f9d7;
+            transform: translateY(-2px);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #43e97b, #38f9d7);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #43e97b;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+            border: 2px solid #43e97b;
+        }
+        .back-btn:hover {
+            background: #43e97b;
+            color: white;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="week-hero">
+        <div class="container">
+            <h1>Week 6: Streaming & Advanced Processing</h1>
+            <p>Build real-time data pipelines with Kinesis, EMR, and Spark</p>
+            <div class="progress-bar-container" style="max-width: 600px; margin: 2rem auto;">
+                <div class="progress-bar" id="week-progress" style="width: 0%;">0%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+
+            <!-- Day 1 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 1: Amazon Kinesis Data Streams</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="1" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Kinesis streams and shards</li>
+                    <li><i class="fas fa-check-circle"></i> Producers and consumers</li>
+                    <li><i class="fas fa-check-circle"></i> Record retention and scaling</li>
+                    <li><i class="fas fa-check-circle"></i> Enhanced fan-out and monitoring</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Kinesis Producer</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+import json
+import time
+from datetime import datetime
+import uuid
+
+kinesis = boto3.client('kinesis')
+
+def put_record_to_stream(stream_name, data, partition_key):
+    """Send record to Kinesis stream"""
+    try:
+        response = kinesis.put_record(
+            StreamName=stream_name,
+            Data=json.dumps(data),
+            PartitionKey=partition_key
+        )
+        print(f"Record sent: {response['ShardId']}")
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+
+def put_batch_records(stream_name, records):
+    """Send batch of records"""
+    try:
+        response = kinesis.put_records(
+            StreamName=stream_name,
+            Records=[
+                {
+                    'Data': json.dumps(record),
+                    'PartitionKey': record.get('user_id', str(uuid.uuid4()))
+                }
+                for record in records
+            ]
+        )
+        print(f"Records sent: {response['RecordCount']}")
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Continuous producer example
+def stream_events(stream_name, duration_seconds=60):
+    """Stream events continuously"""
+    start_time = time.time()
+
+    while time.time() - start_time < duration_seconds:
+        event = {
+            'event_id': str(uuid.uuid4()),
+            'user_id': f'user_{uuid.uuid4().hex[:8]}',
+            'event_type': 'click',
+            'timestamp': datetime.now().isoformat(),
+            'data': {
+                'page': '/dashboard',
+                'action': 'view',
+                'duration_ms': 1234
+            }
+        }
+
+        put_record_to_stream(stream_name, event, event['user_id'])
+        time.sleep(0.1)
+
+# Usage
+stream_events('event-stream', 60)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Kinesis Consumer</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">def get_shard_iterator(stream_name, shard_id):
+    """Get iterator for shard"""
+    response = kinesis.get_shard_iterator(
+        StreamName=stream_name,
+        ShardId=shard_id,
+        ShardIteratorType='LATEST'  # or 'TRIM_HORIZON' for all records
+    )
+    return response['ShardIterator']
+
+def consume_stream(stream_name, process_func):
+    """Consume records from stream"""
+    # Get stream info
+    stream = kinesis.describe_stream(StreamName=stream_name)
+    shards = stream['StreamDescription']['Shards']
+
+    # Process each shard
+    shard_iterators = {}
+    for shard in shards:
+        shard_id = shard['ShardId']
+        shard_iterators[shard_id] = get_shard_iterator(stream_name, shard_id)
+
+    # Continuous consumption
+    while True:
+        for shard_id, iterator in shard_iterators.items():
+            response = kinesis.get_records(
+                ShardIterator=iterator,
+                Limit=100
+            )
+
+            # Process records
+            for record in response['Records']:
+                data = json.loads(record['Data'])
+                process_func(data)
+
+            # Update iterator
+            shard_iterators[shard_id] = response['NextShardIterator']
+
+            time.sleep(0.1)
+
+def process_event(event):
+    """Process individual event"""
+    print(f"Processing event: {event['event_id']} from {event['user_id']}")
+    # Add your business logic here
+
+# Usage
+consume_stream('event-stream', process_event)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Stream Management</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Create stream
+kinesis.create_stream(
+    StreamName='real-time-events',
+    ShardCount=2,
+    StreamModeDetails={'StreamMode': 'PROVISIONED'}
+)
+
+# Describe stream
+stream = kinesis.describe_stream(StreamName='real-time-events')
+print(f"Stream Status: {stream['StreamDescription']['StreamStatus']}")
+print(f"Shard Count: {len(stream['StreamDescription']['Shards'])}")
+
+# Update shard count
+kinesis.update_shard_count(
+    StreamName='real-time-events',
+    TargetShardCount=4
+)
+
+# List streams
+streams = kinesis.list_streams()
+print(f"Streams: {streams['StreamNames']}")
+
+# Delete stream
+kinesis.delete_stream(StreamName='real-time-events')</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 2: Kinesis Data Firehose</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="2" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Firehose delivery streams</li>
+                    <li><i class="fas fa-check-circle"></i> Data transformation and buffering</li>
+                    <li><i class="fas fa-check-circle"></i> S3, Redshift, and Splunk destinations</li>
+                    <li><i class="fas fa-check-circle"></i> Error handling and retry logic</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Firehose Producer</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+
+firehose = boto3.client('firehose')
+
+def put_record_to_firehose(delivery_stream, record):
+    """Send record to Firehose"""
+    try:
+        response = firehose.put_record(
+            DeliveryStreamName=delivery_stream,
+            Record={
+                'Data': json.dumps(record) + '\n'  # Add newline for S3/Redshift
+            }
+        )
+        print(f"Record delivered: {response['RecordId']}")
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+
+def put_batch_records_firehose(delivery_stream, records):
+    """Send batch of records"""
+    try:
+        response = firehose.put_record_batch(
+            DeliveryStreamName=delivery_stream,
+            Records=[
+                {
+                    'Data': json.dumps(record) + '\n'
+                }
+                for record in records
+            ]
+        )
+        print(f"Batch delivered: {response['FailedPutCount']} failed")
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+
+# Create delivery stream
+def create_s3_delivery_stream():
+    """Create Firehose stream to S3"""
+    firehose.create_delivery_stream(
+        DeliveryStreamName='sales-to-s3',
+        S3DestinationConfiguration={
+            'RoleARN': 'arn:aws:iam::ACCOUNT_ID:role/FirehoseRole',
+            'BucketARN': 'arn:aws:s3:::my-firehose-bucket',
+            'Prefix': 'firehose/sales/year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/',
+            'BufferingHints': {
+                'SizeInMBs': 128,
+                'IntervalInSeconds': 300
+            },
+            'CompressionFormat': 'GZIP',
+            'ProcessingConfiguration': {
+                'Enabled': True,
+                'Processors': [
+                    {
+                        'Type': 'Lambda',
+                        'Parameters': [
+                            {
+                                'ParameterName': 'LambdaArn',
+                                'ParameterValue': 'arn:aws:lambda:region:account:function:ProcessFirehoseRecords'
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    )</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Firehose Lambda Transformation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import base64
+import json
+
+def lambda_handler(event, context):
+    """Transform Firehose records"""
+    output = []
+
+    for record in event['records']:
+        # Decode record
+        payload = base64.b64decode(record['data'])
+        data = json.loads(payload)
+
+        # Transform data
+        transformed = {
+            'record_id': record['recordId'],
+            'timestamp': data.get('timestamp'),
+            'user_id': data.get('user_id'),
+            'event_type': data.get('event_type'),
+            'amount': float(data.get('amount', 0)),
+            'processed_at': datetime.now().isoformat(),
+            'data_quality_checks': {
+                'has_user_id': 'user_id' in data and data['user_id'],
+                'has_amount': 'amount' in data,
+                'amount_positive': float(data.get('amount', -1)) > 0
+            }
+        }
+
+        # Re-encode and add to output
+        output_record = {
+            'recordId': record['recordId'],
+            'result': 'Ok',
+            'data': base64.b64encode(
+                json.dumps(transformed).encode() + b'\n'
+            ).decode('utf-8')
+        }
+        output.append(output_record)
+
+    return {'records': output}</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Redshift Firehose Delivery</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Create delivery stream to Redshift
+firehose.create_delivery_stream(
+    DeliveryStreamName='sales-to-redshift',
+    RedshiftDestinationConfiguration={
+        'RoleARN': 'arn:aws:iam::ACCOUNT_ID:role/FirehoseRole',
+        'ClusterJDBCURL': 'jdbc:redshift://my-cluster.region.redshift.amazonaws.com:5439/analytics',
+        'CopyCommand': {
+            'DataTableName': 'sales.events',
+            'DataTableColumns': 'event_id, user_id, amount, timestamp',
+            'CopyOptions': 'JSON \'auto\' ACCEPTINVCHARS'
+        },
+        'S3DestinationConfiguration': {
+            'RoleARN': 'arn:aws:iam::ACCOUNT_ID:role/FirehoseRole',
+            'BucketARN': 'arn:aws:s3:::my-firehose-bucket',
+            'Prefix': 'redshift-backup/',
+            'BufferingHints': {
+                'SizeInMBs': 128,
+                'IntervalInSeconds': 300
+            }
+        },
+        'RetryConfiguration': {
+            'DurationInSeconds': 3600
+        },
+        'ProcessingConfiguration': {
+            'Enabled': True,
+            'Processors': [
+                {
+                    'Type': 'Serializer',
+                    'Parameters': [
+                        {
+                            'ParameterName': 'SchemaConversion',
+                            'ParameterValue': 'Enabled'
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 3: Amazon EMR & Apache Spark</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="3" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> EMR cluster creation and configuration</li>
+                    <li><i class="fas fa-check-circle"></i> Spark on EMR</li>
+                    <li><i class="fas fa-check-circle"></i> Cluster scaling and monitoring</li>
+                    <li><i class="fas fa-check-circle"></i> Submitting Spark jobs</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Create EMR Cluster</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+
+emr = boto3.client('emr')
+
+def create_spark_cluster():
+    """Create EMR cluster with Spark"""
+    response = emr.create_cluster(
+        Name='data-processing-cluster',
+        ReleaseLabel='emr-6.10.0',
+        Instances={
+            'MasterInstanceGroup': {
+                'InstanceCount': 1,
+                'InstanceType': 'm5.xlarge'
+            },
+            'CoreInstanceGroup': {
+                'InstanceCount': 2,
+                'InstanceType': 'm5.xlarge'
+            },
+            'Ec2KeyName': 'my-key-pair',
+            'KeepJobFlowAliveWhenNoSteps': False
+        },
+        Applications=[
+            {'Name': 'Spark'},
+            {'Name': 'Hive'},
+            {'Name': 'Hadoop'},
+            {'Name': 'Zeppelin'}
+        ],
+        Configurations=[
+            {
+                'Classification': 'spark',
+                'ConfigurationProperties': {
+                    'maximizeResourceAllocation': 'true'
+                }
+            },
+            {
+                'Classification': 'spark-defaults',
+                'ConfigurationProperties': {
+                    'spark.executor.memory': '4g',
+                    'spark.driver.memory': '4g',
+                    'spark.executor.cores': '4'
+                }
+            }
+        ],
+        LogUri='s3://my-logs-bucket/emr-logs/',
+        ServiceRole='EMR_DefaultRole',
+        JobFlowRole='EMR_EC2_DefaultRole',
+        StepConcurrencyLevel=2
+    )
+
+    cluster_id = response['JobFlowId']
+    print(f"Cluster created: {cluster_id}")
+    return cluster_id
+
+# Create cluster
+cluster_id = create_spark_cluster()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Submit Spark Job to EMR</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">def submit_spark_job(cluster_id, script_path, args=None):
+    """Submit Spark job to EMR cluster"""
+    response = emr.add_job_flow_steps(
+        JobFlowId=cluster_id,
+        Steps=[
+            {
+                'Name': 'Spark Data Processing',
+                'ActionOnFailure': 'CONTINUE',
+                'HadoopJarStep': {
+                    'Jar': 'command-runner.jar',
+                    'Args': [
+                        'spark-submit',
+                        '--master', 'yarn',
+                        '--deploy-mode', 'cluster',
+                        '--num-executors', '4',
+                        '--executor-cores', '4',
+                        '--executor-memory', '4g',
+                        '--driver-memory', '4g',
+                        script_path
+                    ] + (args or [])
+                }
+            }
+        ]
+    )
+
+    step_id = response['StepIds'][0]
+    print(f"Job submitted: {step_id}")
+    return step_id
+
+# Monitor step status
+def get_step_status(cluster_id, step_id):
+    """Get step status"""
+    response = emr.describe_step(
+        ClusterId=cluster_id,
+        StepId=step_id
+    )
+    status = response['Step']['Status']['State']
+    print(f"Step status: {status}")
+    return status
+
+# List clusters
+def list_clusters():
+    """List active EMR clusters"""
+    response = emr.list_clusters(ClusterStates=['RUNNING', 'WAITING'])
+    for cluster in response['Clusters']:
+        print(f"Cluster: {cluster['Name']} ({cluster['Id']})")
+    return response['Clusters']</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Spark ETL Script</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">#!/usr/bin/env python
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+import sys
+
+# Create Spark session
+spark = SparkSession.builder \
+    .appName('DataProcessing') \
+    .getOrCreate()
+
+# Read from S3
+input_path = 's3://my-data-bucket/input/'
+df = spark.read.option('inferSchema', 'true') \
+    .option('header', 'true') \
+    .csv(input_path)
+
+# Data processing
+processed_df = df \
+    .filter(col('amount') > 0) \
+    .withColumn('year', year(col('date'))) \
+    .withColumn('month', month(col('date'))) \
+    .groupBy('year', 'month', 'category') \
+    .agg(
+        sum('amount').alias('total_amount'),
+        count('*').alias('transaction_count'),
+        avg('amount').alias('avg_amount')
+    )
+
+# Write to S3
+output_path = 's3://my-data-bucket/output/'
+processed_df.write \
+    .mode('overwrite') \
+    .partitionBy('year', 'month') \
+    .parquet(output_path)
+
+spark.stop()</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 4: PySpark Data Processing</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="4" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> RDD and DataFrame APIs</li>
+                    <li><i class="fas fa-check-circle"></i> Complex transformations and joins</li>
+                    <li><i class="fas fa-check-circle"></i> Aggregations and window functions</li>
+                    <li><i class="fas fa-check-circle"></i> Performance optimization and tuning</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Advanced PySpark Operations</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">from pyspark.sql import SparkSession
+from pyspark.sql.functions import *
+from pyspark.sql.window import Window
+from pyspark.sql.types import StructType, StructField, StringType, DoubleType, TimestampType
+
+spark = SparkSession.builder.appName('Advanced').getOrCreate()
+
+# Define schema
+schema = StructType([
+    StructField('transaction_id', StringType()),
+    StructField('customer_id', StringType()),
+    StructField('amount', DoubleType()),
+    StructField('timestamp', TimestampType())
+])
+
+# Read data
+df = spark.read.schema(schema).json('s3://bucket/data/')
+
+# Complex aggregations
+customer_stats = df.groupBy('customer_id') \
+    .agg(
+        count('*').alias('transaction_count'),
+        sum('amount').alias('total_amount'),
+        avg('amount').alias('avg_amount'),
+        max('amount').alias('max_amount'),
+        min('amount').alias('min_amount'),
+        stddev('amount').alias('stddev_amount')
+    )
+
+# Window functions
+window_spec = Window.partitionBy('customer_id') \
+    .orderBy('timestamp') \
+    .rangeBetween(Window.unboundedPreceding, Window.currentRow)
+
+df_with_running_total = df.withColumn(
+    'running_total',
+    sum('amount').over(window_spec)
+)
+
+# Rank and dense rank
+rank_window = Window.partitionBy('customer_id') \
+    .orderBy(desc('amount'))
+
+df_ranked = df.withColumn('rank', rank().over(rank_window)) \
+    .withColumn('dense_rank', dense_rank().over(rank_window))
+
+# User-defined function
+def categorize_amount(amount):
+    if amount > 1000:
+        return 'high'
+    elif amount > 500:
+        return 'medium'
+    else:
+        return 'low'
+
+categorize_udf = udf(categorize_amount, StringType())
+df_categorized = df.withColumn('amount_category', categorize_udf(col('amount')))</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Joins and Data Combining</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Read multiple datasets
+transactions = spark.read.parquet('s3://bucket/transactions/')
+customers = spark.read.parquet('s3://bucket/customers/')
+products = spark.read.parquet('s3://bucket/products/')
+
+# Inner join
+joined = transactions.join(
+    customers,
+    transactions.customer_id == customers.id,
+    'inner'
+)
+
+# Multiple joins
+multi_join = transactions \
+    .join(customers, transactions.customer_id == customers.id, 'left') \
+    .join(products, transactions.product_id == products.id, 'left')
+
+# Broadcast small table for efficiency
+from pyspark.sql.functions import broadcast
+
+optimized_join = transactions.join(
+    broadcast(customers),
+    transactions.customer_id == customers.id,
+    'left'
+)
+
+# Self join
+df_self = transactions.alias('t1').join(
+    transactions.alias('t2'),
+    col('t1.customer_id') == col('t2.customer_id'),
+    'inner'
+).select('t1.*', 't2.amount')
+
+# Union
+combined = transactions.union(transactions)  # Remove duplicates with distinct()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Performance Optimization</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Caching for reuse
+df.cache()
+df.count()  # Force computation
+
+# Partitioning for parallel processing
+df_partitioned = df.repartition(100, 'customer_id')
+
+# Bucketing
+df.write.bucketBy(10, 'customer_id').mode('overwrite').parquet('output/')
+
+# Optimize joins with buckets
+transactions_bucketed = spark.read.parquet('bucketed/transactions')
+customers_bucketed = spark.read.parquet('bucketed/customers')
+
+fast_join = transactions_bucketed.join(customers_bucketed, 'customer_id')
+
+# Columnar storage with Parquet
+df.write.mode('overwrite').parquet('s3://bucket/parquet/')
+
+# Compression
+df.write.mode('overwrite') \
+    .option('compression', 'snappy') \
+    .parquet('s3://bucket/compressed/')
+
+# Broadcast join hint
+df1.join(broadcast(df2), 'customer_id')
+
+# Explain execution plan
+df.explain(extended=True)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 5: AWS Step Functions</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="5" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Step Functions state machines</li>
+                    <li><i class="fas fa-check-circle"></i> Orchestrating data workflows</li>
+                    <li><i class="fas fa-check-circle"></i> Error handling and retries</li>
+                    <li><i class="fas fa-check-circle"></i> Integration with other AWS services</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Create State Machine Definition</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+import json
+
+stepfunctions = boto3.client('stepfunctions')
+
+# Define state machine
+state_machine_definition = {
+    "Comment": "Data Pipeline Workflow",
+    "StartAt": "ValidateInput",
+    "States": {
+        "ValidateInput": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:region:account:function:ValidateData",
+            "Next": "ProcessData",
+            "Catch": [{
+                "ErrorEquals": ["ValidationError"],
+                "Next": "HandleError"
+            }]
+        },
+        "ProcessData": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::glue:startJobRun.sync",
+            "Parameters": {
+                "JobName": "DataProcessingJob",
+                "Arguments": {
+                    "--input-path": "$.inputPath",
+                    "--output-path": "$.outputPath"
+                }
+            },
+            "Next": "CheckJobResult",
+            "Retry": [{
+                "ErrorEquals": ["States.TaskFailed"],
+                "IntervalSeconds": 2,
+                "MaxAttempts": 3,
+                "BackoffRate": 2.0
+            }]
+        },
+        "CheckJobResult": {
+            "Type": "Choice",
+            "Choices": [{
+                "Variable": "$.status",
+                "StringEquals": "SUCCEEDED",
+                "Next": "NotifySuccess"
+            }],
+            "Default": "NotifyFailure"
+        },
+        "NotifySuccess": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::sns:publish",
+            "Parameters": {
+                "TopicArn": "arn:aws:sns:region:account:DataPipelineSuccess",
+                "Message": "Pipeline completed successfully"
+            },
+            "End": True
+        },
+        "HandleError": {
+            "Type": "Task",
+            "Resource": "arn:aws:lambda:region:account:function:HandleError",
+            "End": True
+        },
+        "NotifyFailure": {
+            "Type": "Task",
+            "Resource": "arn:aws:sns:publish",
+            "Parameters": {
+                "TopicArn": "arn:aws:sns:region:account:DataPipelineFailure",
+                "Message": "Pipeline failed"
+            },
+            "End": True
+        }
+    }
+}
+
+# Create state machine
+response = stepfunctions.create_state_machine(
+    name='DataPipelineWorkflow',
+    definition=json.dumps(state_machine_definition),
+    roleArn='arn:aws:iam::ACCOUNT_ID:role/StepFunctionsRole'
+)
+
+print(f"State machine created: {response['stateMachineArn']}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Execute State Machine</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">def execute_workflow(state_machine_arn, input_data):
+    """Start state machine execution"""
+    response = stepfunctions.start_execution(
+        stateMachineArn=state_machine_arn,
+        name=f"execution_{int(time.time())}",
+        input=json.dumps(input_data)
+    )
+
+    execution_arn = response['executionArn']
+    print(f"Execution started: {execution_arn}")
+    return execution_arn
+
+def wait_for_execution(execution_arn):
+    """Wait for execution to complete"""
+    while True:
+        response = stepfunctions.describe_execution(executionArn=execution_arn)
+        status = response['status']
+        print(f"Status: {status}")
+
+        if status in ['SUCCEEDED', 'FAILED', 'TIMED_OUT', 'ABORTED']:
+            return response
+
+        time.sleep(5)
+
+def get_execution_history(execution_arn):
+    """Get execution history"""
+    response = stepfunctions.get_execution_history(executionArn=execution_arn)
+    return response['events']
+
+# Usage
+state_machine_arn = 'arn:aws:states:region:account:stateMachine:DataPipelineWorkflow'
+input_data = {
+    'inputPath': 's3://bucket/input/',
+    'outputPath': 's3://bucket/output/'
+}
+
+execution_arn = execute_workflow(state_machine_arn, input_data)
+result = wait_for_execution(execution_arn)
+print(f"Final status: {result['status']}")</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 6: Real-time Analytics</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="6" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Real-time data aggregations</li>
+                    <li><i class="fas fa-check-circle"></i> Time-windowed analytics</li>
+                    <li><i class="fas fa-check-circle"></i> Streaming metrics and KPIs</li>
+                    <li><i class="fas fa-check-circle"></i> Monitoring and alerting</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Real-time Aggregation with Kinesis</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">class RealtimeAggregator:
+    def __init__(self, stream_name):
+        self.stream_name = stream_name
+        self.kinesis = boto3.client('kinesis')
+        self.cloudwatch = boto3.client('cloudwatch')
+        self.metrics = {}
+
+    def process_stream(self):
+        """Process streaming data and calculate metrics"""
+        stream = self.kinesis.describe_stream(StreamName=self.stream_name)
+        shards = stream['StreamDescription']['Shards']
+
+        for shard in shards:
+            iterator = self.kinesis.get_shard_iterator(
+                StreamName=self.stream_name,
+                ShardId=shard['ShardId'],
+                ShardIteratorType='LATEST'
+            )['ShardIterator']
+
+            while iterator:
+                response = self.kinesis.get_records(ShardIterator=iterator)
+
+                for record in response['Records']:
+                    data = json.loads(record['Data'])
+                    self.aggregate_metrics(data)
+
+                iterator = response['NextShardIterator']
+                time.sleep(1)
+
+    def aggregate_metrics(self, event):
+        """Aggregate metrics from events"""
+        key = f"{event['user_id']}_{datetime.now().hour}"
+
+        if key not in self.metrics:
+            self.metrics[key] = {
+                'count': 0,
+                'total_amount': 0,
+                'events': []
+            }
+
+        self.metrics[key]['count'] += 1
+        self.metrics[key]['total_amount'] += event.get('amount', 0)
+        self.metrics[key]['events'].append(event)
+
+        # Publish to CloudWatch every 100 events
+        if self.metrics[key]['count'] % 100 == 0:
+            self.publish_metrics(key)
+
+    def publish_metrics(self, key):
+        """Publish metrics to CloudWatch"""
+        metrics = self.metrics[key]
+
+        self.cloudwatch.put_metric_data(
+            Namespace='RealtimeAnalytics',
+            MetricData=[
+                {
+                    'MetricName': 'EventCount',
+                    'Value': metrics['count'],
+                    'Unit': 'Count',
+                    'Timestamp': datetime.now()
+                },
+                {
+                    'MetricName': 'TotalAmount',
+                    'Value': metrics['total_amount'],
+                    'Unit': 'None',
+                    'Timestamp': datetime.now()
+                },
+                {
+                    'MetricName': 'AverageAmount',
+                    'Value': metrics['total_amount'] / metrics['count'],
+                    'Unit': 'None',
+                    'Timestamp': datetime.now()
+                }
+            ]
+        )
+
+# Usage
+aggregator = RealtimeAggregator('real-time-events')
+aggregator.process_stream()</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 7: Project - Real-time Streaming Pipeline</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="7" onchange="updateProgress()">
+                </div>
+
+                <h4>Project: Build Real-Time Pipeline (8-10 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Create Kinesis stream and producers</li>
+                    <li><i class="fas fa-check-circle"></i> Process with Lambda and Firehose</li>
+                    <li><i class="fas fa-check-circle"></i> Load to S3 and Redshift</li>
+                    <li><i class="fas fa-check-circle"></i> Real-time dashboards</li>
+                </ul>
+
+                <h4>Complete Project Code</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Complete Streaming Pipeline</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+import json
+from datetime import datetime
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+
+class StreamingPipeline:
+    def __init__(self, config):
+        self.kinesis = boto3.client('kinesis')
+        self.firehose = boto3.client('firehose')
+        self.cloudwatch = boto3.client('cloudwatch')
+        self.config = config
+
+    def start_producers(self, num_producers=3):
+        """Start multiple data producers"""
+        with ThreadPoolExecutor(max_workers=num_producers) as executor:
+            futures = [
+                executor.submit(self.produce_events, f'producer_{i}')
+                for i in range(num_producers)
+            ]
+            for future in futures:
+                future.result()
+
+    def produce_events(self, producer_id):
+        """Produce events to Kinesis"""
+        while True:
+            event = {
+                'event_id': str(uuid.uuid4()),
+                'producer_id': producer_id,
+                'user_id': f'user_{random.randint(1, 1000)}',
+                'amount': round(random.uniform(10, 1000), 2),
+                'timestamp': datetime.now().isoformat(),
+                'event_type': random.choice(['purchase', 'click', 'view'])
+            }
+
+            try:
+                self.kinesis.put_record(
+                    StreamName=self.config['stream_name'],
+                    Data=json.dumps(event),
+                    PartitionKey=event['user_id']
+                )
+                print(f"Event sent: {event['event_id']}")
+            except Exception as e:
+                print(f"Error: {e}")
+
+            time.sleep(0.5)
+
+    def consume_and_process(self):
+        """Consume and process events"""
+        stream = self.kinesis.describe_stream(StreamName=self.config['stream_name'])
+        shards = stream['StreamDescription']['Shards']
+
+        aggregates = {}
+
+        for shard in shards:
+            iterator = self.kinesis.get_shard_iterator(
+                StreamName=self.config['stream_name'],
+                ShardId=shard['ShardId'],
+                ShardIteratorType='LATEST'
+            )['ShardIterator']
+
+            while iterator:
+                response = self.kinesis.get_records(ShardIterator=iterator, Limit=100)
+
+                for record in response['Records']:
+                    event = json.loads(record['Data'])
+
+                    # Update aggregates
+                    user_id = event['user_id']
+                    if user_id not in aggregates:
+                        aggregates[user_id] = {
+                            'count': 0,
+                            'total': 0,
+                            'events': []
+                        }
+
+                    aggregates[user_id]['count'] += 1
+                    aggregates[user_id]['total'] += event['amount']
+                    aggregates[user_id]['events'].append(event)
+
+                    # Send to Firehose for persistence
+                    self.firehose.put_record(
+                        DeliveryStreamName=self.config['firehose_name'],
+                        Record={'Data': json.dumps(event) + '\n'}
+                    )
+
+                iterator = response['NextShardIterator']
+                time.sleep(1)
+
+                # Publish metrics every minute
+                if datetime.now().second == 0:
+                    self.publish_metrics(aggregates)
+
+    def publish_metrics(self, aggregates):
+        """Publish real-time metrics to CloudWatch"""
+        total_users = len(aggregates)
+        total_revenue = sum(a['total'] for a in aggregates.values())
+
+        self.cloudwatch.put_metric_data(
+            Namespace='StreamingPipeline',
+            MetricData=[
+                {
+                    'MetricName': 'ActiveUsers',
+                    'Value': total_users,
+                    'Unit': 'Count'
+                },
+                {
+                    'MetricName': 'TotalRevenue',
+                    'Value': total_revenue,
+                    'Unit': 'None'
+                },
+                {
+                    'MetricName': 'AvgRevenuePerUser',
+                    'Value': total_revenue / max(total_users, 1),
+                    'Unit': 'None'
+                }
+            ]
+        )
+
+# Usage
+config = {
+    'stream_name': 'real-time-events',
+    'firehose_name': 'events-to-s3'
+}
+
+pipeline = StreamingPipeline(config)
+pipeline.consume_and_process()</code></pre>
+                </div>
+
+                <h4>Resources</h4>
+                <div>
+                    <a href="https://docs.aws.amazon.com/kinesis/latest/dev/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Kinesis Documentation
+                    </a>
+                    <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> EMR Guide
+                    </a>
+                    <a href="https://spark.apache.org/docs/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Apache Spark Docs
+                    </a>
+                </div>
+            </div>
+
+            <!-- Week Completion -->
+            <div class="day-section" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white;">
+                <h3 style="color: white;">Week 6 Completion Checklist</h3>
+                <ul class="topics-list" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built Kinesis producers and consumers</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Implemented Firehose delivery streams</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Created EMR clusters with Spark</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Advanced PySpark data processing</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Orchestrated workflows with Step Functions</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built real-time analytics pipeline</li>
+                </ul>
+                <button onclick="completeWeek()" class="btn btn-primary" style="margin-top: 1rem; background: white; color: #43e97b;">
+                    <i class="fas fa-check-circle"></i> Mark Week 6 as Complete
+                </button>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const checked = document.querySelectorAll('.day-checkbox:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+            const progressBar = document.getElementById('week-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+            localStorage.setItem('week6-progress', percentage);
+        }
+
+        function completeWeek() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateProgress();
+            alert('Congratulations on completing Week 6! 🎉\n\nOn to Week 7: BI Tools & Dashboards');
+        }
+
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('week6-progress');
+            if (saved) {
+                const progressBar = document.getElementById('week-progress');
+                progressBar.style.width = saved + '%';
+                progressBar.textContent = saved + '%';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Account & Free Tier Setup | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        .aws-hero {
+            background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .aws-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .aws-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #FF5E62;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .aws-title {
+            font-size: 1.8rem;
+            color: #FF5E62;
+        }
+
+        .step-card-aws {
+            background: #fff5f3;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #FF5E62;
+            border-radius: 8px;
+        }
+
+        .step-title-aws {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #c4362f;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-number-aws {
+            background: #FF5E62;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-block code {
+            color: #d4d4d4;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: #856404;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: #721c24;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: #155724;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: #004085;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .service-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            box-shadow: 0 4px 12px rgba(255, 94, 98, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .service-name {
+            font-weight: 600;
+            color: #FF5E62;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-free {
+            font-size: 0.85rem;
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f9f9f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .checklist li i {
+            color: #FF5E62;
+        }
+
+        .command-box {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #FF5E62;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #FF9966;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #FF5E62;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .back-btn:hover {
+            background: #fff5f3;
+            transform: translateX(-5px);
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .pricing-table th {
+            background: #FF5E62;
+            color: white;
+            font-weight: 600;
+        }
+
+        .pricing-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        @media (max-width: 768px) {
+            .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aws-title {
+                font-size: 1.3rem;
+            }
+
+            .pricing-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- AWS Hero -->
+    <section class="aws-hero">
+        <div class="container">
+            <h1><i class="fab fa-aws"></i> AWS Account & Free Tier Setup</h1>
+            <p>Complete guide to set up your AWS account and use free tier services safely</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+
+            <!-- Create AWS Account -->
+            <div class="aws-section">
+                <div class="aws-header">
+                    <h2 class="aws-title"><i class="fas fa-user-plus"></i> Create AWS Free Tier Account</h2>
+                </div>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i> You will need a valid credit card. AWS won't charge without explicit action.
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">1</span> Visit AWS Sign Up Page
+                    </div>
+                    <p>Go to <a href="https://aws.amazon.com/free/" target="_blank">aws.amazon.com/free</a></p>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">2</span> Create Account
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Enter email address</li>
+                        <li><i class="fas fa-check"></i> Create a strong password</li>
+                        <li><i class="fas fa-check"></i> Enter AWS account name (your company)</li>
+                        <li><i class="fas fa-check"></i> Click Create</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">3</span> Verify Contact Information
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Select "Personal" account type</li>
+                        <li><i class="fas fa-check"></i> Enter full name and address</li>
+                        <li><i class="fas fa-check"></i> Verify phone number with SMS</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">4</span> Add Payment Information
+                    </div>
+                    <p>Enter credit card details. You won't be charged unless you exceed free tier limits.</p>
+                    <div class="danger-box">
+                        <i class="fas fa-shield-alt"></i> AWS may charge $1 to verify your card - this will be refunded.
+                    </div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">5</span> Verify Identity
+                    </div>
+                    <p>Confirm via SMS or phone call</p>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">6</span> Choose Support Plan
+                    </div>
+                    <p>Select "Free" for basic support (sufficient for learning)</p>
+                </div>
+
+                <div class="success-box">
+                    <i class="fas fa-check-circle"></i> Account created! You can now log in to AWS Management Console.
+                </div>
+            </div>
+
+            <!-- AWS CLI Installation -->
+            <div class="aws-section">
+                <div class="aws-header">
+                    <h2 class="aws-title"><i class="fas fa-terminal"></i> AWS CLI Installation & Configuration</h2>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">1</span> Install AWS CLI
+                    </div>
+                    <p><strong>Windows:</strong> Download installer from <a href="https://awscli.amazonaws.com/AWSCLIV2.msi" target="_blank">AWS CLI MSI</a></p>
+                    <p><strong>macOS:</strong></p>
+                    <div class="code-block"><code>curl "https://awscli.amazonaws.com/awscli-macos.pkg" -o "AWSCLIV2.pkg"
+sudo installer -pkg AWSCLIV2.pkg -target /</code></div>
+                    <p><strong>Linux:</strong></p>
+                    <div class="code-block"><code>curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install</code></div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">2</span> Verify Installation
+                    </div>
+                    <div class="code-block"><code>aws --version</code></div>
+                    <p>Should output: aws-cli/2.x.x Python/3.x.x ...</p>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">3</span> Create IAM User for AWS CLI
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Log in to AWS Management Console</li>
+                        <li><i class="fas fa-check"></i> Search for "IAM" service</li>
+                        <li><i class="fas fa-check"></i> Click "Users" in left menu</li>
+                        <li><i class="fas fa-check"></i> Click "Create user"</li>
+                        <li><i class="fas fa-check"></i> Enter username (e.g., "dataeng-user")</li>
+                        <li><i class="fas fa-check"></i> Click "Next"</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">4</span> Attach Permissions Policy
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Select "Attach policies directly"</li>
+                        <li><i class="fas fa-check"></i> Search for and select "AdministratorAccess" (for learning)</li>
+                        <li><i class="fas fa-check"></i> Click "Next" then "Create user"</li>
+                    </ul>
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle"></i> Use restrictive policies in production. AdminAccess is only for learning.
+                    </div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">5</span> Create Access Keys
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Click on the user you created</li>
+                        <li><i class="fas fa-check"></i> Go to "Security credentials" tab</li>
+                        <li><i class="fas fa-check"></i> Click "Create access key"</li>
+                        <li><i class="fas fa-check"></i> Select "Command Line Interface (CLI)"</li>
+                        <li><i class="fas fa-check"></i> Click "Next" and confirm</li>
+                        <li><i class="fas fa-check"></i> Copy Access Key ID and Secret Access Key</li>
+                    </ul>
+                    <div class="danger-box">
+                        <i class="fas fa-lock"></i> Keep these keys secret! Never commit them to git.
+                    </div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">6</span> Configure AWS CLI
+                    </div>
+                    <div class="code-block"><code>aws configure</code></div>
+                    <p>Follow the prompts:</p>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> AWS Access Key ID: [paste your access key]</li>
+                        <li><i class="fas fa-check"></i> AWS Secret Access Key: [paste your secret]</li>
+                        <li><i class="fas fa-check"></i> Default region: us-east-1</li>
+                        <li><i class="fas fa-check"></i> Default output format: json</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">7</span> Test Configuration
+                    </div>
+                    <div class="code-block"><code">aws s3 ls</code></div>
+                    <p>Should list your S3 buckets (empty if none created yet)</p>
+                    <div class="success-box">
+                        <i class="fas fa-check-circle"></i> AWS CLI is configured and working!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Alerts -->
+            <div class="aws-section">
+                <div class="aws-header">
+                    <h2 class="aws-title"><i class="fas fa-bell"></i> Setting Up Billing Alerts</h2>
+                </div>
+
+                <div class="success-box">
+                    <i class="fas fa-lightbulb"></i> Critical: Set up billing alerts to avoid unexpected charges!
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">1</span> Enable Billing Alerts
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Go to AWS Management Console</li>
+                        <li><i class="fas fa-check"></i> Click your account name (top right)</li>
+                        <li><i class="fas fa-check"></i> Click "Billing Dashboard"</li>
+                        <li><i class="fas fa-check"></i> In left menu, click "Billing preferences"</li>
+                        <li><i class="fas fa-check"></i> Check "Receive Free Tier Usage Alerts"</li>
+                        <li><i class="fas fa-check"></i> Check "Receive Billing Alerts"</li>
+                        <li><i class="fas fa-check"></i> Save preferences</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">2</span> Create Billing Alarm (Optional but Recommended)
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Go to CloudWatch service</li>
+                        <li><i class="fas fa-check"></i> Click "Alarms" in left menu</li>
+                        <li><i class="fas fa-check"></i> Click "Create alarm"</li>
+                        <li><i class="fas fa-check"></i> Select metric: "Billing" > "Total Estimated Charge"</li>
+                        <li><i class="fas fa-check"></i> Set threshold (e.g., $10)</li>
+                        <li><i class="fas fa-check"></i> Create SNS topic for notifications</li>
+                        <li><i class="fas fa-check"></i> Confirm SNS subscription via email</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i> Recommended threshold: $1-10 for free tier learning
+                </div>
+            </div>
+
+            <!-- Boto3 Setup -->
+            <div class="aws-section">
+                <div class="aws-header">
+                    <h2 class="aws-title"><i class="fab fa-python"></i> AWS SDK (Boto3) Installation</h2>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">1</span> Install Boto3
+                    </div>
+                    <div class="code-block"><code">pip install boto3</code></div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">2</span> Basic Python Example
+                    </div>
+                    <div class="code-block"><code">import boto3
+
+# Create S3 client
+s3_client = boto3.client('s3')
+
+# List S3 buckets
+response = s3_client.list_buckets()
+for bucket in response['Buckets']:
+    print(f'Bucket: {bucket["Name"]}')</code></div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">3</span> Example: Create S3 Bucket
+                    </div>
+                    <div class="code-block"><code">import boto3
+
+s3_client = boto3.client('s3')
+
+# Create bucket
+bucket_name = 'my-data-bucket-' + str(int(time.time()))
+s3_client.create_bucket(Bucket=bucket_name)
+print(f'Bucket {bucket_name} created!')</code></div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">4</span> Example: Upload File to S3
+                    </div>
+                    <div class="code-block"><code">import boto3
+
+s3_client = boto3.client('s3')
+
+# Upload file
+s3_client.upload_file(
+    'local_file.txt',
+    'my-data-bucket',
+    'uploaded_file.txt'
+)
+print('File uploaded!')</code></div>
+                </div>
+
+                <div class="info-box">
+                    <i class="fas fa-info-circle"></i> More examples: <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html" target="_blank">Boto3 Documentation</a>
+                </div>
+            </div>
+
+            <!-- Free Tier Services -->
+            <div class="aws-section">
+                <div class="aws-header">
+                    <h2 class="aws-title"><i class="fas fa-gift"></i> Free Tier Services Overview</h2>
+                </div>
+
+                <div class="success-box">
+                    <i class="fas fa-info-circle"></i> Free Tier includes 12 months of free services plus always-free services. See details below.
+                </div>
+
+                <h3 style="color: #FF5E62; margin: 1.5rem 0;">Most Useful for Data Engineering</h3>
+                <div class="service-grid">
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-database"></i> S3</div>
+                        <div class="service-desc">Object Storage</div>
+                        <div class="service-free">5 GB storage (12 months)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Great for data lakes and backups</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-database"></i> RDS</div>
+                        <div class="service-desc">Relational Database</div>
+                        <div class="service-free">750 hours/month (12 months)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">MySQL, PostgreSQL, MariaDB available</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-cube"></i> DynamoDB</div>
+                        <div class="service-desc">NoSQL Database</div>
+                        <div class="service-free">25 GB storage (always free)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Always free tier - great value!</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-cog"></i> Lambda</div>
+                        <div class="service-desc">Serverless Compute</div>
+                        <div class="service-free">1M requests/month (always free)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Perfect for event-driven processing</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-server"></i> EC2</div>
+                        <div class="service-desc">Virtual Servers</div>
+                        <div class="service-free">750 hours/month (12 months)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">t2.micro instance</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-fire"></i> Glue</div>
+                        <div class="service-desc">ETL Service</div>
+                        <div class="service-free">1M DPU-hours/month (12 months)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Build data pipelines</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-search"></i> Athena</div>
+                        <div class="service-desc">Query S3 Data</div>
+                        <div class="service-free">1 TB queries/month (12 months)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">SQL queries on S3</p>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-name"><i class="fas fa-eye"></i> CloudWatch</div>
+                        <div class="service-desc">Monitoring</div>
+                        <div class="service-free">Free tier + free logs (always)</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem;">Monitor your resources</p>
+                    </div>
+                </div>
+
+                <h3 style="color: #FF5E62; margin-top: 2rem; margin-bottom: 1rem;">Free Tier Limits (Don't Exceed!)</h3>
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Free Tier</th>
+                            <th>Beyond Limit Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>S3 Storage</td>
+                            <td>5 GB</td>
+                            <td>$0.023/GB</td>
+                        </tr>
+                        <tr>
+                            <td>EC2 Compute</td>
+                            <td>750 hrs/mo (t2.micro)</td>
+                            <td>$0.0116/hour</td>
+                        </tr>
+                        <tr>
+                            <td>RDS Database</td>
+                            <td>750 hrs/mo (db.t2.micro)</td>
+                            <td>~$0.02/hour</td>
+                        </tr>
+                        <tr>
+                            <td>Lambda</td>
+                            <td>1M requests/month</td>
+                            <td>$0.20 per million</td>
+                        </tr>
+                        <tr>
+                            <td>Data Transfer</td>
+                            <td>100 GB/month (out)</td>
+                            <td>$0.09/GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Cost Optimization -->
+            <div class="aws-section">
+                <div class="aws-header">
+                    <h2 class="aws-title"><i class="fas fa-dollar-sign"></i> Cost Optimization Tips</h2>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">1</span> Clean Up Unused Resources
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Delete unused EC2 instances</li>
+                        <li><i class="fas fa-check"></i> Stop RDS databases when not in use</li>
+                        <li><i class="fas fa-check"></i> Delete old S3 buckets</li>
+                        <li><i class="fas fa-check"></i> Remove unused Elastic IPs</li>
+                        <li><i class="fas fa-check"></i> Delete old snapshots</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">2</span> Monitor Your Spending
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Check Billing Dashboard daily</li>
+                        <li><i class="fas fa-check"></i> Use AWS Cost Explorer</li>
+                        <li><i class="fas fa-check"></i> Set up billing alerts</li>
+                        <li><i class="fas fa-check"></i> Enable free tier alerts</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">3</span> Use Cost Optimization Tools
+                    </div>
+                    <p><strong>AWS Trusted Advisor:</strong> Free recommendations for optimization</p>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Log in to AWS Console</li>
+                        <li><i class="fas fa-check"></i> Search for "Trusted Advisor"</li>
+                        <li><i class="fas fa-check"></i> Review "Cost Optimization" recommendations</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">4</span> Best Practices
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Use auto-scaling for variable workloads</li>
+                        <li><i class="fas fa-check"></i> Choose appropriate instance sizes</li>
+                        <li><i class="fas fa-check"></i> Enable S3 lifecycle policies</li>
+                        <li><i class="fas fa-check"></i> Use Spot Instances for non-critical tasks</li>
+                        <li><i class="fas fa-check"></i> Store infrequent data in Glacier</li>
+                    </ul>
+                </div>
+
+                <div class="danger-box">
+                    <i class="fas fa-exclamation-triangle"></i> Always remember: Free tier is limited. Unexpected usage can result in charges. Monitor closely!
+                </div>
+            </div>
+
+            <!-- Security Best Practices -->
+            <div class="aws-section">
+                <div class="aws-header">
+                    <h2 class="aws-title"><i class="fas fa-shield-alt"></i> Security Best Practices</h2>
+                </div>
+
+                <div class="danger-box">
+                    <i class="fas fa-lock"></i> Never share AWS credentials. Use IAM roles and policies instead.
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">1</span> Root Account Security
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Enable MFA (Multi-Factor Authentication) on root</li>
+                        <li><i class="fas fa-check"></i> Don't use root for daily tasks</li>
+                        <li><i class="fas fa-check"></i> Keep root credentials secure</li>
+                        <li><i class="fas fa-check"></i> Use IAM users instead</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">2</span> Enable MFA
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Log in to AWS Console (root account)</li>
+                        <li><i class="fas fa-check"></i> Click account name → My Account</li>
+                        <li><i class="fas fa-check"></i> Scroll to "Multi-factor authentication"</li>
+                        <li><i class="fas fa-check"></i> Activate MFA Device</li>
+                        <li><i class="fas fa-check"></i> Use authenticator app (Google Authenticator, Authy)</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">3</span> IAM Best Practices
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Create IAM users for each person</li>
+                        <li><i class="fas fa-check"></i> Use IAM roles for services</li>
+                        <li><i class="fas fa-check"></i> Apply least privilege principle</li>
+                        <li><i class="fas fa-check"></i> Regularly rotate access keys</li>
+                        <li><i class="fas fa-check"></i> Never hardcode credentials in code</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">4</span> Secure Credential Storage
+                    </div>
+                    <p>Never commit credentials to Git. Use environment variables or AWS Secrets Manager:</p>
+                    <div class="code-block"><code"># Instead of hardcoding:
+# aws_access_key = "AKIAIOSFODNN7EXAMPLE"
+
+# Use environment variables:
+import os
+aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')</code></div>
+                    <p><strong>.gitignore template:</strong></p>
+                    <div class="code-block"><code"># AWS credentials
+.aws/
+aws_credentials.py
+.env
+*.key
+*.pem</code></div>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">5</span> Enable Logging and Auditing
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Enable CloudTrail for API logging</li>
+                        <li><i class="fas fa-check"></i> Enable S3 access logging</li>
+                        <li><i class="fas fa-check"></i> Enable RDS audit logs</li>
+                        <li><i class="fas fa-check"></i> Review logs regularly</li>
+                    </ul>
+                </div>
+
+                <div class="step-card-aws">
+                    <div class="step-title-aws">
+                        <span class="step-number-aws">6</span> Network Security
+                    </div>
+                    <ul class="checklist">
+                        <li><i class="fas fa-check"></i> Use VPC for isolating resources</li>
+                        <li><i class="fas fa-check"></i> Configure Security Groups (firewalls)</li>
+                        <li><i class="fas fa-check"></i> Use Network ACLs for additional control</li>
+                        <li><i class="fas fa-check"></i> Block public access to S3 by default</li>
+                        <li><i class="fas fa-check"></i> Use VPC endpoints for private access</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Setup Checklist -->
+            <div class="aws-section" style="background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%); color: white;">
+                <h3 style="color: white;">AWS Setup Completion Checklist</h3>
+                <ul class="checklist" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> AWS Free Tier account created
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> MFA enabled on root account
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> IAM user created with programmatic access
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> AWS CLI installed and configured
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> Boto3 installed and tested
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> Billing alerts enabled
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> Test S3 bucket created
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> Understand free tier limits
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-check-circle"></i> Security best practices reviewed
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Useful Links -->
+            <div class="aws-section">
+                <h3 style="color: #FF5E62; margin-bottom: 1rem;">Useful AWS Documentation Links</h3>
+                <ul class="checklist">
+                    <li>
+                        <i class="fas fa-link"></i>
+                        <a href="https://docs.aws.amazon.com/cli/latest/userguide/" target="_blank">AWS CLI Documentation</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-link"></i>
+                        <a href="https://boto3.amazonaws.com/v1/documentation/api/latest/index.html" target="_blank">Boto3 Documentation</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-link"></i>
+                        <a href="https://docs.aws.amazon.com/iam/" target="_blank">IAM Documentation</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-link"></i>
+                        <a href="https://aws.amazon.com/free/free-tier-faqs/" target="_blank">Free Tier FAQs</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-link"></i>
+                        <a href="https://aws.amazon.com/getting-started/" target="_blank">AWS Getting Started</a>
+                    </li>
+                </ul>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

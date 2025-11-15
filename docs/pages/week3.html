@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3: Statistics & Visualization | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .week-hero {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f093fb;
+        }
+
+        .day-title {
+            font-size: 1.8rem;
+            color: #f093fb;
+        }
+
+        .day-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+
+        .topics-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .topics-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .topics-list li i {
+            color: #f093fb;
+        }
+
+        .code-snippet {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .code-snippet pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+
+        .code-title {
+            background: #f093fb;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            margin-bottom: -0.5rem;
+            display: inline-block;
+        }
+
+        .resource-link {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f093fb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .resource-link:hover {
+            background: #f5576c;
+            transform: translateY(-2px);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #f093fb;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+            border: 2px solid #f093fb;
+        }
+
+        .back-btn:hover {
+            background: #f093fb;
+            color: white;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Week Hero -->
+    <section class="week-hero">
+        <div class="container">
+            <h1>Week 3: Statistics & Visualization</h1>
+            <p>Master data analysis, statistics, and create stunning visualizations</p>
+            <div class="progress-bar-container" style="max-width: 600px; margin: 2rem auto;">
+                <div class="progress-bar" id="week-progress" style="width: 0%;">0%</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+
+            <!-- Day 1 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 1: NumPy Fundamentals</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="1" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> NumPy arrays and operations</li>
+                    <li><i class="fas fa-check-circle"></i> Array indexing and slicing</li>
+                    <li><i class="fas fa-check-circle"></i> Mathematical operations</li>
+                    <li><i class="fas fa-check-circle"></i> Broadcasting and vectorization</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> NumPy Basics</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import numpy as np
+
+# Creating arrays
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.arange(0, 10, 2)  # [0, 2, 4, 6, 8]
+arr3 = np.linspace(0, 1, 5)  # 5 evenly spaced values
+
+# 2D arrays
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+# Array operations
+arr_squared = arr1 ** 2
+arr_sum = arr1 + arr2[:5]
+arr_mean = np.mean(arr1)
+
+# Reshaping
+reshaped = np.arange(12).reshape(3, 4)
+
+# Boolean indexing
+filtered = arr1[arr1 > 3]  # [4, 5]
+
+print(f"Mean: {arr_mean}")
+print(f"Filtered array: {filtered}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Advanced NumPy Operations</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Statistical operations
+data = np.random.randn(1000)  # 1000 random numbers
+
+statistics = {
+    'mean': np.mean(data),
+    'median': np.median(data),
+    'std': np.std(data),
+    'variance': np.var(data),
+    'min': np.min(data),
+    'max': np.max(data),
+    'percentile_25': np.percentile(data, 25),
+    'percentile_75': np.percentile(data, 75)
+}
+
+for key, value in statistics.items():
+    print(f"{key}: {value:.4f}")</code></pre>
+                </div>
+
+                <h4>Exercises</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-code"></i> Create arrays with different methods</li>
+                    <li><i class="fas fa-code"></i> Perform matrix operations</li>
+                    <li><i class="fas fa-code"></i> Calculate statistics on sample data</li>
+                </ul>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 2: Pandas DataFrames</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="2" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Series and DataFrame creation</li>
+                    <li><i class="fas fa-check-circle"></i> Reading CSV, Excel, JSON files</li>
+                    <li><i class="fas fa-check-circle"></i> Data selection and filtering</li>
+                    <li><i class="fas fa-check-circle"></i> Basic data cleaning</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Creating and Loading DataFrames</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import pandas as pd
+
+# Create DataFrame from dictionary
+data = {
+    'name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'age': [25, 30, 35, 28],
+    'salary': [50000, 60000, 75000, 55000],
+    'department': ['IT', 'HR', 'IT', 'Sales']
+}
+df = pd.DataFrame(data)
+
+# Read from CSV
+# df = pd.read_csv('employees.csv')
+
+# Read from Excel
+# df = pd.read_excel('employees.xlsx', sheet_name='Sheet1')
+
+# Read from JSON
+# df = pd.read_json('employees.json')
+
+# Display first/last rows
+print(df.head())
+print(df.tail(2))
+
+# Basic info
+print(df.info())
+print(df.describe())
+print(df.shape)  # (rows, columns)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Data Selection and Filtering</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Column selection
+names = df['name']
+subset = df[['name', 'salary']]
+
+# Row selection by index
+first_row = df.iloc[0]
+first_two = df.iloc[0:2]
+
+# Filtering
+high_earners = df[df['salary'] > 55000]
+it_dept = df[df['department'] == 'IT']
+
+# Multiple conditions
+young_high_earners = df[(df['age'] < 30) & (df['salary'] > 50000)]
+
+# Using query
+result = df.query('age > 28 and department == "IT"')
+
+print(high_earners)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Data Cleaning</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Handling missing values
+df_with_nulls = df.copy()
+df_with_nulls.loc[1, 'salary'] = None
+
+# Check for nulls
+print(df_with_nulls.isnull().sum())
+
+# Drop rows with nulls
+df_dropped = df_with_nulls.dropna()
+
+# Fill nulls
+df_filled = df_with_nulls.fillna(0)
+df_filled_mean = df_with_nulls.fillna(df_with_nulls['salary'].mean())
+
+# Remove duplicates
+df_unique = df.drop_duplicates()
+
+# Rename columns
+df_renamed = df.rename(columns={'name': 'employee_name'})
+
+print(df_filled)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 3: Data Manipulation with Pandas</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="3" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> GroupBy operations</li>
+                    <li><i class="fas fa-check-circle"></i> Merging and joining DataFrames</li>
+                    <li><i class="fas fa-check-circle"></i> Pivot tables</li>
+                    <li><i class="fas fa-check-circle"></i> Apply and transform functions</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> GroupBy and Aggregation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># GroupBy operations
+grouped = df.groupby('department')
+
+# Aggregate functions
+dept_stats = df.groupby('department').agg({
+    'salary': ['mean', 'max', 'min', 'count'],
+    'age': 'mean'
+})
+
+# Multiple aggregations
+summary = df.groupby('department')['salary'].agg([
+    ('avg_salary', 'mean'),
+    ('total_salary', 'sum'),
+    ('employee_count', 'count')
+])
+
+print(dept_stats)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Merging DataFrames</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Sample data
+df1 = pd.DataFrame({
+    'employee_id': [1, 2, 3],
+    'name': ['Alice', 'Bob', 'Charlie']
+})
+
+df2 = pd.DataFrame({
+    'employee_id': [1, 2, 4],
+    'project': ['Project A', 'Project B', 'Project C']
+})
+
+# Inner join
+inner = pd.merge(df1, df2, on='employee_id', how='inner')
+
+# Left join
+left = pd.merge(df1, df2, on='employee_id', how='left')
+
+# Outer join
+outer = pd.merge(df1, df2, on='employee_id', how='outer')
+
+# Concatenate
+combined = pd.concat([df1, df2], axis=0, ignore_index=True)
+
+print(inner)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Apply Functions</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Apply function to column
+df['salary_category'] = df['salary'].apply(
+    lambda x: 'High' if x > 60000 else 'Medium' if x > 50000 else 'Low'
+)
+
+# Apply custom function
+def calculate_bonus(row):
+    if row['department'] == 'IT':
+        return row['salary'] * 0.15
+    else:
+        return row['salary'] * 0.10
+
+df['bonus'] = df.apply(calculate_bonus, axis=1)
+
+# Transform
+df['salary_normalized'] = df.groupby('department')['salary'].transform(
+    lambda x: (x - x.mean()) / x.std()
+)
+
+print(df)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 4: Descriptive Statistics</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="4" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Measures of central tendency</li>
+                    <li><i class="fas fa-check-circle"></i> Measures of dispersion</li>
+                    <li><i class="fas fa-check-circle"></i> Correlation and covariance</li>
+                    <li><i class="fas fa-check-circle"></i> Probability distributions</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Statistical Analysis</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import numpy as np
+import pandas as pd
+from scipy import stats
+
+# Sample data
+np.random.seed(42)
+data = np.random.normal(100, 15, 1000)  # mean=100, std=15
+
+# Central tendency
+mean = np.mean(data)
+median = np.median(data)
+mode = stats.mode(data, keepdims=True)[0][0]
+
+# Dispersion
+variance = np.var(data)
+std_dev = np.std(data)
+range_val = np.ptp(data)  # peak to peak
+iqr = stats.iqr(data)  # Interquartile range
+
+# Percentiles
+q1 = np.percentile(data, 25)
+q3 = np.percentile(data, 75)
+
+print(f"Mean: {mean:.2f}")
+print(f"Median: {median:.2f}")
+print(f"Standard Deviation: {std_dev:.2f}")
+print(f"IQR: {iqr:.2f}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Correlation Analysis</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Create sample dataset
+df_stats = pd.DataFrame({
+    'hours_studied': np.random.randint(1, 10, 100),
+    'practice_tests': np.random.randint(0, 20, 100),
+    'score': np.random.randint(50, 100, 100)
+})
+
+# Correlation matrix
+correlation = df_stats.corr()
+print("Correlation Matrix:")
+print(correlation)
+
+# Specific correlation
+corr_study_score = df_stats['hours_studied'].corr(df_stats['score'])
+print(f"\nCorrelation between study hours and score: {corr_study_score:.3f}")
+
+# Covariance
+covariance = df_stats.cov()
+print("\nCovariance Matrix:")
+print(covariance)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 5: Matplotlib Basics</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="5" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Line plots and scatter plots</li>
+                    <li><i class="fas fa-check-circle"></i> Bar charts and histograms</li>
+                    <li><i class="fas fa-check-circle"></i> Customization (colors, labels, legends)</li>
+                    <li><i class="fas fa-check-circle"></i> Subplots and figure layout</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Basic Plots</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import matplotlib.pyplot as plt
+import numpy as np
+
+# Line plot
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, color='blue', linewidth=2, label='sin(x)')
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
+plt.title('Sine Wave')
+plt.legend()
+plt.grid(True)
+plt.savefig('sine_wave.png')
+plt.show()
+
+# Scatter plot
+x = np.random.randn(100)
+y = np.random.randn(100)
+colors = np.random.rand(100)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(x, y, c=colors, s=50, alpha=0.6, cmap='viridis')
+plt.colorbar()
+plt.title('Scatter Plot Example')
+plt.show()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Bar Charts and Histograms</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Bar chart
+categories = ['A', 'B', 'C', 'D']
+values = [23, 45, 56, 78]
+
+plt.figure(figsize=(8, 6))
+plt.bar(categories, values, color='skyblue', edgecolor='navy')
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.title('Bar Chart Example')
+plt.show()
+
+# Histogram
+data = np.random.normal(100, 15, 1000)
+
+plt.figure(figsize=(10, 6))
+plt.hist(data, bins=30, color='green', alpha=0.7, edgecolor='black')
+plt.xlabel('Value')
+plt.ylabel('Frequency')
+plt.title('Histogram of Normal Distribution')
+plt.axvline(data.mean(), color='red', linestyle='--', label='Mean')
+plt.legend()
+plt.show()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Subplots</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Multiple subplots
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# Plot 1: Line plot
+axes[0, 0].plot(x, np.sin(x))
+axes[0, 0].set_title('Sine')
+
+# Plot 2: Cosine
+axes[0, 1].plot(x, np.cos(x), 'r')
+axes[0, 1].set_title('Cosine')
+
+# Plot 3: Scatter
+axes[1, 0].scatter(np.random.randn(50), np.random.randn(50))
+axes[1, 0].set_title('Scatter')
+
+# Plot 4: Histogram
+axes[1, 1].hist(np.random.randn(1000), bins=30)
+axes[1, 1].set_title('Histogram')
+
+plt.tight_layout()
+plt.show()</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 6: Seaborn for Advanced Visualization</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="6" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Seaborn styling and themes</li>
+                    <li><i class="fas fa-check-circle"></i> Distribution plots (violin, box, kde)</li>
+                    <li><i class="fas fa-check-circle"></i> Categorical plots</li>
+                    <li><i class="fas fa-check-circle"></i> Heatmaps and pair plots</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Seaborn Visualizations</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+# Set style
+sns.set_style('whitegrid')
+sns.set_palette('husl')
+
+# Sample data
+tips = sns.load_dataset('tips')
+
+# Box plot
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='day', y='total_bill', data=tips)
+plt.title('Total Bill by Day')
+plt.show()
+
+# Violin plot
+plt.figure(figsize=(10, 6))
+sns.violinplot(x='day', y='total_bill', hue='sex', data=tips)
+plt.title('Total Bill Distribution by Day and Gender')
+plt.show()
+
+# Distribution plot
+plt.figure(figsize=(10, 6))
+sns.histplot(tips['total_bill'], kde=True, bins=30)
+plt.title('Distribution of Total Bill')
+plt.show()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Correlation Heatmap</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Create sample dataset
+df = pd.DataFrame({
+    'A': np.random.randn(100),
+    'B': np.random.randn(100),
+    'C': np.random.randn(100),
+    'D': np.random.randn(100)
+})
+
+# Correlation heatmap
+plt.figure(figsize=(8, 6))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm', center=0,
+            square=True, linewidths=1)
+plt.title('Correlation Heatmap')
+plt.show()
+
+# Pair plot
+iris = sns.load_dataset('iris')
+sns.pairplot(iris, hue='species', diag_kind='kde')
+plt.show()</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 7: Data Analysis Project</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="7" onchange="updateProgress()">
+                </div>
+
+                <h4>Mini Project: Sales Data Analysis (6-8 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Load and clean a sales dataset</li>
+                    <li><i class="fas fa-check-circle"></i> Perform exploratory data analysis</li>
+                    <li><i class="fas fa-check-circle"></i> Calculate key metrics and statistics</li>
+                    <li><i class="fas fa-check-circle"></i> Create comprehensive visualizations</li>
+                    <li><i class="fas fa-check-circle"></i> Generate insights and report</li>
+                </ul>
+
+                <h4>Complete Project Code</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Sales Analysis Project</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Generate sample sales data
+np.random.seed(42)
+dates = pd.date_range('2023-01-01', periods=365, freq='D')
+sales_data = pd.DataFrame({
+    'date': dates,
+    'product': np.random.choice(['Product A', 'Product B', 'Product C'], 365),
+    'region': np.random.choice(['North', 'South', 'East', 'West'], 365),
+    'sales': np.random.randint(100, 1000, 365),
+    'quantity': np.random.randint(1, 50, 365),
+    'discount': np.random.choice([0, 5, 10, 15], 365)
+})
+
+# Data cleaning
+sales_data['revenue'] = sales_data['sales'] * (1 - sales_data['discount']/100)
+sales_data['month'] = sales_data['date'].dt.month
+sales_data['quarter'] = sales_data['date'].dt.quarter
+
+# Analysis 1: Monthly sales trend
+monthly_sales = sales_data.groupby('month')['revenue'].sum()
+
+plt.figure(figsize=(12, 6))
+plt.plot(monthly_sales.index, monthly_sales.values, marker='o')
+plt.xlabel('Month')
+plt.ylabel('Revenue')
+plt.title('Monthly Revenue Trend')
+plt.grid(True)
+plt.show()
+
+# Analysis 2: Product performance
+product_analysis = sales_data.groupby('product').agg({
+    'revenue': 'sum',
+    'quantity': 'sum',
+    'sales': 'mean'
+}).round(2)
+
+print("Product Performance:")
+print(product_analysis)
+
+# Analysis 3: Regional comparison
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='region', y='revenue', data=sales_data)
+plt.title('Revenue Distribution by Region')
+plt.show()
+
+# Analysis 4: Correlation analysis
+plt.figure(figsize=(8, 6))
+corr = sales_data[['sales', 'quantity', 'discount', 'revenue']].corr()
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.title('Correlation Matrix')
+plt.show()
+
+# Generate summary report
+print("\n=== SALES ANALYSIS REPORT ===")
+print(f"Total Revenue: ${sales_data['revenue'].sum():,.2f}")
+print(f"Average Daily Sales: ${sales_data['revenue'].mean():,.2f}")
+print(f"Best Performing Product: {product_analysis['revenue'].idxmax()}")
+print(f"Best Performing Region: {sales_data.groupby('region')['revenue'].sum().idxmax()}")</code></pre>
+                </div>
+
+                <h4>Resources</h4>
+                <div>
+                    <a href="https://seaborn.pydata.org/tutorial.html" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Seaborn Tutorial
+                    </a>
+                    <a href="https://matplotlib.org/stable/gallery/" target="_blank" class="resource-link">
+                        <i class="fas fa-chart-line"></i> Matplotlib Gallery
+                    </a>
+                    <a href="https://pandas.pydata.org/docs/" target="_blank" class="resource-link">
+                        <i class="fas fa-file-alt"></i> Pandas Documentation
+                    </a>
+                </div>
+            </div>
+
+            <!-- Week Completion -->
+            <div class="day-section" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                <h3 style="color: white;">Week 3 Completion Checklist</h3>
+                <ul class="topics-list" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Mastered NumPy and Pandas
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Understand descriptive statistics
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Created visualizations with Matplotlib
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Built advanced plots with Seaborn
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Completed data analysis project
+                    </li>
+                    <li style="background: transparent; color: white;">
+                        <i class="fas fa-trophy"></i> Can analyze and visualize datasets
+                    </li>
+                </ul>
+
+                <button onclick="completeWeek()" class="btn btn-primary" style="margin-top: 1rem; background: white; color: #f093fb;">
+                    <i class="fas fa-check-circle"></i> Mark Week 3 as Complete
+                </button>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const checked = document.querySelectorAll('.day-checkbox:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+
+            const progressBar = document.getElementById('week-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+
+            localStorage.setItem('week3-progress', percentage);
+        }
+
+        function completeWeek() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateProgress();
+            alert('Congratulations on completing Week 3! 🎉\n\nYou\'re now ready for Week 4: AWS Fundamentals');
+        }
+
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('week3-progress');
+            if (saved) {
+                const progressBar = document.getElementById('week-progress');
+                progressBar.style.width = saved + '%';
+                progressBar.textContent = saved + '%';
+            }
+        });
+    </script>
+</body>
+</html>

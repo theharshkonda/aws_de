@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 7: BI Tools & Dashboards | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .week-hero {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #fa709a;
+        }
+        .day-title {
+            font-size: 1.8rem;
+            color: #fa709a;
+        }
+        .day-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        .topics-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .topics-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topics-list li i {
+            color: #fa709a;
+        }
+        .code-snippet {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-snippet pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+        .code-title {
+            background: #fa709a;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            margin-bottom: -0.5rem;
+            display: inline-block;
+        }
+        .resource-link {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #fa709a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .resource-link:hover {
+            background: #fee140;
+            color: #333;
+            transform: translateY(-2px);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #fa709a, #fee140);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #fa709a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+            border: 2px solid #fa709a;
+        }
+        .back-btn:hover {
+            background: #fa709a;
+            color: white;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="week-hero">
+        <div class="container">
+            <h1>Week 7: BI Tools & Dashboards</h1>
+            <p>Master visualization, dashboards, and business intelligence tools</p>
+            <div class="progress-bar-container" style="max-width: 600px; margin: 2rem auto;">
+                <div class="progress-bar" id="week-progress" style="width: 0%;">0%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+
+            <!-- Day 1 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 1: Introduction to BI Tools</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="1" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> BI tools comparison (Power BI, Tableau, QuickSight)</li>
+                    <li><i class="fas fa-check-circle"></i> Data visualization principles</li>
+                    <li><i class="fas fa-check-circle"></i> Dashboard design best practices</li>
+                    <li><i class="fas fa-check-circle"></i> Connecting to data sources</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Data Preparation for BI Tools</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+
+# Create sample sales data
+np.random.seed(42)
+dates = pd.date_range('2023-01-01', periods=365, freq='D')
+
+data = {
+    'date': dates,
+    'product': np.random.choice(['Product A', 'Product B', 'Product C', 'Product D'], 365),
+    'region': np.random.choice(['North', 'South', 'East', 'West'], 365),
+    'sales': np.random.randint(100, 2000, 365),
+    'quantity': np.random.randint(1, 50, 365),
+    'customer_type': np.random.choice(['Corporate', 'Retail', 'Online'], 365)
+}
+
+df = pd.DataFrame(data)
+
+# Data cleaning and preparation
+df['month'] = df['date'].dt.month
+df['quarter'] = df['date'].dt.quarter
+df['day_of_week'] = df['date'].dt.day_name()
+df['revenue'] = df['sales'] * df['quantity']
+df['profit_margin'] = np.random.uniform(0.15, 0.35, len(df))
+df['profit'] = df['revenue'] * df['profit_margin']
+
+# Aggregate by dimensions
+daily_summary = df.groupby('date').agg({
+    'sales': 'sum',
+    'quantity': 'sum',
+    'revenue': 'sum',
+    'profit': 'sum'
+}).reset_index()
+
+regional_summary = df.groupby('region').agg({
+    'revenue': 'sum',
+    'profit': 'sum',
+    'sales': 'count'
+}).reset_index().rename(columns={'sales': 'transactions'})
+
+# Export for BI tools
+df.to_csv('sales_detail.csv', index=False)
+daily_summary.to_csv('daily_summary.csv', index=False)
+regional_summary.to_csv('regional_summary.csv', index=False)
+
+print("Data prepared for BI tools")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Connect Python to Data Sources</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import psycopg2
+from sqlalchemy import create_engine
+
+# Connect to PostgreSQL
+conn = psycopg2.connect(
+    host='db.example.com',
+    database='analytics',
+    user='username',
+    password='password'
+)
+
+# Using SQLAlchemy for easier data transfer
+engine = create_engine('postgresql://user:password@host:5432/database')
+
+# Read data
+query = """
+SELECT
+    DATE_TRUNC('day', timestamp) as date,
+    product,
+    region,
+    SUM(amount) as revenue,
+    COUNT(*) as transaction_count
+FROM sales_transactions
+WHERE timestamp >= '2023-01-01'
+GROUP BY DATE_TRUNC('day', timestamp), product, region
+ORDER BY date DESC
+"""
+
+df = pd.read_sql(query, engine)
+
+# Prepare for visualization
+df['date'] = pd.to_datetime(df['date'])
+df = df.sort_values('date')
+
+# Save to multiple formats
+df.to_csv('bi_export.csv', index=False)
+df.to_json('bi_export.json', orient='records', date_format='iso')
+df.to_parquet('bi_export.parquet')</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 2: PowerBI Basics & Connections</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="2" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Power BI Desktop fundamentals</li>
+                    <li><i class="fas fa-check-circle"></i> Data connectors and transformations</li>
+                    <li><i class="fas fa-check-circle"></i> Power Query and M language basics</li>
+                    <li><i class="fas fa-check-circle"></i> Creating visualizations and reports</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Programmatic Power BI Integration</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">from azure.identity import ClientSecretCredential
+from azure.monitor.query import LogsQueryClient
+import requests
+
+# Power BI API authentication
+tenant_id = 'your-tenant-id'
+client_id = 'your-client-id'
+client_secret = 'your-client-secret'
+
+def get_power_bi_token():
+    """Get Power BI authentication token"""
+    url = f'https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token'
+
+    payload = {
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'scope': 'https://analysis.windows.net/powerbi/api/.default',
+        'grant_type': 'client_credentials'
+    }
+
+    response = requests.post(url, data=payload)
+    return response.json()['access_token']
+
+def upload_dataset_to_power_bi(dataset_name, csv_file):
+    """Upload dataset to Power BI"""
+    token = get_power_bi_token()
+    headers = {'Authorization': f'Bearer {token}'}
+
+    # Create dataset
+    url = 'https://api.powerbi.com/v1.0/myorg/datasets'
+
+    with open(csv_file, 'rb') as f:
+        files = {'file': (dataset_name, f)}
+        response = requests.post(url, headers=headers, files=files)
+
+    return response.json()
+
+def refresh_power_bi_dataset(dataset_id):
+    """Trigger dataset refresh"""
+    token = get_power_bi_token()
+    headers = {'Authorization': f'Bearer {token}'}
+
+    url = f'https://api.powerbi.com/v1.0/myorg/datasets/{dataset_id}/refreshes'
+    response = requests.post(url, headers=headers)
+
+    return response.status_code == 202</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Data Transformation for Power BI</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># M Query equivalent in Python for Power Query simulation
+import pandas as pd
+from datetime import datetime
+
+def transform_sales_data(df):
+    """Transform raw data like Power Query"""
+    # Remove duplicates
+    df = df.drop_duplicates()
+
+    # Remove rows with null values in key columns
+    df = df.dropna(subset=['customer_id', 'amount'])
+
+    # Data type conversion
+    df['date'] = pd.to_datetime(df['date'])
+    df['amount'] = pd.to_numeric(df['amount'])
+
+    # Add calculated columns
+    df['month'] = df['date'].dt.month
+    df['quarter'] = df['date'].dt.quarter
+    df['year'] = df['date'].dt.year
+    df['month_name'] = df['date'].dt.strftime('%B')
+
+    # Create categories
+    df['amount_category'] = pd.cut(
+        df['amount'],
+        bins=[0, 500, 1000, 5000, float('inf')],
+        labels=['Small', 'Medium', 'Large', 'Premium']
+    )
+
+    # Group and aggregate
+    daily_agg = df.groupby('date').agg({
+        'amount': 'sum',
+        'customer_id': 'nunique'
+    }).reset_index()
+    daily_agg.rename(columns={'customer_id': 'unique_customers'}, inplace=True)
+
+    return df, daily_agg
+
+# Load and transform
+df = pd.read_csv('sales_data.csv')
+cleaned_df, summary_df = transform_sales_data(df)
+
+# Save for Power BI
+cleaned_df.to_csv('powerbi_sales_detail.csv', index=False)
+summary_df.to_csv('powerbi_sales_summary.csv', index=False)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 3: Tableau Desktop & Visualizations</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="3" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Tableau Desktop interface and navigation</li>
+                    <li><i class="fas fa-check-circle"></i> Data connections and data sources</li>
+                    <li><i class="fas fa-check-circle"></i> Creating dashboards and worksheets</li>
+                    <li><i class="fas fa-check-circle"></i> Tableau calculations and parameters</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Tableau Server Interaction</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">from tableauserverclient import Server, Auth
+import pandas as pd
+
+# Connect to Tableau Server
+server = Server('https://tableau-server.example.com')
+auth = Auth.basic_auth('username', 'password')
+
+with server.auth.sign_in(auth):
+    # Query workbooks
+    all_workbooks, pagination = server.workbooks.get()
+    for wb in all_workbooks:
+        print(f"Workbook: {wb.name}")
+
+    # Query datasources
+    all_datasources, pagination = server.datasources.get()
+    for ds in all_datasources:
+        print(f"Datasource: {ds.name}")
+
+    # Download workbook
+    server.workbooks.download('Workbook Name', file_path='downloads')
+
+def prepare_data_for_tableau(df):
+    """Prepare data for Tableau visualization"""
+    # Ensure proper data types
+    df['date'] = pd.to_datetime(df['date'])
+    df['amount'] = df['amount'].astype(float)
+
+    # Create hierarchies
+    df['year'] = df['date'].dt.year
+    df['month'] = df['date'].dt.month
+    df['quarter'] = df['date'].dt.quarter
+
+    # Create bins for continuous data
+    df['amount_bin'] = pd.qcut(df['amount'], q=5, labels=['Very Low', 'Low', 'Medium', 'High', 'Very High'])
+
+    # Create flags for filtering
+    df['high_value'] = df['amount'] > df['amount'].quantile(0.75)
+
+    return df
+
+df = pd.read_csv('sales.csv')
+df = prepare_data_for_tableau(df)
+df.to_csv('tableau_sales.csv', index=False)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Tableau Extract via Python</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import tableau_sdk
+
+# Create TDE (Tableau Data Extract)
+def create_tableau_extract(df, output_file):
+    """Create .tde file from DataFrame"""
+    # Define table structure
+    table_def = tableau_sdk.TableDefinition()
+
+    # Add columns
+    for col in df.columns:
+        if df[col].dtype == 'object':
+            col_type = tableau_sdk.Types.UNICODE_STRING
+        elif df[col].dtype == 'datetime64[ns]':
+            col_type = tableau_sdk.Types.DATE
+        elif df[col].dtype == 'float64':
+            col_type = tableau_sdk.Types.REAL
+        else:
+            col_type = tableau_sdk.Types.INTEGER
+
+        table_def.addColumn(col, col_type)
+
+    # Create extract
+    extract = tableau_sdk.Extract(output_file)
+    table = extract.addTable('Extract', table_def)
+
+    # Insert rows
+    row = tableau_sdk.Row(table_def)
+    for idx, data_row in df.iterrows():
+        for col_idx, col_name in enumerate(df.columns):
+            value = data_row[col_name]
+            if pd.isna(value):
+                row.setNull(col_idx)
+            else:
+                row.setValue(col_idx, value)
+        table.insert(row)
+
+    extract.close()
+    print(f"Extract created: {output_file}")
+
+# Usage
+df = pd.read_csv('sales.csv')
+create_tableau_extract(df, 'sales_extract.tde')</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 4: AWS QuickSight</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="4" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> QuickSight dashboards and visuals</li>
+                    <li><i class="fas fa-check-circle"></i> Data sources and connections</li>
+                    <li><i class="fas fa-check-circle"></i> QuickSight formulas and calculations</li>
+                    <li><i class="fas fa-check-circle"></i> Sharing and permissions</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> QuickSight API Integration</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+import json
+
+quicksight = boto3.client('quicksight')
+
+def create_quicksight_dataset(data_source_arn, dataset_name):
+    """Create QuickSight dataset"""
+    response = quicksight.create_data_set(
+        AwsAccountId='ACCOUNT_ID',
+        DataSetId=dataset_name.lower(),
+        Name=dataset_name,
+        PhysicalTableMappings=[
+            {
+                'Schema': 'public',
+                'TablePlaceholder': 'sales_data'
+            }
+        ]
+    )
+    return response
+
+def create_quicksight_analysis(dataset_id, analysis_name):
+    """Create QuickSight analysis"""
+    response = quicksight.create_analysis(
+        AwsAccountId='ACCOUNT_ID',
+        AnalysisId=analysis_name.lower(),
+        Name=analysis_name,
+        SourceEntity={
+            'SourceTemplate': {
+                'DataSetReferences': [{
+                    'DataSetArn': f'arn:aws:quicksight:region:account:dataset/{dataset_id}'
+                }],
+                'Arn': 'arn:aws:quicksight:region:account:template/template-id'
+            }
+        }
+    )
+    return response
+
+def create_quicksight_dashboard(analysis_id, dashboard_name):
+    """Create dashboard from analysis"""
+    response = quicksight.create_dashboard(
+        AwsAccountId='ACCOUNT_ID',
+        DashboardId=dashboard_name.lower(),
+        Name=dashboard_name,
+        SourceEntity={
+            'SourceAnalysis': {
+                'Arn': f'arn:aws:quicksight:region:account:analysis/{analysis_id}'
+            }
+        }
+    )
+    return response
+
+def share_dashboard(dashboard_id, principal_arn):
+    """Share dashboard with users"""
+    response = quicksight.update_dashboard_permissions(
+        AwsAccountId='ACCOUNT_ID',
+        DashboardId=dashboard_id,
+        GrantPermissions=[
+            {
+                'Principal': principal_arn,
+                'Actions': [
+                    'quicksight:DescribeDashboard',
+                    'quicksight:ListDashboardVersions',
+                    'quicksight:ListDashboards'
+                ]
+            }
+        ]
+    )
+    return response</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Load Data to QuickSight via S3</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+import pandas as pd
+
+s3 = boto3.client('s3')
+quicksight = boto3.client('quicksight')
+
+def upload_to_quicksight(df, bucket, key, dataset_name):
+    """Upload CSV to S3 and create QuickSight dataset"""
+    # Upload to S3
+    csv_data = df.to_csv(index=False)
+    s3.put_object(Bucket=bucket, Key=key, Body=csv_data)
+
+    s3_uri = f's3://{bucket}/{key}'
+
+    # Create data source
+    data_source = quicksight.create_data_source(
+        AwsAccountId='ACCOUNT_ID',
+        DataSourceId=dataset_name.lower(),
+        Name=dataset_name,
+        Type='S3',
+        DataSourceParameters={
+            'S3Parameters': {
+                'ManifestFileLocation': {
+                    'Bucket': bucket,
+                    'Key': 'manifest.json'
+                }
+            }
+        }
+    )
+
+    return data_source
+
+# Prepare and upload data
+df = pd.read_csv('sales_data.csv')
+upload_to_quicksight(df, 'my-quicksight-bucket', 'sales/data.csv', 'SalesDataset')</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 5: Advanced Dashboard Design</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="5" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Dashboard layout and design principles</li>
+                    <li><i class="fas fa-check-circle"></i> Interactive filters and drill-down</li>
+                    <li><i class="fas fa-check-circle"></i> Advanced visualizations and custom charts</li>
+                    <li><i class="fas fa-check-circle"></i> Performance optimization</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Dashboard Design Patterns</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import pandas as pd
+import numpy as np
+
+class DashboardDataPrep:
+    """Prepare data for executive dashboards"""
+
+    def __init__(self, df):
+        self.df = df
+
+    def create_kpi_summary(self):
+        """Create KPI metrics"""
+        return {
+            'total_revenue': self.df['amount'].sum(),
+            'total_transactions': len(self.df),
+            'avg_transaction': self.df['amount'].mean(),
+            'unique_customers': self.df['customer_id'].nunique()
+        }
+
+    def create_trend_data(self):
+        """Create trend data for line charts"""
+        self.df['date'] = pd.to_datetime(self.df['date'])
+        return self.df.groupby(self.df['date'].dt.date).agg({
+            'amount': ['sum', 'count', 'mean']
+        }).reset_index()
+
+    def create_segment_data(self):
+        """Create segment breakdown"""
+        return self.df.groupby('region').agg({
+            'amount': 'sum',
+            'customer_id': 'nunique'
+        }).reset_index().rename(columns={
+            'amount': 'revenue',
+            'customer_id': 'customer_count'
+        })
+
+    def create_top_performers(self, n=10):
+        """Get top N performers"""
+        return self.df.groupby('product').agg({
+            'amount': 'sum'
+        }).reset_index().sort_values('amount', ascending=False).head(n)
+
+    def create_heatmap_data(self):
+        """Create pivot table for heatmap"""
+        self.df['date'] = pd.to_datetime(self.df['date'])
+        self.df['day_of_week'] = self.df['date'].dt.day_name()
+        self.df['hour'] = self.df['date'].dt.hour
+
+        return self.df.pivot_table(
+            values='amount',
+            index='day_of_week',
+            columns='hour',
+            aggfunc='sum'
+        )
+
+# Usage
+df = pd.read_csv('sales_data.csv')
+dashboard = DashboardDataPrep(df)
+
+kpis = dashboard.create_kpi_summary()
+trends = dashboard.create_trend_data()
+segments = dashboard.create_segment_data()
+top_products = dashboard.create_top_performers()
+heatmap = dashboard.create_heatmap_data()
+
+print("Dashboard data prepared")
+print(f"KPIs: {kpis}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Interactive Filter Creation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">def create_filter_dimensions(df):
+    """Create dimension tables for filters"""
+    filter_data = {}
+
+    # Date filters
+    df['date'] = pd.to_datetime(df['date'])
+    filter_data['dates'] = sorted(df['date'].dt.date.unique())
+    filter_data['months'] = sorted(df['date'].dt.to_period('M').unique())
+    filter_data['years'] = sorted(df['date'].dt.year.unique())
+
+    # Category filters
+    filter_data['regions'] = sorted(df['region'].unique())
+    filter_data['products'] = sorted(df['product'].unique())
+    filter_data['customer_types'] = sorted(df['customer_type'].unique())
+
+    # Create multi-select options
+    filter_data['date_range'] = {
+        'start': df['date'].min(),
+        'end': df['date'].max()
+    }
+
+    return filter_data
+
+def apply_dashboard_filters(df, filters):
+    """Apply selected filters to data"""
+    result = df.copy()
+
+    if 'selected_regions' in filters:
+        result = result[result['region'].isin(filters['selected_regions'])]
+
+    if 'selected_products' in filters:
+        result = result[result['product'].isin(filters['selected_products'])]
+
+    if 'date_range' in filters:
+        result = result[
+            (result['date'] >= filters['date_range']['start']) &
+            (result['date'] <= filters['date_range']['end'])
+        ]
+
+    return result
+
+# Usage
+filters = create_filter_dimensions(df)
+filtered_data = apply_dashboard_filters(df, {
+    'selected_regions': ['North', 'East'],
+    'selected_products': ['Product A', 'Product B'],
+    'date_range': {
+        'start': pd.Timestamp('2023-06-01'),
+        'end': pd.Timestamp('2023-12-31')
+    }
+})</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 6: Python for BI (Plotly, Dash)</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="6" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Plotly for interactive visualizations</li>
+                    <li><i class="fas fa-check-circle"></i> Dash for web dashboards</li>
+                    <li><i class="fas fa-check-circle"></i> Building custom dashboards</li>
+                    <li><i class="fas fa-check-circle"></i> Callback functions and interactivity</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Interactive Plotly Visualizations</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import plotly.graph_objects as go
+import plotly.express as px
+import pandas as pd
+
+df = pd.read_csv('sales_data.csv')
+df['date'] = pd.to_datetime(df['date'])
+
+# Line chart with Plotly
+fig_line = px.line(
+    df.groupby('date')['amount'].sum().reset_index(),
+    x='date',
+    y='amount',
+    title='Daily Sales Trend',
+    labels={'amount': 'Revenue ($)', 'date': 'Date'},
+    markers=True
+)
+
+fig_line.update_layout(
+    hovermode='x unified',
+    template='plotly_white',
+    height=500
+)
+
+# Bar chart by region
+fig_bar = px.bar(
+    df.groupby('region')['amount'].sum().reset_index(),
+    x='region',
+    y='amount',
+    title='Sales by Region',
+    color='amount',
+    color_continuous_scale='Viridis'
+)
+
+# Scatter plot with animation
+fig_scatter = px.scatter(
+    df,
+    x='customer_id',
+    y='amount',
+    color='region',
+    size='quantity',
+    hover_name='product',
+    title='Customer Transactions'
+)
+
+# Sunburst chart
+fig_sunburst = px.sunburst(
+    df,
+    path=['region', 'product'],
+    values='amount',
+    title='Revenue Hierarchy'
+)
+
+# Show plots
+fig_line.show()
+fig_bar.show()
+fig_scatter.show()
+fig_sunburst.show()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Dash Web Dashboard</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import dash
+from dash import dcc, html, Input, Output
+import plotly.express as px
+import pandas as pd
+
+# Load data
+df = pd.read_csv('sales_data.csv')
+df['date'] = pd.to_datetime(df['date'])
+
+# Create Dash app
+app = dash.Dash(__name__)
+
+app.layout = html.Div([
+    html.H1('Sales Dashboard', style={'textAlign': 'center'}),
+
+    html.Div([
+        html.Div([
+            html.Label('Select Region:'),
+            dcc.Dropdown(
+                id='region-dropdown',
+                options=[{'label': r, 'value': r} for r in df['region'].unique()],
+                value=df['region'].unique()[0],
+                style={'width': '100%'}
+            )
+        ], style={'width': '48%', 'display': 'inline-block'}),
+
+        html.Div([
+            html.Label('Select Product:'),
+            dcc.Dropdown(
+                id='product-dropdown',
+                options=[{'label': p, 'value': p} for p in df['product'].unique()],
+                value=df['product'].unique()[0],
+                style={'width': '100%'}
+            )
+        ], style={'width': '48%', 'display': 'inline-block', 'float': 'right'})
+    ], style={'marginBottom': '20px'}),
+
+    html.Div([
+        html.Div([
+            dcc.Graph(id='sales-chart')
+        ], style={'width': '48%', 'display': 'inline-block'}),
+
+        html.Div([
+            dcc.Graph(id='region-chart')
+        ], style={'width': '48%', 'display': 'inline-block', 'float': 'right'})
+    ]),
+
+    html.Div([
+        dcc.Graph(id='trend-chart')
+    ])
+])
+
+# Callbacks for interactivity
+@app.callback(
+    Output('sales-chart', 'figure'),
+    [Input('region-dropdown', 'value')]
+)
+def update_sales_chart(selected_region):
+    filtered_df = df[df['region'] == selected_region]
+    fig = px.bar(
+        filtered_df.groupby('product')['amount'].sum().reset_index(),
+        x='product',
+        y='amount',
+        title=f'Sales by Product - {selected_region}'
+    )
+    return fig
+
+@app.callback(
+    Output('region-chart', 'figure'),
+    [Input('product-dropdown', 'value')]
+)
+def update_region_chart(selected_product):
+    filtered_df = df[df['product'] == selected_product]
+    fig = px.bar(
+        filtered_df.groupby('region')['amount'].sum().reset_index(),
+        x='region',
+        y='amount',
+        title=f'Sales by Region - {selected_product}'
+    )
+    return fig
+
+@app.callback(
+    Output('trend-chart', 'figure'),
+    [Input('region-dropdown', 'value'), Input('product-dropdown', 'value')]
+)
+def update_trend_chart(selected_region, selected_product):
+    filtered_df = df[
+        (df['region'] == selected_region) & (df['product'] == selected_product)
+    ]
+    fig = px.line(
+        filtered_df.groupby('date')['amount'].sum().reset_index(),
+        x='date',
+        y='amount',
+        title='Sales Trend',
+        markers=True
+    )
+    return fig
+
+if __name__ == '__main__':
+    app.run_server(debug=True, port=8050)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 7: Project - Executive Dashboard</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="7" onchange="updateProgress()">
+                </div>
+
+                <h4>Project: Executive Dashboard (8-10 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Design professional dashboard</li>
+                    <li><i class="fas fa-check-circle"></i> Create KPI metrics and scorecards</li>
+                    <li><i class="fas fa-check-circle"></i> Add drill-down capabilities</li>
+                    <li><i class="fas fa-check-circle"></i> Implement real-time updates</li>
+                </ul>
+
+                <h4>Complete Project Code</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Complete Executive Dashboard</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import dash
+from dash import dcc, html, Input, Output, callback
+import plotly.graph_objects as go
+import plotly.express as px
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
+
+# Generate sample data
+np.random.seed(42)
+dates = pd.date_range(datetime.now() - timedelta(days=365), datetime.now())
+df = pd.DataFrame({
+    'date': dates,
+    'revenue': np.random.randint(10000, 50000, len(dates)),
+    'customers': np.random.randint(100, 500, len(dates)),
+    'region': np.random.choice(['North', 'South', 'East', 'West'], len(dates)),
+    'product': np.random.choice(['Product A', 'Product B', 'Product C'], len(dates))
+})
+
+# Calculate metrics
+total_revenue = df['revenue'].sum()
+avg_daily_revenue = df['revenue'].mean()
+total_customers = df['customers'].sum()
+
+# Create Dash app
+app = dash.Dash(__name__)
+
+app.layout = html.Div([
+    # Header
+    html.Div([
+        html.H1('Executive Sales Dashboard', style={'color': 'white', 'marginBottom': 0}),
+        html.P(f'Last Updated: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}', style={'color': 'white'})
+    ], style={
+        'backgroundColor': '#1f77b4',
+        'color': 'white',
+        'padding': '20px',
+        'marginBottom': '20px'
+    }),
+
+    # Filters
+    html.Div([
+        html.Div([
+            html.Label('Date Range:'),
+            dcc.DatePickerRange(
+                id='date-picker',
+                start_date=df['date'].min(),
+                end_date=df['date'].max(),
+                display_format='YYYY-MM-DD'
+            )
+        ], style={'width': '30%', 'display': 'inline-block', 'marginRight': '5%'}),
+
+        html.Div([
+            html.Label('Region:'),
+            dcc.Dropdown(
+                id='region-filter',
+                options=[{'label': 'All', 'value': 'all'}] +
+                        [{'label': r, 'value': r} for r in df['region'].unique()],
+                value='all'
+            )
+        ], style={'width': '30%', 'display': 'inline-block', 'marginRight': '5%'}),
+
+        html.Div([
+            html.Label('Product:'),
+            dcc.Dropdown(
+                id='product-filter',
+                options=[{'label': 'All', 'value': 'all'}] +
+                        [{'label': p, 'value': p} for p in df['product'].unique()],
+                value='all'
+            )
+        ], style={'width': '30%', 'display': 'inline-block'})
+    ], style={'padding': '20px', 'backgroundColor': '#f8f9fa', 'marginBottom': '20px'}),
+
+    # KPI Cards
+    html.Div([
+        html.Div([
+            html.H3(f'${total_revenue:,.0f}', style={'color': '#1f77b4'}),
+            html.P('Total Revenue')
+        ], style={'backgroundColor': 'white', 'padding': '20px', 'borderRadius': '5px', 'flex': '1', 'margin': '10px'}),
+
+        html.Div([
+            html.H3(f'${avg_daily_revenue:,.0f}', style={'color': '#ff7f0e'}),
+            html.P('Avg Daily Revenue')
+        ], style={'backgroundColor': 'white', 'padding': '20px', 'borderRadius': '5px', 'flex': '1', 'margin': '10px'}),
+
+        html.Div([
+            html.H3(f'{total_customers:,.0f}', style={'color': '#2ca02c'}),
+            html.P('Total Customers')
+        ], style={'backgroundColor': 'white', 'padding': '20px', 'borderRadius': '5px', 'flex': '1', 'margin': '10px'})
+    ], style={'display': 'flex', 'marginBottom': '20px'}),
+
+    # Charts
+    html.Div([
+        html.Div([
+            dcc.Graph(id='revenue-trend')
+        ], style={'width': '65%', 'display': 'inline-block'}),
+
+        html.Div([
+            dcc.Graph(id='region-breakdown')
+        ], style={'width': '32%', 'display': 'inline-block', 'float': 'right'})
+    ]),
+
+    html.Div([
+        html.Div([
+            dcc.Graph(id='product-performance')
+        ], style={'width': '48%', 'display': 'inline-block'}),
+
+        html.Div([
+            dcc.Graph(id='customer-trend')
+        ], style={'width': '48%', 'display': 'inline-block', 'float': 'right'})
+    ])
+], style={'padding': '20px', 'fontFamily': 'Arial'})
+
+# Callbacks
+@callback(
+    [Output('revenue-trend', 'figure'),
+     Output('region-breakdown', 'figure'),
+     Output('product-performance', 'figure'),
+     Output('customer-trend', 'figure')],
+    [Input('date-picker', 'start_date'),
+     Input('date-picker', 'end_date'),
+     Input('region-filter', 'value'),
+     Input('product-filter', 'value')]
+)
+def update_dashboard(start_date, end_date, region, product):
+    # Filter data
+    mask = (df['date'] >= start_date) & (df['date'] <= end_date)
+    filtered_df = df[mask]
+
+    if region != 'all':
+        filtered_df = filtered_df[filtered_df['region'] == region]
+    if product != 'all':
+        filtered_df = filtered_df[filtered_df['product'] == product]
+
+    # Revenue trend
+    revenue_trend = px.line(
+        filtered_df.groupby('date')['revenue'].sum().reset_index(),
+        x='date', y='revenue',
+        title='Revenue Trend',
+        labels={'revenue': 'Revenue ($)', 'date': 'Date'}
+    )
+
+    # Region breakdown
+    region_breakdown = px.pie(
+        filtered_df.groupby('region')['revenue'].sum().reset_index(),
+        names='region', values='revenue',
+        title='Revenue by Region'
+    )
+
+    # Product performance
+    product_perf = px.bar(
+        filtered_df.groupby('product')['revenue'].sum().reset_index(),
+        x='product', y='revenue',
+        title='Revenue by Product',
+        color='revenue'
+    )
+
+    # Customer trend
+    customer_trend = px.line(
+        filtered_df.groupby('date')['customers'].sum().reset_index(),
+        x='date', y='customers',
+        title='Customer Transactions',
+        labels={'customers': 'Customers', 'date': 'Date'}
+    )
+
+    return revenue_trend, region_breakdown, product_perf, customer_trend
+
+if __name__ == '__main__':
+    app.run_server(debug=True, port=8050)</code></pre>
+                </div>
+
+                <h4>Resources</h4>
+                <div>
+                    <a href="https://plotly.com/python/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Plotly Documentation
+                    </a>
+                    <a href="https://dash.plotly.com/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Dash Documentation
+                    </a>
+                    <a href="https://docs.aws.amazon.com/quicksight/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> QuickSight Docs
+                    </a>
+                </div>
+            </div>
+
+            <!-- Week Completion -->
+            <div class="day-section" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: white;">
+                <h3 style="color: white;">Week 7 Completion Checklist</h3>
+                <ul class="topics-list" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Learned BI tools fundamentals</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built Power BI reports</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Created Tableau dashboards</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Mastered AWS QuickSight</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Designed advanced dashboards</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built Python web dashboards</li>
+                </ul>
+                <button onclick="completeWeek()" class="btn btn-primary" style="margin-top: 1rem; background: white; color: #fa709a;">
+                    <i class="fas fa-check-circle"></i> Mark Week 7 as Complete
+                </button>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const checked = document.querySelectorAll('.day-checkbox:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+            const progressBar = document.getElementById('week-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+            localStorage.setItem('week7-progress', percentage);
+        }
+
+        function completeWeek() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateProgress();
+            alert('Congratulations on completing Week 7! 🎉\n\nFinal week: Week 8 - Capstone Project & Interview Prep');
+        }
+
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('week7-progress');
+            if (saved) {
+                const progressBar = document.getElementById('week-progress');
+                progressBar.style.width = saved + '%';
+                progressBar.textContent = saved + '%';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 4: AWS Fundamentals | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .week-hero {
+            background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #FF9966;
+        }
+        .day-title {
+            font-size: 1.8rem;
+            color: #FF9966;
+        }
+        .day-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        .topics-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .topics-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topics-list li i {
+            color: #FF9966;
+        }
+        .code-snippet {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-snippet pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+        .code-title {
+            background: #FF9966;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            margin-bottom: -0.5rem;
+            display: inline-block;
+        }
+        .resource-link {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #FF9966;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .resource-link:hover {
+            background: #FF5E62;
+            transform: translateY(-2px);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FF9966, #FF5E62);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #FF9966;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+            border: 2px solid #FF9966;
+        }
+        .back-btn:hover {
+            background: #FF9966;
+            color: white;
+            transform: translateX(-5px);
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="week-hero">
+        <div class="container">
+            <h1>Week 4: AWS Fundamentals</h1>
+            <p>Master AWS core services and build cloud-native data solutions</p>
+            <div class="progress-bar-container" style="max-width: 600px; margin: 2rem auto;">
+                <div class="progress-bar" id="week-progress" style="width: 0%;">0%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+
+            <div class="warning-box">
+                <strong><i class="fas fa-exclamation-triangle"></i> Important:</strong>
+                Sign up for AWS Free Tier before starting. Most services used this week are free tier eligible!
+            </div>
+
+            <!-- Day 1 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 1: AWS Account Setup & S3</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="1" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Create AWS Free Tier account</li>
+                    <li><i class="fas fa-check-circle"></i> IAM users and security</li>
+                    <li><i class="fas fa-check-circle"></i> S3 buckets and objects</li>
+                    <li><i class="fas fa-check-circle"></i> S3 versioning and lifecycle</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Install AWS SDK (Boto3)</div>
+                <div class="code-snippet">
+                    <pre><code class="language-bash"># Install boto3
+pip install boto3 awscli
+
+# Configure AWS credentials
+aws configure
+# Enter: Access Key ID, Secret Access Key, Region (us-east-1), Format (json)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> S3 Operations with Python</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+from datetime import datetime
+
+# Initialize S3 client
+s3 = boto3.client('s3')
+s3_resource = boto3.resource('s3')
+
+# Create bucket
+bucket_name = f'my-data-bucket-{datetime.now().strftime("%Y%m%d")}'
+try:
+    s3.create_bucket(Bucket=bucket_name)
+    print(f"Bucket {bucket_name} created successfully")
+except Exception as e:
+    print(f"Error: {e}")
+
+# Upload file
+file_path = 'data/sample.csv'
+s3.upload_file(file_path, bucket_name, 'uploads/sample.csv')
+
+# Upload with metadata
+s3.upload_file(
+    file_path,
+    bucket_name,
+    'uploads/sample_v2.csv',
+    ExtraArgs={
+        'Metadata': {'uploaded-by': 'python-script'},
+        'ContentType': 'text/csv'
+    }
+)
+
+# List objects in bucket
+response = s3.list_objects_v2(Bucket=bucket_name)
+for obj in response.get('Contents', []):
+    print(f"File: {obj['Key']}, Size: {obj['Size']} bytes")
+
+# Download file
+s3.download_file(bucket_name, 'uploads/sample.csv', 'downloaded_sample.csv')
+
+# Delete object
+s3.delete_object(Bucket=bucket_name, Key='uploads/sample.csv')
+
+# Generate presigned URL (temporary access)
+url = s3.generate_presigned_url(
+    'get_object',
+    Params={'Bucket': bucket_name, 'Key': 'uploads/sample_v2.csv'},
+    ExpiresIn=3600  # 1 hour
+)
+print(f"Presigned URL: {url}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Advanced S3 Operations</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Enable versioning
+s3.put_bucket_versioning(
+    Bucket=bucket_name,
+    VersioningConfiguration={'Status': 'Enabled'}
+)
+
+# Set lifecycle policy
+lifecycle_policy = {
+    'Rules': [{
+        'Id': 'Move to Glacier after 30 days',
+        'Status': 'Enabled',
+        'Transitions': [{
+            'Days': 30,
+            'StorageClass': 'GLACIER'
+        }],
+        'Expiration': {'Days': 365}
+    }]
+}
+
+s3.put_bucket_lifecycle_configuration(
+    Bucket=bucket_name,
+    LifecycleConfiguration=lifecycle_policy
+)
+
+# Copy objects between buckets
+s3.copy_object(
+    CopySource={'Bucket': bucket_name, 'Key': 'source.csv'},
+    Bucket='destination-bucket',
+    Key='destination.csv'
+)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 2: AWS Lambda Functions</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="2" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Lambda function basics</li>
+                    <li><i class="fas fa-check-circle"></i> Event-driven architecture</li>
+                    <li><i class="fas fa-check-circle"></i> Lambda with S3 triggers</li>
+                    <li><i class="fas fa-check-circle"></i> Error handling and logging</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Lambda Function Handler</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># lambda_function.py
+import json
+import boto3
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+s3 = boto3.client('s3')
+
+def lambda_handler(event, context):
+    """
+    Lambda function triggered by S3 upload
+    Processes CSV files and generates summary
+    """
+    try:
+        # Get bucket and key from event
+        bucket = event['Records'][0]['s3']['bucket']['name']
+        key = event['Records'][0]['s3']['object']['key']
+
+        logger.info(f"Processing file: {key} from bucket: {bucket}")
+
+        # Download file
+        response = s3.get_object(Bucket=bucket, Key=key)
+        content = response['Body'].read().decode('utf-8')
+
+        # Process data
+        lines = content.strip().split('\n')
+        row_count = len(lines) - 1  # Excluding header
+
+        # Create summary
+        summary = {
+            'file_name': key,
+            'total_rows': row_count,
+            'processed_at': context.invoked_function_arn,
+            'status': 'success'
+        }
+
+        # Upload summary
+        summary_key = f"summaries/{key.split('/')[-1]}_summary.json"
+        s3.put_object(
+            Bucket=bucket,
+            Key=summary_key,
+            Body=json.dumps(summary),
+            ContentType='application/json'
+        )
+
+        logger.info(f"Summary created: {summary_key}")
+
+        return {
+            'statusCode': 200,
+            'body': json.dumps(summary)
+        }
+
+    except Exception as e:
+        logger.error(f"Error processing file: {str(e)}")
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': str(e)})
+        }</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Deploy Lambda with Boto3</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+import zipfile
+import io
+
+lambda_client = boto3.client('lambda')
+iam = boto3.client('iam')
+
+# Create Lambda execution role
+role_policy = {
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Principal": {"Service": "lambda.amazonaws.com"},
+        "Action": "sts:AssumeRole"
+    }]
+}
+
+# Create ZIP file with Lambda code
+zip_buffer = io.BytesIO()
+with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zipf:
+    zipf.write('lambda_function.py')
+
+# Create Lambda function
+response = lambda_client.create_function(
+    FunctionName='S3DataProcessor',
+    Runtime='python3.9',
+    Role='arn:aws:iam::ACCOUNT_ID:role/lambda-execution-role',
+    Handler='lambda_function.lambda_handler',
+    Code={'ZipFile': zip_buffer.getvalue()},
+    Timeout=60,
+    MemorySize=256,
+    Environment={
+        'Variables': {
+            'ENV': 'production'
+        }
+    }
+)
+
+print(f"Lambda function created: {response['FunctionArn']}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Invoke Lambda Function</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Invoke Lambda synchronously
+response = lambda_client.invoke(
+    FunctionName='S3DataProcessor',
+    InvocationType='RequestResponse',
+    Payload=json.dumps({
+        'bucket': 'my-data-bucket',
+        'key': 'data/input.csv'
+    })
+)
+
+result = json.loads(response['Payload'].read())
+print(result)
+
+# Invoke Lambda asynchronously
+response = lambda_client.invoke(
+    FunctionName='S3DataProcessor',
+    InvocationType='Event',
+    Payload=json.dumps({'test': 'data'})
+)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 3: Amazon RDS & Databases</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="3" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> RDS basics (PostgreSQL, MySQL)</li>
+                    <li><i class="fas fa-check-circle"></i> Database creation and configuration</li>
+                    <li><i class="fas fa-check-circle"></i> Connecting from Python</li>
+                    <li><i class="fas fa-check-circle"></i> Backup and restore</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Connect to RDS PostgreSQL</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import psycopg2
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Connection parameters
+db_config = {
+    'host': 'my-rds-instance.region.rds.amazonaws.com',
+    'port': 5432,
+    'database': 'mydb',
+    'user': 'admin',
+    'password': 'your-password'
+}
+
+# Connect using psycopg2
+conn = psycopg2.connect(**db_config)
+cursor = conn.cursor()
+
+# Create table
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS employees (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100),
+        department VARCHAR(50),
+        salary DECIMAL(10, 2),
+        hire_date DATE
+    )
+""")
+conn.commit()
+
+# Insert data
+cursor.execute("""
+    INSERT INTO employees (name, department, salary, hire_date)
+    VALUES (%s, %s, %s, %s)
+""", ('John Doe', 'IT', 75000, '2023-01-15'))
+conn.commit()
+
+# Query data
+cursor.execute("SELECT * FROM employees")
+rows = cursor.fetchall()
+for row in rows:
+    print(row)
+
+cursor.close()
+conn.close()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Using SQLAlchemy with Pandas</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Create SQLAlchemy engine
+connection_string = f"postgresql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}"
+engine = create_engine(connection_string)
+
+# Load data from DataFrame to RDS
+df = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Charlie'],
+    'department': ['HR', 'IT', 'Sales'],
+    'salary': [60000, 75000, 65000],
+    'hire_date': pd.to_datetime(['2023-01-01', '2023-02-01', '2023-03-01'])
+})
+
+# Write to database
+df.to_sql('employees', engine, if_exists='append', index=False)
+
+# Read from database
+df_from_db = pd.read_sql('SELECT * FROM employees WHERE salary > 60000', engine)
+print(df_from_db)
+
+# Complex query
+query = """
+    SELECT
+        department,
+        COUNT(*) as employee_count,
+        AVG(salary) as avg_salary,
+        MAX(salary) as max_salary
+    FROM employees
+    GROUP BY department
+    ORDER BY avg_salary DESC
+"""
+department_stats = pd.read_sql(query, engine)
+print(department_stats)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> RDS Management with Boto3</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">rds = boto3.client('rds')
+
+# Create RDS instance
+response = rds.create_db_instance(
+    DBInstanceIdentifier='my-postgres-db',
+    DBInstanceClass='db.t3.micro',
+    Engine='postgres',
+    MasterUsername='admin',
+    MasterUserPassword='SecurePassword123!',
+    AllocatedStorage=20,
+    BackupRetentionPeriod=7,
+    Port=5432,
+    PubliclyAccessible=True
+)
+
+# List DB instances
+instances = rds.describe_db_instances()
+for db in instances['DBInstances']:
+    print(f"DB: {db['DBInstanceIdentifier']}, Status: {db['DBInstanceStatus']}")
+
+# Create snapshot
+rds.create_db_snapshot(
+    DBSnapshotIdentifier='my-db-snapshot',
+    DBInstanceIdentifier='my-postgres-db'
+)</code></pre>
+                </div>
+            </div>
+
+            <!-- Days 4-7 Preview -->
+            <div class="day-section">
+                <h3 style="color: #FF9966; margin-bottom: 1rem;">Days 4-7: More AWS Services</h3>
+                <ul class="topics-list">
+                    <li><i class="fas fa-cloud"></i> Day 4: IAM, Security & Best Practices</li>
+                    <li><i class="fas fa-cloud"></i> Day 5: CloudWatch Monitoring & Logs</li>
+                    <li><i class="fas fa-cloud"></i> Day 6: EventBridge & SNS Notifications</li>
+                    <li><i class="fas fa-cloud"></i> Day 7: Mini Project - Serverless Data Pipeline</li>
+                </ul>
+
+                <div class="code-title"><i class="fas fa-code"></i> Day 7 Project: S3 to RDS Pipeline</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Complete serverless pipeline
+import boto3
+import pandas as pd
+import psycopg2
+from io import StringIO
+
+def process_s3_to_rds(event, context):
+    """
+    Lambda function that:
+    1. Reads CSV from S3
+    2. Processes data
+    3. Loads into RDS
+    """
+    s3 = boto3.client('s3')
+
+    # Get file from S3
+    bucket = event['Records'][0]['s3']['bucket']['name']
+    key = event['Records'][0]['s3']['object']['key']
+
+    obj = s3.get_object(Bucket=bucket, Key=key)
+    df = pd.read_csv(StringIO(obj['Body'].read().decode('utf-8')))
+
+    # Data processing
+    df['processed_date'] = pd.Timestamp.now()
+    df.dropna(inplace=True)
+
+    # Connect to RDS
+    conn = psycopg2.connect(
+        host='my-rds.amazonaws.com',
+        database='analytics',
+        user='admin',
+        password='password'
+    )
+
+    # Load data
+    cursor = conn.cursor()
+    for _, row in df.iterrows():
+        cursor.execute(
+            "INSERT INTO sales_data VALUES (%s, %s, %s, %s)",
+            tuple(row)
+        )
+    conn.commit()
+
+    # Send notification
+    sns = boto3.client('sns')
+    sns.publish(
+        TopicArn='arn:aws:sns:region:account:data-pipeline',
+        Subject='Data Load Complete',
+        Message=f'Loaded {len(df)} records from {key}'
+    )
+
+    return {'statusCode': 200, 'records_processed': len(df)}</code></pre>
+                </div>
+            </div>
+
+            <!-- Week Completion -->
+            <div class="day-section" style="background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%); color: white;">
+                <h3 style="color: white;">Week 4 Completion Checklist</h3>
+                <ul class="topics-list" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> AWS account configured</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Mastered S3 operations</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Created Lambda functions</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Connected to RDS databases</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built serverless pipeline</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Understand IAM and security</li>
+                </ul>
+                <button onclick="completeWeek()" class="btn btn-primary" style="margin-top: 1rem; background: white; color: #FF9966;">
+                    <i class="fas fa-check-circle"></i> Mark Week 4 as Complete
+                </button>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const checked = document.querySelectorAll('.day-checkbox:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+            const progressBar = document.getElementById('week-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+            localStorage.setItem('week4-progress', percentage);
+        }
+
+        function completeWeek() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateProgress();
+            alert('Congratulations on completing Week 4! 🎉\n\nReady for Week 5: AWS Data Services');
+        }
+
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('week4-progress');
+            if (saved) {
+                const progressBar = document.getElementById('week-progress');
+                progressBar.style.width = saved + '%';
+                progressBar.textContent = saved + '%';
+            }
+        });
+    </script>
+</body>
+</html>

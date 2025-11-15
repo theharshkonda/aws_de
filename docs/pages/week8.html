@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 8: Capstone Project & Interview Prep | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .week-hero {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #30cfd0;
+        }
+        .day-title {
+            font-size: 1.8rem;
+            color: #30cfd0;
+        }
+        .day-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        .topics-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .topics-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topics-list li i {
+            color: #30cfd0;
+        }
+        .code-snippet {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-snippet pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+        .code-title {
+            background: #30cfd0;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            margin-bottom: -0.5rem;
+            display: inline-block;
+        }
+        .resource-link {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #30cfd0;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .resource-link:hover {
+            background: #330867;
+            transform: translateY(-2px);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #30cfd0, #330867);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #30cfd0;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+            border: 2px solid #30cfd0;
+        }
+        .back-btn:hover {
+            background: #30cfd0;
+            color: white;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="week-hero">
+        <div class="container">
+            <h1>Week 8: Capstone Project & Interview Prep</h1>
+            <p>Build your capstone project and prepare for data engineering interviews</p>
+            <div class="progress-bar-container" style="max-width: 600px; margin: 2rem auto;">
+                <div class="progress-bar" id="week-progress" style="width: 0%;">0%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+
+            <!-- Day 1-2 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 1-2: Capstone Project Planning & Design</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="1-2" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (8-10 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Define project scope and objectives</li>
+                    <li><i class="fas fa-check-circle"></i> Data architecture design</li>
+                    <li><i class="fas fa-check-circle"></i> Technology stack selection</li>
+                    <li><i class="fas fa-check-circle"></i> System design and workflows</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Capstone Project Template</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">"""
+Capstone Project: E-Commerce Data Analytics Platform
+
+Architecture:
+- Data Ingestion: Kinesis Data Streams
+- Data Processing: AWS Glue + PySpark
+- Data Storage: S3 (Data Lake), Redshift (DW), RDS (Metadata)
+- Visualization: QuickSight + Dash
+- Orchestration: Step Functions
+- Monitoring: CloudWatch
+"""
+
+class CapstoneProject:
+    def __init__(self):
+        self.project_name = 'E-Commerce Analytics Platform'
+        self.s3 = boto3.client('s3')
+        self.kinesis = boto3.client('kinesis')
+        self.glue = boto3.client('glue')
+        self.redshift = boto3.client('redshift')
+
+    def project_scope(self):
+        """Define project requirements"""
+        return {
+            'business_objectives': [
+                'Real-time sales monitoring',
+                'Customer behavior analysis',
+                'Inventory optimization',
+                'Revenue forecasting'
+            ],
+            'data_sources': [
+                'E-commerce website (API)',
+                'Mobile app events',
+                'Inventory system',
+                'Customer CRM'
+            ],
+            'deliverables': [
+                'Real-time dashboard',
+                'Weekly business reports',
+                'Customer segmentation',
+                'Predictive models'
+            ],
+            'success_metrics': [
+                'Dashboard uptime > 99.9%',
+                'Data freshness < 5 minutes',
+                'Query performance < 2 seconds',
+                'Data accuracy > 99.5%'
+            ]
+        }
+
+    def data_architecture(self):
+        """Define data architecture"""
+        return {
+            'sources': {
+                'api_streams': 'Kinesis Data Streams',
+                'batch_data': 'S3 uploads',
+                'databases': 'RDS PostgreSQL'
+            },
+            'ingestion': {
+                'real_time': 'Lambda + Kinesis',
+                'batch': 'Lambda + S3',
+                'scheduled': 'EventBridge + Lambda'
+            },
+            'processing': {
+                'etl': 'AWS Glue + PySpark',
+                'transformations': 'SQL + Python',
+                'aggregations': 'Spark SQL'
+            },
+            'storage': {
+                'raw': 's3://bronze-layer/',
+                'processed': 's3://silver-layer/',
+                'analytics': 's3://gold-layer/ + Redshift'
+            },
+            'analytics': {
+                'dashboards': 'QuickSight',
+                'reports': 'Jupyter notebooks',
+                'ml_models': 'SageMaker'
+            }
+        }
+
+    def project_timeline(self):
+        """Project timeline and milestones"""
+        return {
+            'week_1_2': {
+                'phase': 'Planning & Design',
+                'tasks': [
+                    'Requirements gathering',
+                    'Architecture design',
+                    'Technology selection',
+                    'Cost estimation'
+                ]
+            },
+            'week_3_4': {
+                'phase': 'Implementation',
+                'tasks': [
+                    'Infrastructure setup',
+                    'Data pipeline development',
+                    'ETL jobs creation',
+                    'Testing'
+                ]
+            },
+            'week_5_6': {
+                'phase': 'Integration & Testing',
+                'tasks': [
+                    'End-to-end testing',
+                    'Performance optimization',
+                    'Security hardening',
+                    'Documentation'
+                ]
+            },
+            'week_7_8': {
+                'phase': 'Deployment & Optimization',
+                'tasks': [
+                    'Production deployment',
+                    'Monitoring setup',
+                    'User training',
+                    'Knowledge transfer'
+                ]
+            }
+        }
+
+    def generate_architecture_doc(self):
+        """Generate architecture documentation"""
+        doc = f"""
+        # {self.project_name}
+
+        ## Project Overview
+        Real-time analytics platform for e-commerce operations with focus on
+        inventory management, customer analytics, and revenue optimization.
+
+        ## Architecture Components
+
+        ### Data Ingestion
+        - Kinesis Data Streams for real-time events
+        - S3 for batch uploads
+        - RDS for transactional data
+
+        ### Data Processing
+        - AWS Glue for ETL
+        - PySpark for transformations
+        - SQL for aggregations
+
+        ### Data Storage
+        - S3 Data Lake (Bronze/Silver/Gold)
+        - Redshift Data Warehouse
+        - RDS for metadata
+
+        ### Analytics & Visualization
+        - QuickSight for BI dashboards
+        - Jupyter for exploratory analysis
+        - Plotly/Dash for custom dashboards
+
+        ### Orchestration & Monitoring
+        - Step Functions for workflow orchestration
+        - CloudWatch for monitoring
+        - EventBridge for scheduling
+
+        ## Data Flow
+        Raw Data -> Kinesis -> Lambda -> S3 (Bronze) ->
+        Glue ETL -> S3 (Silver) -> PySpark Processing ->
+        S3 (Gold) + Redshift -> QuickSight Dashboard
+        """
+        return doc
+
+# Usage
+capstone = CapstoneProject()
+print(capstone.project_scope())
+print(capstone.data_architecture())
+print(capstone.generate_architecture_doc())</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Infrastructure as Code (Terraform/CloudFormation)</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import json
+import boto3
+
+def create_cloudformation_template():
+    """Create CloudFormation template for infrastructure"""
+    template = {
+        'AWSTemplateFormatVersion': '2010-09-09',
+        'Description': 'Capstone Project Infrastructure',
+        'Resources': {
+            'DataLakeBucket': {
+                'Type': 'AWS::S3::Bucket',
+                'Properties': {
+                    'BucketName': 'capstone-data-lake-bucket',
+                    'VersioningConfiguration': {
+                        'Status': 'Enabled'
+                    },
+                    'LifecycleConfiguration': {
+                        'Rules': [{
+                            'Id': 'DeleteOldVersions',
+                            'NoncurrentVersionExpirationInDays': 90,
+                            'Status': 'Enabled'
+                        }]
+                    }
+                }
+            },
+            'KinesisStream': {
+                'Type': 'AWS::Kinesis::Stream',
+                'Properties': {
+                    'Name': 'capstone-event-stream',
+                    'RetentionPeriod': 24,
+                    'StreamModeDetails': {
+                        'StreamMode': 'PROVISIONED'
+                    },
+                    'ShardCount': 2
+                }
+            },
+            'GlueDatabase': {
+                'Type': 'AWS::Glue::Database',
+                'Properties': {
+                    'CatalogId': {'Ref': 'AWS::AccountId'},
+                    'DatabaseInput': {
+                        'Name': 'capstone_db',
+                        'Description': 'Capstone project database'
+                    }
+                }
+            },
+            'RedshiftCluster': {
+                'Type': 'AWS::Redshift::Cluster',
+                'Properties': {
+                    'ClusterIdentifier': 'capstone-cluster',
+                    'DBName': 'analytics',
+                    'MasterUsername': 'admin',
+                    'MasterUserPassword': {'Ref': 'DBPassword'},
+                    'NodeType': 'dc2.large',
+                    'NumberOfNodes': 2,
+                    'PubliclyAccessible': False,
+                    'VpcSecurityGroupIds': [{'Ref': 'RedshiftSecurityGroup'}]
+                }
+            },
+            'QuickSightDataSet': {
+                'Type': 'AWS::QuickSight::DataSet',
+                'Properties': {
+                    'Name': 'Capstone Analytics',
+                    'AwsAccountId': {'Ref': 'AWS::AccountId'}
+                }
+            }
+        },
+        'Outputs': {
+            'DataLakeBucket': {
+                'Value': {'Ref': 'DataLakeBucket'},
+                'Description': 'S3 Data Lake Bucket'
+            },
+            'KinesisStreamArn': {
+                'Value': {'Fn::GetAtt': ['KinesisStream', 'Arn']},
+                'Description': 'Kinesis Stream ARN'
+            },
+            'RedshiftEndpoint': {
+                'Value': {'Fn::GetAtt': ['RedshiftCluster', 'Endpoint.Address']},
+                'Description': 'Redshift Cluster Endpoint'
+            }
+        }
+    }
+    return template
+
+# Deploy template
+cloudformation = boto3.client('cloudformation')
+template = create_cloudformation_template()
+
+response = cloudformation.create_stack(
+    StackName='capstone-infrastructure',
+    TemplateBody=json.dumps(template),
+    Parameters=[
+        {
+            'ParameterKey': 'DBPassword',
+            'ParameterValue': 'YourSecurePassword123!'
+        }
+    ]
+)
+
+print(f"Stack creation initiated: {response['StackId']}")</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 3-4 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 3-4: Build End-to-End Data Platform</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="3-4" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (10-12 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Implement data ingestion pipeline</li>
+                    <li><i class="fas fa-check-circle"></i> Build ETL/ELT processes</li>
+                    <li><i class="fas fa-check-circle"></i> Create data warehouse</li>
+                    <li><i class="fas fa-check-circle"></i> Build analytics layer</li>
+                </ul>
+
+                <h4>Complete Implementation Code</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> End-to-End Data Pipeline</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">#!/usr/bin/env python
+"""
+Capstone Project: Complete Data Pipeline
+Orchestrates data flow from ingestion to analytics
+"""
+
+import sys
+import boto3
+import psycopg2
+import pandas as pd
+from datetime import datetime
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql.functions import *
+
+class CapstoneDataPipeline:
+    def __init__(self, config):
+        self.config = config
+        self.s3 = boto3.client('s3')
+        self.glue = boto3.client('glue')
+        self.kinesis = boto3.client('kinesis')
+        self.redshift_config = config['redshift']
+
+    def step1_ingest_data(self):
+        """Step 1: Ingest data from Kinesis"""
+        print("Step 1: Ingesting data from Kinesis...")
+
+        stream = self.kinesis.describe_stream(
+            StreamName=self.config['kinesis_stream']
+        )
+        shards = stream['StreamDescription']['Shards']
+
+        for shard in shards:
+            iterator = self.kinesis.get_shard_iterator(
+                StreamName=self.config['kinesis_stream'],
+                ShardId=shard['ShardId'],
+                ShardIteratorType='LATEST'
+            )['ShardIterator']
+
+            # Process and store
+            while iterator:
+                response = self.kinesis.get_records(ShardIterator=iterator)
+
+                for record in response['Records']:
+                    self.store_raw_data(record['Data'])
+
+                iterator = response['NextShardIterator']
+
+    def step2_transform_data(self):
+        """Step 2: Transform and clean data"""
+        print("Step 2: Transforming data with Glue...")
+
+        # Submit Glue job
+        response = self.glue.start_job_run(
+            JobName='capstone-etl-job',
+            Arguments={
+                '--input-path': self.config['bronze_path'],
+                '--output-path': self.config['silver_path'],
+                '--job-bookmark-option': 'job-bookmark-enable'
+            }
+        )
+
+        job_run_id = response['JobRunId']
+        print(f"Glue job started: {job_run_id}")
+        return job_run_id
+
+    def step3_aggregate_data(self):
+        """Step 3: Create aggregations"""
+        print("Step 3: Creating aggregations...")
+
+        args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+        sc = SparkContext()
+        glueContext = GlueContext(sc)
+        spark = glueContext.spark_session
+        job = Job(glueContext)
+        job.init(args['JOB_NAME'], args)
+
+        # Read processed data
+        df = spark.read.parquet(self.config['silver_path'])
+
+        # Create aggregations
+        daily_agg = df.groupBy(to_date(col('timestamp'))) \
+            .agg(
+                count('*').alias('transaction_count'),
+                sum('amount').alias('total_amount'),
+                avg('amount').alias('avg_amount'),
+                countDistinct('customer_id').alias('unique_customers')
+            ).withColumnRenamed('to_date(timestamp)', 'date')
+
+        # Write to gold layer
+        daily_agg.write.mode('overwrite').parquet(self.config['gold_path'])
+
+        job.commit()
+
+    def step4_load_warehouse(self):
+        """Step 4: Load to Redshift"""
+        print("Step 4: Loading to Redshift warehouse...")
+
+        conn = psycopg2.connect(**self.redshift_config)
+        cursor = conn.cursor()
+
+        # Create table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS analytics.daily_metrics (
+                date DATE,
+                transaction_count INT,
+                total_amount DECIMAL(15, 2),
+                avg_amount DECIMAL(10, 2),
+                unique_customers INT,
+                loaded_at TIMESTAMP DEFAULT GETDATE()
+            )
+            DISTKEY (date)
+            SORTKEY (date)
+        """)
+
+        # Copy from S3
+        copy_cmd = f"""
+            COPY analytics.daily_metrics (
+                date, transaction_count, total_amount, avg_amount, unique_customers
+            )
+            FROM '{self.config['gold_path']}'
+            IAM_ROLE 'arn:aws:iam::ACCOUNT_ID:role/RedshiftRole'
+            PARQUET
+        """
+
+        cursor.execute(copy_cmd)
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+    def step5_create_dashboards(self):
+        """Step 5: Create analytics dashboards"""
+        print("Step 5: Setting up dashboards...")
+
+        quicksight = boto3.client('quicksight')
+
+        # Create dataset
+        response = quicksight.create_data_set(
+            AwsAccountId=self.config['account_id'],
+            DataSetId='capstone-analytics-dataset',
+            Name='Capstone Analytics Dataset',
+            PhysicalTableMappings=[{
+                'Schema': 'analytics',
+                'TablePlaceholder': 'daily_metrics'
+            }]
+        )
+
+        return response
+
+    def execute_pipeline(self):
+        """Execute complete pipeline"""
+        try:
+            print("Starting Capstone Data Pipeline...")
+            print(f"Time: {datetime.now()}")
+
+            self.step1_ingest_data()
+            self.step2_transform_data()
+            self.step3_aggregate_data()
+            self.step4_load_warehouse()
+            self.step5_create_dashboards()
+
+            print("Pipeline completed successfully!")
+            print(f"Completion time: {datetime.now()}")
+
+        except Exception as e:
+            print(f"Pipeline failed: {str(e)}")
+            raise
+
+    def store_raw_data(self, data):
+        """Store raw data to S3"""
+        timestamp = datetime.now().isoformat()
+        key = f"{self.config['bronze_path']}/{timestamp}/data.json"
+
+        self.s3.put_object(
+            Bucket=self.config['bucket'],
+            Key=key,
+            Body=data
+        )
+
+# Configuration
+config = {
+    'bucket': 'capstone-data-lake',
+    'kinesis_stream': 'capstone-events',
+    'bronze_path': 'bronze/',
+    'silver_path': 'silver/',
+    'gold_path': 'gold/',
+    'account_id': '123456789012',
+    'redshift': {
+        'host': 'capstone-cluster.region.redshift.amazonaws.com',
+        'port': 5439,
+        'database': 'analytics',
+        'user': 'admin',
+        'password': 'password'
+    }
+}
+
+# Execute
+if __name__ == '__main__':
+    pipeline = CapstoneDataPipeline(config)
+    pipeline.execute_pipeline()</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 5: Testing & Optimization</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="5" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (6-8 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Unit and integration testing</li>
+                    <li><i class="fas fa-check-circle"></i> Performance optimization</li>
+                    <li><i class="fas fa-check-circle"></i> Cost optimization</li>
+                    <li><i class="fas fa-check-circle"></i> Security hardening</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Testing & Validation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import pytest
+import pandas as pd
+from unittest.mock import Mock, patch
+
+class TestCapstoneDataPipeline:
+    """Unit tests for capstone project"""
+
+    @pytest.fixture
+    def sample_data(self):
+        """Create sample test data"""
+        return pd.DataFrame({
+            'customer_id': ['C001', 'C002', 'C003'],
+            'amount': [100, 200, 150],
+            'timestamp': ['2024-01-01', '2024-01-02', '2024-01-03']
+        })
+
+    def test_data_ingestion(self, sample_data):
+        """Test data ingestion"""
+        assert len(sample_data) == 3
+        assert all(col in sample_data.columns for col in ['customer_id', 'amount'])
+
+    def test_data_validation(self, sample_data):
+        """Test data quality validations"""
+        # Check for nulls
+        assert sample_data.isnull().sum().sum() == 0
+
+        # Check data types
+        assert sample_data['amount'].dtype in ['float64', 'int64']
+
+        # Check value ranges
+        assert (sample_data['amount'] > 0).all()
+
+    def test_aggregations(self, sample_data):
+        """Test aggregation logic"""
+        sample_data['timestamp'] = pd.to_datetime(sample_data['timestamp'])
+        daily_agg = sample_data.groupby('timestamp')['amount'].sum()
+
+        assert len(daily_agg) == 3
+        assert daily_agg.sum() == 450
+
+    def test_transformation(self, sample_data):
+        """Test data transformations"""
+        sample_data['amount_category'] = sample_data['amount'].apply(
+            lambda x: 'high' if x > 150 else 'low'
+        )
+
+        assert 'high' in sample_data['amount_category'].values
+        assert 'low' in sample_data['amount_category'].values
+
+    @patch('boto3.client')
+    def test_s3_upload(self, mock_boto):
+        """Test S3 operations"""
+        mock_s3 = Mock()
+        mock_boto.return_value = mock_s3
+
+        # Test upload
+        mock_s3.put_object.return_value = {'ETag': '123'}
+        result = mock_s3.put_object(Bucket='test', Key='file.csv', Body='data')
+
+        assert result['ETag'] == '123'
+        mock_s3.put_object.assert_called_once()
+
+def performance_test():
+    """Performance testing"""
+    import time
+
+    # Create large dataset
+    large_df = pd.DataFrame({
+        'id': range(1000000),
+        'value': range(1000000)
+    })
+
+    # Test aggregation performance
+    start_time = time.time()
+    result = large_df.groupby(large_df['id'] % 100)['value'].sum()
+    elapsed = time.time() - start_time
+
+    print(f"Aggregation time: {elapsed:.2f} seconds")
+    assert elapsed < 5  # Should complete in less than 5 seconds
+
+def cost_optimization():
+    """Cost optimization analysis"""
+    costs = {
+        'kinesis': 0.36,  # per shard hour
+        's3': 0.023,  # per GB
+        'glue': 0.44,  # per DPU hour
+        'redshift': 1.086,  # per node hour
+        'quicksight': 9.95  # per user per month
+    }
+
+    optimization_tips = [
+        'Use on-demand pricing for non-critical workloads',
+        'Implement data lifecycle policies (move to Glacier)',
+        'Use Glue job bookmarks to avoid reprocessing',
+        'Optimize Redshift cluster size and node types',
+        'Use QuickSight capacity mode for multiple users',
+        'Compress data in S3 (Gzip, Snappy)',
+        'Implement Kinesis auto-scaling',
+        'Use S3 Intelligent-Tiering'
+    ]
+
+    return costs, optimization_tips
+
+# Run tests
+if __name__ == '__main__':
+    pytest.main([__file__, '-v'])</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 6: Documentation & Portfolio</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="6" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (6-8 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Technical documentation</li>
+                    <li><i class="fas fa-check-circle"></i> API documentation</li>
+                    <li><i class="fas fa-check-circle"></i> Deployment guides</li>
+                    <li><i class="fas fa-check-circle"></i> Portfolio showcase</li>
+                </ul>
+
+                <h4>Documentation Template</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Project Documentation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">"""
+Capstone Project Documentation
+
+# E-Commerce Data Analytics Platform
+
+## Overview
+Real-time analytics platform processing millions of transactions daily
+across multiple regions and product categories.
+
+## Architecture
+
+### Components
+1. Data Ingestion Layer
+   - Kinesis Data Streams: Real-time event ingestion
+   - API Gateway: REST API for data submission
+   - Lambda: Event processing and validation
+
+2. Storage Layer
+   - S3: Data Lake (Bronze/Silver/Gold layers)
+   - RDS: Transactional metadata
+   - Redshift: Analytics warehouse
+
+3. Processing Layer
+   - AWS Glue: ETL jobs (PySpark)
+   - Lambda: Real-time processing
+   - Batch: Scheduled transformations
+
+4. Analytics Layer
+   - QuickSight: Business dashboards
+   - Jupyter: Exploratory analysis
+   - Custom Dash: Interactive reports
+
+5. Orchestration
+   - Step Functions: Workflow orchestration
+   - EventBridge: Scheduled jobs
+   - CloudWatch: Monitoring
+
+## Data Models
+
+### Fact Tables
+- transactions (customer_id, product_id, amount, timestamp)
+- events (user_id, event_type, timestamp, properties)
+
+### Dimension Tables
+- customers (customer_id, name, segment, region)
+- products (product_id, category, price)
+- dates (date_id, date, month, quarter, year)
+
+## API Documentation
+
+### POST /api/transactions
+Submit transaction data
+
+Request:
+{
+  "customer_id": "C001",
+  "product_id": "P001",
+  "amount": 99.99,
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+
+Response:
+{
+  "transaction_id": "TXN123",
+  "status": "received",
+  "timestamp": "2024-01-15T10:30:00Z"
+}
+
+### GET /api/analytics/dashboard
+Get dashboard metrics
+
+Response:
+{
+  "total_revenue": 1000000,
+  "transaction_count": 10000,
+  "unique_customers": 5000,
+  "avg_transaction": 100
+}
+
+## Deployment Guide
+
+### Prerequisites
+- AWS Account with appropriate permissions
+- Python 3.9+
+- Terraform or CloudFormation
+
+### Deployment Steps
+1. Clone repository
+2. Configure AWS credentials
+3. Deploy infrastructure
+4. Deploy applications
+5. Configure monitoring
+6. Run tests
+
+### Production Checklist
+- [ ] Security review completed
+- [ ] Load testing passed
+- [ ] Disaster recovery plan
+- [ ] Monitoring configured
+- [ ] Backups enabled
+- [ ] Documentation complete
+
+## Performance Metrics
+
+### Throughput
+- Events processed: 1M+ per day
+- Average latency: < 100ms
+- Peak throughput: 10k events/min
+
+### Availability
+- Uptime: 99.99%
+- RTO: 1 hour
+- RPO: 5 minutes
+
+### Costs
+- Monthly cost: ~$5000
+- Cost per transaction: $0.005
+
+## Lessons Learned
+- Importance of data quality validation
+- Cost optimization through caching
+- Monitoring and alerting criticality
+- Testing automation benefits
+- Documentation value for maintenance
+"""
+
+# README generation
+def generate_readme():
+    readme = """
+# Capstone Project: E-Commerce Data Analytics Platform
+
+## Quick Start
+
+### Prerequisites
+- Python 3.9+
+- AWS CLI configured
+- Docker (optional)
+
+### Installation
+```bash
+git clone <repository>
+cd capstone-project
+pip install -r requirements.txt
+python -m pip install -e .
+```
+
+### Configuration
+```bash
+cp config.example.yaml config.yaml
+# Edit config.yaml with your AWS details
+```
+
+### Running Tests
+```bash
+pytest tests/ -v
+```
+
+### Deployment
+```bash
+# Deploy infrastructure
+terraform init
+terraform plan
+terraform apply
+
+# Deploy application
+aws cloudformation create-stack \\
+  --stack-name capstone-stack \\
+  --template-body file://template.yaml
+```
+
+## Usage
+
+### Submit Data
+```python
+from capstone import DataProducer
+
+producer = DataProducer()
+producer.submit_transaction({
+    'customer_id': 'C001',
+    'product_id': 'P001',
+    'amount': 99.99
+})
+```
+
+### Query Analytics
+```python
+from capstone import AnalyticsClient
+
+client = AnalyticsClient()
+metrics = client.get_dashboard_metrics()
+print(f"Total Revenue: ${metrics['total_revenue']}")
+```
+
+## Architecture Diagram
+[Insert ASCII architecture diagram]
+
+## License
+MIT License - See LICENSE file
+
+## Contact
+For questions: data-team@company.com
+    """
+    return readme
+
+print(generate_readme())</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 7: Interview Preparation & System Design</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="7" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (8-10 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> System design interview questions</li>
+                    <li><i class="fas fa-check-circle"></i> Data engineering concepts review</li>
+                    <li><i class="fas fa-check-circle"></i> SQL and optimization</li>
+                    <li><i class="fas fa-check-circle"></i> Common interview patterns</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> System Design Interview Question</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">"""
+System Design Question: Design a Distributed Analytics Platform
+
+Problem Statement:
+Design a system to handle real-time data ingestion and analytics
+for a social media platform with billions of daily events.
+
+Requirements:
+- Functional:
+  * Ingest 1M+ events per second
+  * Query analytics with < 5 second latency
+  * Support multiple data formats
+  * Real-time dashboards
+
+- Non-functional:
+  * 99.99% availability
+  * <100ms end-to-end latency for real-time
+  * Cost-effective storage
+  * Horizontal scalability
+
+Solution:
+
+1. Data Ingestion Layer
+   - Kinesis Data Streams: Ingest real-time events
+   - Auto-scaling for traffic spikes
+   - Multiple stream shards for parallel processing
+
+2. Stream Processing
+   - Lambda: Real-time processing
+   - Kinesis Analytics: Pre-aggregation
+   - Windowed aggregations every 60s
+
+3. Storage Layer
+   - Hot data (recent 7 days): DynamoDB
+   - Warm data (7-90 days): S3 with fast retrieve
+   - Cold data (>90 days): Glacier
+
+4. Batch Processing
+   - AWS Glue: Hourly/daily aggregations
+   - PySpark for complex transformations
+   - Partitioned by date for quick access
+
+5. Analytics
+   - Redshift: Structured data warehousing
+   - Athena: Ad-hoc SQL queries
+   - QuickSight: Dashboarding
+
+6. Monitoring
+   - CloudWatch: Metrics and logs
+   - X-Ray: Distributed tracing
+   - Custom alerts for SLA violations
+
+Capacity Estimation:
+- Events/second: 1M
+- Events/day: 86.4B (86 * 10^9)
+- Average event size: 1KB
+- Daily storage: 86.4TB raw data
+- With compression (5:1): 17.2TB
+
+Network Calculation:
+- 1M events/sec * 1KB = 1GB/sec = 86.4PB/day
+- Cost: ~$5M/month for egress (mitigated by compression)
+
+Trade-offs:
+- Real-time accuracy vs. cost: Accept slight delays
+- Storage vs. compute: Compression reduces storage cost
+- Availability vs. cost: 99.99% (four nines) is sweet spot
+- Batch vs. stream: Hybrid approach (best of both)
+
+Scalability:
+- Kinesis: Auto-scale based on traffic
+- Lambda: Automatic scaling
+- Redshift: Scale-up compute nodes
+- S3: Unlimited storage
+"""
+
+# Interview Question: SQL Optimization
+sql_interview = """
+Question: Optimize the following query
+
+Original Query:
+SELECT
+    customer_id,
+    COUNT(*) as transaction_count,
+    SUM(amount) as total_amount
+FROM transactions
+WHERE DATE(transaction_date) >= '2024-01-01'
+GROUP BY customer_id
+ORDER BY total_amount DESC
+
+Issues:
+1. DATE() function prevents index usage
+2. No index on transaction_date
+3. Ordering on derived column
+
+Optimized Query:
+CREATE INDEX idx_transaction_date ON transactions(transaction_date, customer_id);
+
+SELECT
+    customer_id,
+    COUNT(*) as transaction_count,
+    SUM(amount) as total_amount
+FROM transactions
+WHERE transaction_date >= '2024-01-01'
+GROUP BY customer_id
+ORDER BY total_amount DESC
+LIMIT 1000
+
+Improvements:
+1. Removed DATE() function for index usage
+2. Added composite index
+3. Added LIMIT to reduce data transfer
+4. Considered partitioning by date
+"""
+
+# Interview Question: Data Architecture
+architecture_question = """
+Question: Design ETL for processing 1TB daily data
+
+Solution:
+
+Phase 1: Ingestion (0-2 hours)
+- S3: Store raw files in batches
+- Lambda: Trigger on S3 upload
+- Validation: Check schema, size, format
+- Dead letter queue: Invalid records
+
+Phase 2: Processing (2-6 hours)
+- Glue: 10 DPU cluster
+- PySpark: Parallel processing
+- Transformation: Denormalization, calculations
+- Partitioning: Year/month/day
+
+Phase 3: Loading (6-8 hours)
+- S3: Store processed data
+- Redshift: COPY command
+- RDS: Metadata updates
+- DynamoDB: Cache frequently accessed data
+
+Phase 4: Validation (8-8.5 hours)
+- Record counts match
+- Data quality checks
+- Null value handling
+- Duplicate detection
+
+Phase 5: Alerting (8.5-9 hours)
+- CloudWatch: Success/failure notifications
+- SNS: Email alerts
+- DynamoDB: Log metadata
+- QuickSight: Data quality dashboard
+
+Performance:
+- 1TB / 6 hours = ~46GB/hour processing
+- Network: 5Gbps link sufficient
+- Cost: ~$100-150/day
+
+Optimization:
+- Incremental loading (delta only)
+- Columnar storage (Parquet)
+- Compression (Snappy/GZIP)
+- Partitioning strategy
+"""
+
+# Common Interview Patterns
+patterns = {
+    'streaming_aggregation': 'Kinesis -> Lambda -> DynamoDB -> QuickSight',
+    'batch_warehouse': 'S3 -> Glue -> Redshift -> BI Tool',
+    'real_time_serving': 'Kafka -> Spark -> Redis/DynamoDB -> API',
+    'data_lake': 'Multiple Sources -> S3 Bronze -> Glue Silver -> S3 Gold',
+    'dimension_modeling': 'Fact tables with slowly changing dimensions',
+    'incremental_loading': 'CDC (Change Data Capture) with delta tables'
+}
+
+print(patterns)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Common Interview Topics Review</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">"""
+Data Engineering Interview Preparation
+
+Key Topics to Master:
+
+1. Data Modeling
+   - Star schema vs Snowflake
+   - Slowly changing dimensions
+   - Fact and dimension tables
+   - Denormalization tradeoffs
+
+2. SQL Optimization
+   - Index strategies
+   - Query plans and EXPLAIN
+   - Window functions
+   - CTEs and recursive queries
+   - Partition pruning
+
+3. System Design
+   - Scalability calculations
+   - Latency vs throughput
+   - Consistency models (CAP theorem)
+   - Batch vs stream processing
+   - Hot/warm/cold storage tiers
+
+4. AWS Services
+   - Kinesis vs Kafka tradeoffs
+   - S3 storage classes and lifecycle
+   - RDS vs DynamoDB vs Redshift
+   - Glue job optimization
+   - Lambda scaling limits
+
+5. Data Quality
+   - Validation frameworks
+   - Data profiling
+   - Anomaly detection
+   - Quality metrics (freshness, accuracy)
+   - Great Expectations library
+
+6. Performance
+   - Partitioning strategies
+   - Compression techniques
+   - Caching layers
+   - Query optimization
+   - Monitoring and profiling
+
+Common Follow-up Questions:
+1. How would you scale this 10x?
+2. How would you handle failure?
+3. What about data quality?
+4. How would you monitor this?
+5. What about cost optimization?
+6. How would you handle this in real-time?
+"""
+
+# Practice Problems
+practice_problems = [
+    {
+        'title': 'Design User Activity Analytics',
+        'description': 'Track user events and provide real-time dashboards',
+        'key_concepts': ['Kinesis', 'DynamoDB', 'S3', 'QuickSight']
+    },
+    {
+        'title': 'Build Data Warehouse for E-commerce',
+        'description': 'Consolidate data from multiple sources',
+        'key_concepts': ['Redshift', 'Glue', 'RDS', 'Fact/Dimension tables']
+    },
+    {
+        'title': 'Implement Real-time Recommendation Engine',
+        'description': 'Process streams and serve predictions',
+        'key_concepts': ['Kinesis', 'SageMaker', 'DynamoDB', 'Lambda']
+    },
+    {
+        'title': 'Design Data Lake for Organization',
+        'description': 'Multi-tenant data platform',
+        'key_concepts': ['S3', 'Athena', 'Glue', 'Access Control']
+    }
+]
+
+print("Data Engineering Interview Prep Complete!")</code></pre>
+                </div>
+
+                <h4>Resources for Interview Prep</h4>
+                <div>
+                    <a href="https://www.educative.io/courses/grokking-the-system-design-interview" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> System Design Interview
+                    </a>
+                    <a href="https://docs.aws.amazon.com/wellarchitected/latest/userguide/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> AWS Well-Architected
+                    </a>
+                    <a href="https://leetcode.com/discuss/interview-question/category/database" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> SQL Interview Problems
+                    </a>
+                    <a href="https://github.com/alex/what-happens-when" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> System Fundamentals
+                    </a>
+                </div>
+            </div>
+
+            <!-- Week Completion -->
+            <div class="day-section" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); color: white;">
+                <h3 style="color: white;">Bootcamp Completion!</h3>
+                <ul class="topics-list" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Completed 8-week comprehensive bootcamp</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built production-ready data platform</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Mastered AWS data services</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Implemented real-time pipelines</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Created professional dashboards</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Ready for data engineering interviews</li>
+                </ul>
+                <button onclick="completeBootcamp()" class="btn btn-primary" style="margin-top: 1rem; background: white; color: #30cfd0;">
+                    <i class="fas fa-check-circle"></i> Mark Bootcamp as Complete
+                </button>
+                <p style="marginTop: 1rem; fontSize: 1.1rem; color: white;">
+                    You've completed the AWS Data Engineer 8-Week Bootcamp!
+                    Congratulations on your journey to becoming a data engineer!
+                </p>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const checked = document.querySelectorAll('.day-checkbox:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+            const progressBar = document.getElementById('week-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+            localStorage.setItem('week8-progress', percentage);
+        }
+
+        function completeBootcamp() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateProgress();
+            alert('Congratulations on completing the AWS Data Engineer Bootcamp! 🎉\n\nYou\'re now equipped with the skills to build enterprise-grade data platforms. Best of luck with your data engineering career!');
+
+            // Update overall bootcamp completion
+            localStorage.setItem('bootcamp-completed', 'true');
+            localStorage.setItem('bootcamp-completion-date', new Date().toISOString());
+        }
+
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('week8-progress');
+            if (saved) {
+                const progressBar = document.getElementById('week-progress');
+                progressBar.style.width = saved + '%';
+                progressBar.textContent = saved + '%';
+            }
+        });
+    </script>
+</body>
+</html>

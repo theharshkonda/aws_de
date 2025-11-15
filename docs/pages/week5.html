@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5: AWS Data Services | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        .week-hero {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .day-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #4facfe;
+        }
+        .day-title {
+            font-size: 1.8rem;
+            color: #4facfe;
+        }
+        .day-checkbox {
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        .topics-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        .topics-list li {
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            background: #f5f7fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .topics-list li i {
+            color: #4facfe;
+        }
+        .code-snippet {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .code-snippet pre {
+            margin: 0;
+            color: #f8f8f2;
+        }
+        .code-title {
+            background: #4facfe;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+            margin-bottom: -0.5rem;
+            display: inline-block;
+        }
+        .resource-link {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #4facfe;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .resource-link:hover {
+            background: #00f2fe;
+            transform: translateY(-2px);
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #4facfe;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+            border: 2px solid #4facfe;
+        }
+        .back-btn:hover {
+            background: #4facfe;
+            color: white;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="week-hero">
+        <div class="container">
+            <h1>Week 5: AWS Data Services</h1>
+            <p>Master Glue, Athena, Redshift, and build data lakes and data warehouses</p>
+            <div class="progress-bar-container" style="max-width: 600px; margin: 2rem auto;">
+                <div class="progress-bar" id="week-progress" style="width: 0%;">0%</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+
+            <!-- Day 1 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 1: AWS Glue - Crawler and Data Catalog</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="1" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> AWS Glue Data Catalog basics</li>
+                    <li><i class="fas fa-check-circle"></i> Creating and running crawlers</li>
+                    <li><i class="fas fa-check-circle"></i> Discovering data schema automatically</li>
+                    <li><i class="fas fa-check-circle"></i> Organizing tables and databases</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Creating Glue Crawler with Boto3</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+
+glue = boto3.client('glue')
+
+# Create crawler
+crawler_config = {
+    'Name': 'sales-data-crawler',
+    'Role': 'arn:aws:iam::ACCOUNT_ID:role/AWSGlueServiceRole',
+    'DatabaseName': 'sales_db',
+    'S3Targets': [{
+        'Path': 's3://my-data-bucket/raw-data/sales/'
+    }],
+    'SchemaChangePolicy': {
+        'UpdateBehavior': 'UPDATE_IN_DATABASE',
+        'DeleteBehavior': 'LOG'
+    },
+    'RecrawlPolicy': {
+        'RecrawlBehavior': 'CRAWL_EVERYTHING'
+    }
+}
+
+response = glue.create_crawler(**crawler_config)
+print(f"Crawler created: {response['Name']}")
+
+# Start crawler
+glue.start_crawler(Name='sales-data-crawler')
+
+# Get crawler status
+crawler = glue.get_crawler(Name='sales-data-crawler')
+print(f"Crawler status: {crawler['Crawler']['State']}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Query Glue Data Catalog</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># List databases
+databases = glue.get_databases()
+for db in databases['DatabaseList']:
+    print(f"Database: {db['Name']}")
+
+# Get tables in database
+tables = glue.get_tables(DatabaseName='sales_db')
+for table in tables['TableList']:
+    print(f"Table: {table['Name']}")
+    print(f"Location: {table['StorageDescriptor']['Location']}")
+    print("Columns:")
+    for col in table['StorageDescriptor']['Columns']:
+        print(f"  - {col['Name']}: {col['Type']}")
+
+# Get specific table
+table = glue.get_table(DatabaseName='sales_db', Name='sales_transactions')
+schema = table['Table']['StorageDescriptor']['Columns']
+print("Schema:")
+for col in schema:
+    print(f"  {col['Name']} ({col['Type']})")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Data Catalog Metadata Operations</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Create database
+glue.create_database(
+    DatabaseInput={
+        'Name': 'analytics_db',
+        'Description': 'Analytics data warehouse'
+    }
+)
+
+# Create table manually
+glue.create_table(
+    DatabaseName='analytics_db',
+    TableInput={
+        'Name': 'customer_data',
+        'StorageDescriptor': {
+            'Columns': [
+                {'Name': 'customer_id', 'Type': 'bigint'},
+                {'Name': 'name', 'Type': 'string'},
+                {'Name': 'email', 'Type': 'string'},
+                {'Name': 'registration_date', 'Type': 'date'}
+            ],
+            'Location': 's3://my-data-bucket/customer-data/',
+            'InputFormat': 'org.apache.hadoop.mapred.TextInputFormat',
+            'OutputFormat': 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat',
+            'SerdeInfo': {
+                'SerializationLibrary': 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
+            }
+        }
+    }
+)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 2: AWS Glue - ETL Jobs with PySpark</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="2" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Creating Glue ETL jobs</li>
+                    <li><i class="fas fa-check-circle"></i> Writing PySpark scripts</li>
+                    <li><i class="fas fa-check-circle"></i> Data transformation and cleaning</li>
+                    <li><i class="fas fa-check-circle"></i> Job scheduling and monitoring</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> AWS Glue PySpark ETL Script</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+
+# Parse command line arguments
+args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+
+# Initialize Spark and Glue context
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# Read from S3
+df = glueContext.create_dynamic_frame.from_catalog(
+    database='sales_db',
+    table_name='raw_sales'
+)
+
+# Convert to Spark DataFrame for transformations
+spark_df = df.toDF()
+
+# Data cleaning and transformation
+transformed_df = spark_df.filter(spark_df.amount > 0) \
+    .withColumn('transaction_date', to_date(spark_df.timestamp)) \
+    .dropna(subset=['customer_id'])
+
+# Aggregations
+daily_sales = transformed_df.groupBy('transaction_date', 'product_id') \
+    .agg({'amount': 'sum', 'quantity': 'sum'}) \
+    .withColumnRenamed('sum(amount)', 'total_amount') \
+    .withColumnRenamed('sum(quantity)', 'total_quantity')
+
+# Convert back to DynamicFrame
+output_dyf = DynamicFrame.fromDF(daily_sales, glueContext, 'output')
+
+# Write to S3
+glueContext.write_dynamic_frame.from_options(
+    frame=output_dyf,
+    connection_type='s3',
+    format='parquet',
+    connection_options={
+        'path': 's3://my-data-bucket/processed-data/daily-sales/',
+        'partitionKeys': ['transaction_date']
+    }
+)
+
+job.commit()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Create Glue Job with Boto3</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">glue = boto3.client('glue')
+
+# Create ETL job
+response = glue.create_job(
+    Name='sales-etl-job',
+    Role='arn:aws:iam::ACCOUNT_ID:role/AWSGlueServiceRole',
+    Command={
+        'Name': 'glueetl',
+        'ScriptLocation': 's3://my-script-bucket/sales_etl.py',
+        'PythonVersion': '3'
+    },
+    DefaultArguments={
+        '--job-bookmark-option': 'job-bookmark-enable',
+        '--TempDir': 's3://my-temp-bucket/',
+        '--enable-spark-ui': 'true'
+    },
+    MaxRetries=1,
+    Timeout=2880,
+    GlueVersion='3.0',
+    WorkerType='G.2X',
+    NumberOfWorkers=10
+)
+
+print(f"Job created: {response['Name']}")
+
+# Start job run
+run_response = glue.start_job_run(
+    JobName='sales-etl-job',
+    Arguments={
+        '--input-path': 's3://my-data-bucket/raw/',
+        '--output-path': 's3://my-data-bucket/processed/'
+    }
+)
+
+print(f"Job run started: {run_response['JobRunId']}")</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Advanced Data Transformation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">from pyspark.sql.functions import *
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
+
+# Read data from multiple sources
+customers_df = glueContext.create_dynamic_frame.from_catalog(
+    database='sales_db',
+    table_name='customers'
+).toDF()
+
+transactions_df = glueContext.create_dynamic_frame.from_catalog(
+    database='sales_db',
+    table_name='transactions'
+).toDF()
+
+# Join dataframes
+merged_df = transactions_df.join(
+    customers_df,
+    transactions_df.customer_id == customers_df.id,
+    'inner'
+)
+
+# Complex transformations
+enriched_df = merged_df \
+    .withColumn('year', year(col('transaction_date'))) \
+    .withColumn('month', month(col('transaction_date'))) \
+    .withColumn('revenue_category',
+        when(col('amount') > 1000, 'high')
+        .when(col('amount') > 500, 'medium')
+        .otherwise('low')) \
+    .withColumn('processed_timestamp', current_timestamp())
+
+# Window functions for running totals
+from pyspark.sql.window import Window
+
+window_spec = Window.partitionBy('customer_id') \
+    .orderBy('transaction_date') \
+    .rangeBetween(-30*24*60*60, 0)
+
+enriched_df = enriched_df.withColumn(
+    'customer_30day_total',
+    sum('amount').over(window_spec)
+)
+
+# Save results
+enriched_df.write.mode('overwrite').parquet(
+    's3://my-data-bucket/enriched-data/'
+)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 3: Amazon Athena - SQL on S3</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="3" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Querying data in S3 with Athena</li>
+                    <li><i class="fas fa-check-circle"></i> Creating external tables</li>
+                    <li><i class="fas fa-check-circle"></i> Partitioning and performance optimization</li>
+                    <li><i class="fas fa-check-circle"></i> Cost optimization strategies</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Querying with Athena and Boto3</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+import pandas as pd
+
+athena = boto3.client('athena')
+s3 = boto3.client('s3')
+
+# Execute query
+response = athena.start_query_execution(
+    QueryString="""
+        SELECT
+            customer_id,
+            COUNT(*) as transaction_count,
+            SUM(amount) as total_spent,
+            AVG(amount) as avg_transaction
+        FROM sales_data
+        WHERE year = 2023 AND month = 12
+        GROUP BY customer_id
+        ORDER BY total_spent DESC
+        LIMIT 100
+    """,
+    QueryExecutionContext={'Database': 'analytics_db'},
+    ResultConfiguration={'OutputLocation': 's3://my-athena-results/'},
+    WorkGroup='primary'
+)
+
+query_id = response['QueryExecutionId']
+print(f"Query started: {query_id}")
+
+# Check query status
+status = athena.get_query_execution(QueryExecutionId=query_id)
+print(f"Status: {status['QueryExecution']['Status']['State']}")
+
+# Get results
+results = athena.get_query_results(QueryExecutionId=query_id)
+print(results)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Create Partitioned External Table</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">query = """
+CREATE EXTERNAL TABLE IF NOT EXISTS sales_transactions (
+    transaction_id STRING,
+    customer_id STRING,
+    product_id STRING,
+    amount DECIMAL(10, 2),
+    transaction_timestamp STRING,
+    payment_method STRING
+)
+PARTITIONED BY (
+    year INT,
+    month INT,
+    day INT
+)
+STORED AS PARQUET
+LOCATION 's3://my-data-bucket/partitioned-sales/'
+TBLPROPERTIES (
+    'parquet.compression'='snappy'
+)
+"""
+
+response = athena.start_query_execution(
+    QueryString=query,
+    QueryExecutionContext={'Database': 'analytics_db'},
+    ResultConfiguration={'OutputLocation': 's3://my-athena-results/'}
+)
+
+# Add partitions
+repair_query = """
+MSCK REPAIR TABLE sales_transactions
+"""
+
+athena.start_query_execution(
+    QueryString=repair_query,
+    QueryExecutionContext={'Database': 'analytics_db'},
+    ResultConfiguration={'OutputLocation': 's3://my-athena-results/'}
+)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Performance Optimization with Athena</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Query with partitioning for better performance
+optimized_query = """
+SELECT
+    customer_id,
+    SUM(amount) as total_amount,
+    COUNT(*) as transaction_count
+FROM sales_transactions
+WHERE year = 2023
+    AND month = 12
+    AND day >= 20
+GROUP BY customer_id
+HAVING SUM(amount) > 500
+"""
+
+# Use columnar format for better compression
+create_ctas = """
+CREATE TABLE sales_summary AS
+SELECT
+    customer_id,
+    product_id,
+    year,
+    month,
+    SUM(amount) as total_amount,
+    COUNT(*) as transaction_count,
+    AVG(amount) as avg_amount
+FROM sales_transactions
+WHERE year = 2023
+GROUP BY customer_id, product_id, year, month
+"""
+
+# Execute CTAS query
+response = athena.start_query_execution(
+    QueryString=create_ctas,
+    QueryExecutionContext={'Database': 'analytics_db'},
+    ResultConfiguration={'OutputLocation': 's3://my-athena-results/'}
+)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 4: Amazon Redshift - Data Warehousing</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="4" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Redshift cluster setup and configuration</li>
+                    <li><i class="fas fa-check-circle"></i> Loading data from S3 with COPY command</li>
+                    <li><i class="fas fa-check-circle"></i> Creating schemas and tables</li>
+                    <li><i class="fas fa-check-circle"></i> Query optimization and distribution</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Connect to Redshift with Python</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import psycopg2
+import pandas as pd
+
+# Connection parameters
+redshift_config = {
+    'host': 'my-cluster.region.redshift.amazonaws.com',
+    'port': 5439,
+    'database': 'analytics',
+    'user': 'admin',
+    'password': 'your-password'
+}
+
+# Connect
+conn = psycopg2.connect(**redshift_config)
+cursor = conn.cursor()
+
+# Create schema
+cursor.execute("""
+    CREATE SCHEMA IF NOT EXISTS sales
+""")
+
+# Create table with distribution key
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS sales.transactions (
+        transaction_id VARCHAR(32) NOT NULL,
+        customer_id VARCHAR(32) NOT NULL,
+        product_id VARCHAR(32) NOT NULL,
+        amount DECIMAL(10, 2) NOT NULL,
+        transaction_date DATE NOT NULL,
+        payment_method VARCHAR(20),
+        created_at TIMESTAMP DEFAULT GETDATE()
+    )
+    DISTKEY (customer_id)
+    SORTKEY (transaction_date)
+""")
+
+# Create fact and dimension tables
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS sales.dim_customer (
+        customer_id VARCHAR(32) PRIMARY KEY,
+        name VARCHAR(255),
+        email VARCHAR(255),
+        country VARCHAR(50),
+        registration_date DATE
+    )
+    DISTSTYLE ALL
+""")
+
+conn.commit()
+cursor.close()
+conn.close()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Load Data into Redshift</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Load data using COPY command
+copy_command = """
+COPY sales.transactions (
+    transaction_id,
+    customer_id,
+    product_id,
+    amount,
+    transaction_date,
+    payment_method
+)
+FROM 's3://my-data-bucket/transactions/'
+IAM_ROLE 'arn:aws:iam::ACCOUNT_ID:role/RedshiftRole'
+FORMAT AS PARQUET
+REGION 'us-east-1'
+"""
+
+cursor.execute(copy_command)
+conn.commit()
+
+# Load with error handling
+stl_load_errors = """
+SELECT *
+FROM stl_load_errors
+WHERE tablename = 'transactions'
+ORDER BY starttime DESC
+LIMIT 10
+"""
+
+cursor.execute(stl_load_errors)
+errors = cursor.fetchall()
+for error in errors:
+    print(error)
+
+# Unload data
+unload_command = """
+UNLOAD (
+    SELECT * FROM sales.transactions
+    WHERE transaction_date >= '2023-12-01'
+)
+TO 's3://my-export-bucket/transactions/'
+IAM_ROLE 'arn:aws:iam::ACCOUNT_ID:role/RedshiftRole'
+FORMAT AS PARQUET
+"""
+
+cursor.execute(unload_command)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Redshift Queries and Analysis</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Complex analytical query
+analysis_query = """
+SELECT
+    DATE_TRUNC('month', t.transaction_date) as month,
+    c.country,
+    COUNT(DISTINCT c.customer_id) as unique_customers,
+    COUNT(*) as transaction_count,
+    SUM(t.amount) as total_revenue,
+    AVG(t.amount) as avg_transaction,
+    STDDEV_POP(t.amount) as stddev_amount
+FROM sales.transactions t
+JOIN sales.dim_customer c ON t.customer_id = c.customer_id
+WHERE t.transaction_date >= GETDATE() - INTERVAL '12 months'
+GROUP BY DATE_TRUNC('month', t.transaction_date), c.country
+ORDER BY month DESC, total_revenue DESC
+"""
+
+df = pd.read_sql(analysis_query, conn)
+
+# Window functions for running totals
+window_query = """
+SELECT
+    customer_id,
+    transaction_date,
+    amount,
+    SUM(amount) OVER (
+        PARTITION BY customer_id
+        ORDER BY transaction_date
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) as running_total
+FROM sales.transactions
+ORDER BY customer_id, transaction_date
+"""
+
+df_window = pd.read_sql(window_query, conn)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 5 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 5: Redshift Spectrum & Integration</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="5" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Redshift Spectrum external tables</li>
+                    <li><i class="fas fa-check-circle"></i> Querying data lake and warehouse together</li>
+                    <li><i class="fas fa-check-circle"></i> Integration with other AWS services</li>
+                    <li><i class="fas fa-check-circle"></i> Performance tuning and cost optimization</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Redshift Spectrum Setup</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Create external schema for Spectrum
+spectrum_schema = """
+CREATE EXTERNAL SCHEMA IF NOT EXISTS data_lake
+FROM DATA CATALOG
+DATABASE 'sales_db'
+IAM_ROLE 'arn:aws:iam::ACCOUNT_ID:role/RedshiftSpectrumRole'
+REGION 'us-east-1'
+"""
+
+cursor.execute(spectrum_schema)
+
+# Create external table from Glue Data Catalog
+external_table = """
+CREATE EXTERNAL TABLE IF NOT EXISTS data_lake.raw_events (
+    event_id STRING,
+    user_id STRING,
+    event_type STRING,
+    event_timestamp STRING,
+    event_properties STRING
+)
+STORED AS PARQUET
+LOCATION 's3://my-data-bucket/raw-events/'
+TABLE PROPERTIES (
+    'classification'='parquet'
+)
+"""
+
+cursor.execute(external_table)
+
+# Query external data along with local data
+spectrum_query = """
+SELECT
+    t.transaction_id,
+    t.customer_id,
+    e.event_type,
+    t.amount
+FROM sales.transactions t
+JOIN data_lake.raw_events e
+    ON t.customer_id = e.user_id
+WHERE t.transaction_date >= '2023-12-01'
+"""
+
+df = pd.read_sql(spectrum_query, conn)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Integration with Glue and RDS</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Query combining multiple data sources
+integration_query = """
+-- Combine Redshift internal, Spectrum external, and federated tables
+WITH sales_data AS (
+    SELECT
+        customer_id,
+        SUM(amount) as total_sales
+    FROM sales.transactions
+    WHERE transaction_date >= '2023-01-01'
+    GROUP BY customer_id
+),
+events_data AS (
+    SELECT
+        user_id,
+        COUNT(*) as event_count
+    FROM data_lake.raw_events
+    WHERE event_timestamp >= '2023-01-01'
+    GROUP BY user_id
+)
+SELECT
+    s.customer_id,
+    s.total_sales,
+    COALESCE(e.event_count, 0) as events
+FROM sales_data s
+LEFT JOIN events_data e ON s.customer_id = e.user_id
+"""
+
+df_integrated = pd.read_sql(integration_query, conn)
+
+# Create materialized view for performance
+materialized_view = """
+CREATE MATERIALIZED VIEW sales_summary AS
+SELECT
+    DATE_TRUNC('month', transaction_date) as month,
+    customer_id,
+    COUNT(*) as transaction_count,
+    SUM(amount) as total_amount,
+    AVG(amount) as avg_amount
+FROM sales.transactions
+GROUP BY DATE_TRUNC('month', transaction_date), customer_id
+"""
+
+cursor.execute(materialized_view)
+conn.commit()</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Data Lake Analytics</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Query data lake for exploratory analysis
+exploration_query = """
+SELECT
+    event_type,
+    COUNT(*) as event_count,
+    COUNT(DISTINCT user_id) as unique_users,
+    MIN(event_timestamp) as first_event,
+    MAX(event_timestamp) as last_event
+FROM data_lake.raw_events
+GROUP BY event_type
+ORDER BY event_count DESC
+"""
+
+df_exploration = pd.read_sql(exploration_query, conn)
+
+# Time-based analysis
+time_analysis = """
+SELECT
+    DATE(event_timestamp) as event_date,
+    EXTRACT(HOUR FROM event_timestamp) as hour,
+    COUNT(*) as event_count
+FROM data_lake.raw_events
+GROUP BY DATE(event_timestamp), EXTRACT(HOUR FROM event_timestamp)
+ORDER BY event_date DESC, hour
+"""
+
+df_time = pd.read_sql(time_analysis, conn)</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 6 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 6: Data Lake Architecture</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="6" onchange="updateProgress()">
+                </div>
+
+                <h4>Topics to Cover (4-5 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Data lake design patterns (Bronze/Silver/Gold)</li>
+                    <li><i class="fas fa-check-circle"></i> Metadata management and governance</li>
+                    <li><i class="fas fa-check-circle"></i> Data quality and validation</li>
+                    <li><i class="fas fa-check-circle"></i> Access control and security</li>
+                </ul>
+
+                <h4>Python Code Examples</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Data Lake Pipeline Implementation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import boto3
+from datetime import datetime
+import json
+
+s3 = boto3.client('s3')
+
+class DataLakePipeline:
+    def __init__(self, bucket_name):
+        self.bucket = bucket_name
+        self.bronze = 'bronze/'  # Raw data
+        self.silver = 'silver/'  # Cleaned data
+        self.gold = 'gold/'      # Business-ready data
+
+    def ingest_raw_data(self, source_key, data):
+        """Ingest data to bronze layer"""
+        timestamp = datetime.now().isoformat()
+        bronze_key = f"{self.bronze}ingestion_time={timestamp}/{source_key}"
+
+        s3.put_object(
+            Bucket=self.bucket,
+            Key=bronze_key,
+            Body=json.dumps(data)
+        )
+        return bronze_key
+
+    def validate_and_clean(self, bronze_key):
+        """Move data to silver layer with validation"""
+        # Read from bronze
+        obj = s3.get_object(Bucket=self.bucket, Key=bronze_key)
+        raw_data = json.loads(obj['Body'].read())
+
+        # Validation rules
+        cleaned_data = []
+        for record in raw_data:
+            if self._is_valid(record):
+                cleaned_data.append(self._clean_record(record))
+
+        # Write to silver
+        silver_key = bronze_key.replace('bronze/', 'silver/')
+        s3.put_object(
+            Bucket=self.bucket,
+            Key=silver_key,
+            Body=json.dumps(cleaned_data)
+        )
+        return silver_key
+
+    def aggregate_to_gold(self, silver_key):
+        """Create business-ready aggregations"""
+        # Read from silver
+        obj = s3.get_object(Bucket=self.bucket, Key=silver_key)
+        clean_data = json.loads(obj['Body'].read())
+
+        # Business logic aggregations
+        aggregated = self._aggregate(clean_data)
+
+        # Write to gold
+        gold_key = silver_key.replace('silver/', 'gold/')
+        s3.put_object(
+            Bucket=self.bucket,
+            Key=gold_key,
+            Body=json.dumps(aggregated)
+        )
+        return gold_key
+
+    def _is_valid(self, record):
+        """Validate record"""
+        return all(k in record for k in ['id', 'timestamp', 'value'])
+
+    def _clean_record(self, record):
+        """Clean and standardize record"""
+        return {
+            'id': str(record['id']),
+            'timestamp': record['timestamp'],
+            'value': float(record['value']),
+            'processed_at': datetime.now().isoformat()
+        }
+
+    def _aggregate(self, data):
+        """Aggregate data for business metrics"""
+        return {
+            'total_records': len(data),
+            'date': datetime.now().date().isoformat(),
+            'summary': {
+                'avg_value': sum(r['value'] for r in data) / len(data),
+                'max_value': max(r['value'] for r in data),
+                'min_value': min(r['value'] for r in data)
+            }
+        }
+
+# Usage
+pipeline = DataLakePipeline('my-data-lake-bucket')
+bronze_path = pipeline.ingest_raw_data('sales/2023-12-15.json', sample_data)
+silver_path = pipeline.validate_and_clean(bronze_path)
+gold_path = pipeline.aggregate_to_gold(silver_path)</code></pre>
+                </div>
+
+                <div class="code-title"><i class="fas fa-code"></i> Metadata and Governance</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python"># Data cataloging and metadata
+metadata_registry = {
+    'datasets': {}
+}
+
+def register_dataset(name, location, schema, owner, tags):
+    """Register dataset in metadata catalog"""
+    metadata = {
+        'name': name,
+        'location': location,
+        'schema': schema,
+        'owner': owner,
+        'tags': tags,
+        'created_at': datetime.now().isoformat(),
+        'last_updated': datetime.now().isoformat(),
+        'record_count': 0,
+        'size_gb': 0
+    }
+
+    # Store in DynamoDB
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('DataLakeMetadata')
+
+    table.put_item(Item=metadata)
+    return metadata
+
+# Data quality checks
+def validate_data_quality(data, rules):
+    """Validate data against quality rules"""
+    results = {
+        'passed': True,
+        'checks': []
+    }
+
+    for rule_name, rule_func in rules.items():
+        try:
+            passed = rule_func(data)
+            results['checks'].append({
+                'rule': rule_name,
+                'passed': passed
+            })
+            if not passed:
+                results['passed'] = False
+        except Exception as e:
+            results['checks'].append({
+                'rule': rule_name,
+                'passed': False,
+                'error': str(e)
+            })
+
+    return results
+
+# Quality rules
+quality_rules = {
+    'no_nulls': lambda df: df.isnull().sum().sum() == 0,
+    'valid_dates': lambda df: all(pd.to_datetime(df['date'], errors='coerce').notna()),
+    'positive_amounts': lambda df: (df['amount'] > 0).all()
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Day 7 -->
+            <div class="day-section">
+                <div class="day-header">
+                    <h3 class="day-title">Day 7: Project - Build Complete ETL Pipeline</h3>
+                    <input type="checkbox" class="day-checkbox" data-day="7" onchange="updateProgress()">
+                </div>
+
+                <h4>Project: End-to-End ETL Pipeline (8-10 hours)</h4>
+                <ul class="topics-list">
+                    <li><i class="fas fa-check-circle"></i> Design data pipeline architecture</li>
+                    <li><i class="fas fa-check-circle"></i> Implement crawler and catalog</li>
+                    <li><i class="fas fa-check-circle"></i> Create Glue ETL jobs</li>
+                    <li><i class="fas fa-check-circle"></i> Load data into Redshift</li>
+                    <li><i class="fas fa-check-circle"></i> Query with Athena and Redshift</li>
+                </ul>
+
+                <h4>Complete Project Code</h4>
+
+                <div class="code-title"><i class="fas fa-code"></i> Complete ETL Pipeline Implementation</div>
+                <div class="code-snippet">
+                    <pre><code class="language-python">import sys
+import boto3
+import psycopg2
+import pandas as pd
+from datetime import datetime
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql.functions import *
+
+# Initialize services
+args = getResolvedOptions(sys.argv, ['JOB_NAME', 'bucket', 'environment'])
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+s3 = boto3.client('s3')
+glue = boto3.client('glue')
+
+# Configuration
+BUCKET = args['bucket']
+ENVIRONMENT = args['environment']
+REDSHIFT_CONFIG = {
+    'host': f'redshift-cluster-{ENVIRONMENT}.region.redshift.amazonaws.com',
+    'port': 5439,
+    'database': 'analytics',
+    'user': 'admin',
+    'password': 'password'  # Use Secrets Manager in production
+}
+
+# Step 1: Read raw data from S3
+print("Reading raw data...")
+raw_df = spark.read.option("inferSchema", "true") \
+    .option("header", "true") \
+    .csv(f"s3://{BUCKET}/raw-data/sales/")
+
+# Step 2: Data validation and cleaning
+print("Validating and cleaning data...")
+cleaned_df = raw_df \
+    .filter(col('amount') > 0) \
+    .filter(col('customer_id').isNotNull()) \
+    .dropna(subset=['transaction_id']) \
+    .withColumn('transaction_date', to_date(col('timestamp'))) \
+    .withColumn('processed_timestamp', current_timestamp())
+
+# Step 3: Data enrichment
+print("Enriching data...")
+enriched_df = cleaned_df \
+    .withColumn('revenue_tier',
+        when(col('amount') > 1000, 'premium')
+        .when(col('amount') > 500, 'standard')
+        .otherwise('basic')) \
+    .withColumn('year', year(col('transaction_date'))) \
+    .withColumn('month', month(col('transaction_date'))) \
+    .withColumn('day', dayofmonth(col('transaction_date')))
+
+# Step 4: Write to silver layer (Parquet)
+print("Writing to silver layer...")
+enriched_df.write \
+    .mode('overwrite') \
+    .partitionBy('year', 'month', 'day') \
+    .parquet(f"s3://{BUCKET}/silver-data/transactions/")
+
+# Step 5: Create aggregates for gold layer
+print("Creating gold layer aggregates...")
+daily_summary = enriched_df.groupBy('transaction_date') \
+    .agg(
+        count('*').alias('transaction_count'),
+        sum('amount').alias('total_revenue'),
+        avg('amount').alias('avg_transaction'),
+        countDistinct('customer_id').alias('unique_customers')
+    ) \
+    .orderBy('transaction_date')
+
+daily_summary.write \
+    .mode('overwrite') \
+    .parquet(f"s3://{BUCKET}/gold-data/daily-summary/")
+
+# Step 6: Load into Redshift
+print("Loading data into Redshift...")
+conn = psycopg2.connect(**REDSHIFT_CONFIG)
+cursor = conn.cursor()
+
+# Create table if not exists
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS sales.transactions_processed (
+        transaction_id VARCHAR(32),
+        customer_id VARCHAR(32),
+        amount DECIMAL(10, 2),
+        transaction_date DATE,
+        revenue_tier VARCHAR(20),
+        processed_timestamp TIMESTAMP
+    )
+    DISTKEY (customer_id)
+    SORTKEY (transaction_date)
+""")
+
+# Load data using COPY
+copy_cmd = f"""
+COPY sales.transactions_processed FROM 's3://{BUCKET}/silver-data/transactions/'
+IAM_ROLE 'arn:aws:iam::ACCOUNT_ID:role/RedshiftRole'
+PARQUET
+"""
+cursor.execute(copy_cmd)
+conn.commit()
+
+# Step 7: Validate load
+cursor.execute("SELECT COUNT(*) FROM sales.transactions_processed")
+row_count = cursor.fetchone()[0]
+print(f"Loaded {row_count} records to Redshift")
+
+cursor.close()
+conn.close()
+
+# Step 8: Update metadata
+print("Updating metadata...")
+glue.update_table(
+    DatabaseName='analytics_db',
+    TableInput={
+        'Name': 'transactions_processed',
+        'Properties': {
+            'last_processed': datetime.now().isoformat(),
+            'record_count': str(enriched_df.count()),
+            'status': 'completed'
+        }
+    }
+)
+
+job.commit()
+print("Pipeline completed successfully!")</code></pre>
+                </div>
+
+                <h4>Resources</h4>
+                <div>
+                    <a href="https://docs.aws.amazon.com/glue/latest/dg/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> AWS Glue Documentation
+                    </a>
+                    <a href="https://docs.aws.amazon.com/athena/latest/ug/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Athena Documentation
+                    </a>
+                    <a href="https://docs.aws.amazon.com/redshift/latest/gsg/" target="_blank" class="resource-link">
+                        <i class="fas fa-book"></i> Redshift Guide
+                    </a>
+                </div>
+            </div>
+
+            <!-- Week Completion -->
+            <div class="day-section" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+                <h3 style="color: white;">Week 5 Completion Checklist</h3>
+                <ul class="topics-list" style="background: rgba(255,255,255,0.1);">
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Mastered AWS Glue and Data Catalog</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built ETL jobs with PySpark</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Query S3 data with Athena</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Created Redshift warehouse</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Designed data lake architecture</li>
+                    <li style="background: transparent; color: white;"><i class="fas fa-trophy"></i> Built complete ETL pipeline</li>
+                </ul>
+                <button onclick="completeWeek()" class="btn btn-primary" style="margin-top: 1rem; background: white; color: #4facfe;">
+                    <i class="fas fa-check-circle"></i> Mark Week 5 as Complete
+                </button>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Weeks
+            </a>
+        </div>
+    </section>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            const checked = document.querySelectorAll('.day-checkbox:checked').length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+            const progressBar = document.getElementById('week-progress');
+            progressBar.style.width = percentage + '%';
+            progressBar.textContent = percentage + '%';
+            localStorage.setItem('week5-progress', percentage);
+        }
+
+        function completeWeek() {
+            const checkboxes = document.querySelectorAll('.day-checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+            updateProgress();
+            alert('Congratulations on completing Week 5! 🎉\n\nYou\'re ready for Week 6: Streaming & Advanced Processing');
+        }
+
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('week5-progress');
+            if (saved) {
+                const progressBar = document.getElementById('week-progress');
+                progressBar.style.width = saved + '%';
+                progressBar.textContent = saved + '%';
+            }
+        });
+    </script>
+</body>
+</html>

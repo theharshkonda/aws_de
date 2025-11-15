@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Preparation | AWS Data Engineer Bootcamp</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <style>
+        .interview-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .interview-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .interview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .interview-title {
+            font-size: 1.8rem;
+            color: #667eea;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .category-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .category-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .category-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .question-card {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .question-card:hover {
+            background: #f0f5ff;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s;
+            color: #667eea;
+        }
+
+        .question-card.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .answer-content {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .question-card.open .answer-content {
+            display: block;
+        }
+
+        .code-example {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-example code {
+            color: #d4d4d4;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .function {
+            color: #dcdcaa;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .back-btn:hover {
+            background: #f5f7fa;
+            transform: translateX(-5px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .difficulty-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .difficulty-easy {
+            background: #28a745;
+        }
+
+        .difficulty-medium {
+            background: #ffc107;
+        }
+
+        .difficulty-hard {
+            background: #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+
+            .tab-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .interview-title {
+                font-size: 1.3rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-database"></i>
+                <span>AWS Data Engineer Bootcamp</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#roadmap">Roadmap</a></li>
+                <li><a href="../index.html#weeks">Weeks</a></li>
+                <li><a href="../index.html#progress">Progress</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Interview Hero -->
+    <section class="interview-hero">
+        <div class="container">
+            <h1><i class="fas fa-briefcase"></i> Interview Preparation Guide</h1>
+            <p>Master common data engineering interview questions across Python, SQL, AWS, and System Design</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="section">
+        <div class="container">
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+
+            <!-- Statistics -->
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Interview Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Code Examples</div>
+                    <div class="stat-label">With Solutions</div>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('python')">
+                    <i class="fab fa-python"></i> Python
+                </button>
+                <button class="tab-btn" onclick="switchTab('sql')">
+                    <i class="fas fa-database"></i> SQL
+                </button>
+                <button class="tab-btn" onclick="switchTab('aws')">
+                    <i class="fab fa-aws"></i> AWS
+                </button>
+                <button class="tab-btn" onclick="switchTab('system')">
+                    <i class="fas fa-sitemap"></i> System Design
+                </button>
+                <button class="tab-btn" onclick="switchTab('behavioral')">
+                    <i class="fas fa-handshake"></i> Behavioral
+                </button>
+            </div>
+
+            <!-- Python Tab -->
+            <div id="python" class="tab-content active">
+                <div class="interview-section">
+                    <div class="interview-header">
+                        <h2 class="interview-title"><i class="fab fa-python"></i> Python Interview Questions</h2>
+                    </div>
+
+                    <!-- Easy Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-easy"></span> Easy Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are the main differences between lists and tuples in Python?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Lists are mutable (can be changed), while tuples are immutable (cannot be changed). Lists use square brackets [], tuples use parentheses (). Tuples are hashable and can be used as dictionary keys.
+                            <div class="code-example"><code><span class="comment"># Lists are mutable</span>
+my_list = [1, 2, 3]
+my_list[0] = 99  <span class="comment"># Allowed</span>
+
+<span class="comment"># Tuples are immutable</span>
+my_tuple = (1, 2, 3)
+my_tuple[0] = 99  <span class="comment"># Error!</span>
+
+<span class="comment"># Tuples can be dictionary keys</span>
+dict_with_tuple_key = {(1, 2): 'value'}</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is the difference between == and 'is' in Python?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> '==' checks for value equality, while 'is' checks for identity (same object in memory). Use '==' for value comparison and 'is' for checking if two variables reference the same object.
+                            <div class="code-example"><code>a = [1, 2, 3]
+b = [1, 2, 3]
+c = a
+
+a == b  <span class="comment"># True (same values)</span>
+a is b  <span class="comment"># False (different objects)</span>
+a is c  <span class="comment"># True (same object)</span></code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you iterate over a dictionary?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Use .items() to get key-value pairs, .keys() for just keys, or .values() for just values.
+                            <div class="code-example"><code>my_dict = {'a': 1, 'b': 2, 'c': 3}
+
+<span class="comment"># Iterate over keys and values</span>
+<span class="keyword">for</span> key, value <span class="keyword">in</span> my_dict.items():
+    print(f'{key}: {value}')
+
+<span class="comment"># Just keys</span>
+<span class="keyword">for</span> key <span class="keyword">in</span> my_dict.keys():
+    print(key)
+
+<span class="comment"># Just values</span>
+<span class="keyword">for</span> value <span class="keyword">in</span> my_dict.values():
+    print(value)</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are list comprehensions? Give an example.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> List comprehensions provide a concise way to create lists. They're more efficient than loops and result in more readable code.
+                            <div class="code-example"><code><span class="comment"># Without list comprehension</span>
+squares = []
+<span class="keyword">for</span> x <span class="keyword">in</span> range(10):
+    squares.append(x ** 2)
+
+<span class="comment"># With list comprehension</span>
+squares = [x ** 2 <span class="keyword">for</span> x <span class="keyword">in</span> range(10)]
+
+<span class="comment"># With condition</span>
+even_squares = [x ** 2 <span class="keyword">for</span> x <span class="keyword">in</span> range(10) <span class="keyword">if</span> x % 2 == 0]</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain the global and local scope in Python.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Global scope variables are accessible throughout the module, while local scope variables are only accessible within a function. Use the 'global' keyword to modify global variables inside functions.
+                            <div class="code-example"><code>x = 10  <span class="comment"># Global scope</span>
+
+<span class="keyword">def</span> <span class="function">my_function</span>():
+    y = 5  <span class="comment"># Local scope</span>
+    print(x)  <span class="comment"># Can access global</span>
+    print(y)  <span class="comment"># Can access local</span>
+
+print(y)  <span class="comment"># Error! y not in global scope</span>
+
+<span class="keyword">def</span> <span class="function">modify_global</span>():
+    <span class="keyword">global</span> x
+    x = 20</code></div>
+                        </div>
+                    </div>
+
+                    <!-- Medium Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-medium"></span> Medium Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are decorators in Python? Provide an example.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Decorators are functions that modify other functions or classes. They wrap a function and modify its behavior without permanently changing it.
+                            <div class="code-example"><code><span class="keyword">def</span> <span class="function">my_decorator</span>(func):
+    <span class="keyword">def</span> <span class="function">wrapper</span>():
+        print(<span class="string">"Something before function call"</span>)
+        func()
+        print(<span class="string">"Something after function call"</span>)
+    <span class="keyword">return</span> wrapper
+
+@my_decorator
+<span class="keyword">def</span> <span class="function">say_hello</span>():
+    print(<span class="string">"Hello!"</span>)
+
+say_hello()  <span class="comment"># Prints before, hello, after</span></code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain generators and yield in Python.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Generators are functions that return an iterator using 'yield'. They generate values on-the-fly instead of storing them in memory, making them efficient for large datasets.
+                            <div class="code-example"><code><span class="keyword">def</span> <span class="function">count_up_to</span>(n):
+    i = 0
+    <span class="keyword">while</span> i < n:
+        <span class="keyword">yield</span> i
+        i += 1
+
+<span class="comment"># Usage</span>
+<span class="keyword">for</span> num <span class="keyword">in</span> count_up_to(5):
+    print(num)  <span class="comment"># Prints 0, 1, 2, 3, 4</span>
+
+<span class="comment"># More memory efficient than:</span>
+<span class="keyword">def</span> <span class="function">count_list</span>(n):
+    result = []
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):
+        result.append(i)
+    <span class="keyword">return</span> result</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is a lambda function? When should you use it?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Lambda functions are small anonymous functions. Use them with map(), filter(), or sort() for simple operations that don't require a full function definition.
+                            <div class="code-example"><code><span class="comment"># Lambda with map</span>
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(<span class="keyword">lambda</span> x: x ** 2, numbers))
+
+<span class="comment"># Lambda with filter</span>
+evens = list(filter(<span class="keyword">lambda</span> x: x % 2 == 0, numbers))
+
+<span class="comment"># Lambda with sort</span>
+students = [('Alice', 25), ('Bob', 20), ('Charlie', 23)]
+sorted_by_age = sorted(students, key=<span class="keyword">lambda</span> x: x[1])</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is the difference between *args and **kwargs?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> *args allows a function to accept any number of positional arguments as a tuple. **kwargs allows any number of keyword arguments as a dictionary.
+                            <div class="code-example"><code><span class="keyword">def</span> <span class="function">my_function</span>(*args, **kwargs):
+    <span class="comment"># args is a tuple</span>
+    <span class="keyword">for</span> arg <span class="keyword">in</span> args:
+        print(arg)
+
+    <span class="comment"># kwargs is a dictionary</span>
+    <span class="keyword">for</span> key, value <span class="keyword">in</span> kwargs.items():
+        print(f'{key}: {value}')
+
+my_function(1, 2, 3, name='Alice', age=25)</code></div>
+                        </div>
+                    </div>
+
+                    <!-- Hard Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-hard"></span> Hard Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is the GIL (Global Interpreter Lock) in Python?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> The GIL is a mutex that prevents multiple native threads from executing Python bytecode simultaneously in a single process. This means only one thread can execute Python code at a time, even on multi-core systems. It's a limitation for CPU-bound tasks but doesn't affect I/O-bound operations.
+                            <p><strong>Workarounds:</strong></p>
+                            <ul>
+                                <li>Use multiprocessing for CPU-bound tasks</li>
+                                <li>Use asyncio for I/O-bound tasks</li>
+                                <li>Use Python 3.13+ with free-threading support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain the difference between deep copy and shallow copy.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Shallow copy creates a new object but inserts references to objects found in the original. Deep copy creates a new object and recursively copies all objects found in the original.
+                            <div class="code-example"><code><span class="keyword">import</span> copy
+
+original = [[1, 2], [3, 4]]
+
+<span class="comment"># Shallow copy</span>
+shallow = copy.copy(original)
+shallow[0][0] = 99  <span class="comment"># Affects original!</span>
+
+<span class="comment"># Deep copy</span>
+deep = copy.deepcopy(original)
+deep[0][0] = 99  <span class="comment"># Doesn't affect original</span></code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you handle exceptions in Python? Best practices?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Use try-except-finally blocks. Catch specific exceptions, not generic ones. Use finally for cleanup code.
+                            <div class="code-example"><code><span class="keyword">try</span>:
+    <span class="comment"># Code that might raise exception</span>
+    result = 10 / 0
+<span class="keyword">except</span> ZeroDivisionError:
+    print(<span class="string">"Cannot divide by zero"</span>)
+<span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+    print(f<span class="string">"Unexpected error: {e}"</span>)
+<span class="keyword">else</span>:
+    <span class="comment"># Runs if no exception</span>
+    print(<span class="string">"Success!"</span>)
+<span class="keyword">finally</span>:
+    <span class="comment"># Always runs, good for cleanup</span>
+    print(<span class="string">"Cleanup code"</span>)</code></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SQL Tab -->
+            <div id="sql" class="tab-content">
+                <div class="interview-section">
+                    <div class="interview-header">
+                        <h2 class="interview-title"><i class="fas fa-database"></i> SQL Interview Questions</h2>
+                    </div>
+
+                    <!-- Easy Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-easy"></span> Easy Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are the basic SQL commands?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> The main SQL commands are SELECT (retrieve), INSERT (add), UPDATE (modify), DELETE (remove), CREATE (make), and DROP (delete).
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is the difference between WHERE and HAVING clauses?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> WHERE filters rows before grouping, HAVING filters groups after grouping. WHERE cannot use aggregate functions, HAVING can.
+                            <div class="code-example"><code><span class="keyword">SELECT</span> department, COUNT(*) <span class="keyword">AS</span> emp_count
+<span class="keyword">FROM</span> employees
+<span class="keyword">WHERE</span> salary > 50000  <span class="comment">-- Filters before grouping</span>
+<span class="keyword">GROUP BY</span> department
+<span class="keyword">HAVING</span> COUNT(*) > 5  <span class="comment">-- Filters after grouping</span></code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are the different types of JOINs?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> INNER JOIN (common rows), LEFT JOIN (all from left, matching from right), RIGHT JOIN (all from right, matching from left), FULL OUTER JOIN (all rows from both).
+                            <div class="code-example"><code><span class="comment">-- INNER JOIN: only matching rows</span>
+<span class="keyword">SELECT</span> a.id, b.name
+<span class="keyword">FROM</span> table_a a
+<span class="keyword">INNER JOIN</span> table_b b <span class="keyword">ON</span> a.id = b.id
+
+<span class="comment">-- LEFT JOIN: all from table_a + matches from table_b</span>
+<span class="keyword">SELECT</span> a.id, b.name
+<span class="keyword">FROM</span> table_a a
+<span class="keyword">LEFT JOIN</span> table_b b <span class="keyword">ON</span> a.id = b.id</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is normalization in databases?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Normalization is the process of organizing data to reduce redundancy and improve data integrity. The main normal forms are:
+                            <ul>
+                                <li><strong>1NF:</strong> No repeating groups, each cell has single value</li>
+                                <li><strong>2NF:</strong> In 1NF + all non-key attributes depend on entire primary key</li>
+                                <li><strong>3NF:</strong> In 2NF + non-key attributes depend only on primary key</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Medium Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-medium"></span> Medium Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Write a query to find duplicate records in a table.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <div class="code-example"><code><span class="keyword">SELECT</span> column1, column2, COUNT(*)
+<span class="keyword">FROM</span> table_name
+<span class="keyword">GROUP BY</span> column1, column2
+<span class="keyword">HAVING</span> COUNT(*) > 1</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are window functions? Give an example.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Window functions perform calculations on a set of rows that are related to the current row. Common ones are ROW_NUMBER(), RANK(), DENSE_RANK(), LAG(), LEAD().
+                            <div class="code-example"><code><span class="keyword">SELECT</span>
+    employee_id,
+    salary,
+    <span class="keyword">ROW_NUMBER</span>() <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary <span class="keyword">DESC</span>) <span class="keyword">AS</span> rank,
+    <span class="keyword">LAG</span>(salary) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> salary) <span class="keyword">AS</span> prev_salary
+<span class="keyword">FROM</span> employees</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain CTEs (Common Table Expressions). When would you use them?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> CTEs are temporary result sets defined within a SQL statement, used to improve readability and break complex queries into simpler parts.
+                            <div class="code-example"><code><span class="keyword">WITH</span> high_earners <span class="keyword">AS</span> (
+    <span class="keyword">SELECT</span> employee_id, salary
+    <span class="keyword">FROM</span> employees
+    <span class="keyword">WHERE</span> salary > 100000
+)
+<span class="keyword">SELECT</span> he.employee_id, he.salary, d.dept_name
+<span class="keyword">FROM</span> high_earners he
+<span class="keyword">JOIN</span> departments d <span class="keyword">ON</span> he.employee_id = d.manager_id</code></div>
+                        </div>
+                    </div>
+
+                    <!-- Hard Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-hard"></span> Hard Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Write a query to calculate cumulative sum.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <div class="code-example"><code><span class="keyword">SELECT</span>
+    date,
+    amount,
+    <span class="keyword">SUM</span>(amount) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> date) <span class="keyword">AS</span> cumulative_sum
+<span class="keyword">FROM</span> transactions
+<span class="keyword">ORDER BY</span> date</code></div>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you optimize slow SQL queries?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Key optimization techniques:
+                            <ul>
+                                <li>Create indexes on frequently searched columns</li>
+                                <li>Avoid SELECT * - select only needed columns</li>
+                                <li>Use EXPLAIN/ANALYZE to understand execution plan</li>
+                                <li>Avoid functions on indexed columns in WHERE clause</li>
+                                <li>Use JOINs instead of subqueries when possible</li>
+                                <li>Partition large tables</li>
+                                <li>Use appropriate data types</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain the difference between DELETE, TRUNCATE, and DROP.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>DELETE:</strong> Removes rows, slow, can be rolled back, triggers fire</li>
+                                <li><strong>TRUNCATE:</strong> Removes all rows, fast, can be rolled back, no triggers</li>
+                                <li><strong>DROP:</strong> Removes table structure and data, fast, cannot rollback in some databases</li>
+                            </ul>
+                            <div class="code-example"><code"><span class="keyword">DELETE FROM</span> table_name <span class="keyword">WHERE</span> condition;
+<span class="keyword">TRUNCATE TABLE</span> table_name;
+<span class="keyword">DROP TABLE</span> table_name;</code></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AWS Tab -->
+            <div id="aws" class="tab-content">
+                <div class="interview-section">
+                    <div class="interview-header">
+                        <h2 class="interview-title"><i class="fab fa-aws"></i> AWS Interview Questions</h2>
+                    </div>
+
+                    <!-- Easy Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-easy"></span> Easy Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is AWS and what are its main services for data engineering?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> AWS provides cloud computing services. Key data engineering services include:
+                            <ul>
+                                <li><strong>S3:</strong> Object storage</li>
+                                <li><strong>RDS:</strong> Relational databases</li>
+                                <li><strong>DynamoDB:</strong> NoSQL database</li>
+                                <li><strong>Redshift:</strong> Data warehouse</li>
+                                <li><strong>Glue:</strong> ETL service</li>
+                                <li><strong>EC2:</strong> Virtual servers</li>
+                                <li><strong>Lambda:</strong> Serverless compute</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is S3 and what are its use cases?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> S3 (Simple Storage Service) is object storage with unlimited capacity. Use cases:
+                            <ul>
+                                <li>Data lake storage</li>
+                                <li>Backup and disaster recovery</li>
+                                <li>Static website hosting</li>
+                                <li>Data archival</li>
+                                <li>Log storage</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What are AWS IAM roles and when would you use them?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> IAM roles are sets of permissions that define what actions an AWS service can perform. Use them to:
+                            <ul>
+                                <li>Grant EC2 instances access to S3</li>
+                                <li>Allow Lambda to read from databases</li>
+                                <li>Control cross-account access</li>
+                                <li>Follow principle of least privilege</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is the difference between RDS and DynamoDB?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>RDS:</strong> Relational (SQL), structured data, ACID compliance, complex queries</li>
+                                <li><strong>DynamoDB:</strong> NoSQL, unstructured data, high speed, simple key-value lookups</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Medium Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-medium"></span> Medium Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Explain AWS Glue and how it works for ETL.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> AWS Glue is a serverless ETL service that:
+                            <ul>
+                                <li>Crawls data to discover schema</li>
+                                <li>Creates metadata in Glue Catalog</li>
+                                <li>Runs Spark jobs for transformations</li>
+                                <li>Supports scheduled or event-driven jobs</li>
+                                <li>Handles data format conversions (CSV to Parquet)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is AWS Lambda and how is it used in data pipelines?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Lambda is serverless compute that runs code in response to events. Data pipeline uses:
+                            <ul>
+                                <li>Trigger on S3 uploads to process files</li>
+                                <li>Scheduled Lambda for batch jobs</li>
+                                <li>API Gateway integration</li>
+                                <li>Transform data in-flight</li>
+                                <li>Call other AWS services</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What is Redshift and how does it differ from RDS?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>Redshift:</strong> Data warehouse, optimized for analytics, columnar storage, OLAP</li>
+                                <li><strong>RDS:</strong> Operational database, optimized for transactions, row storage, OLTP</li>
+                            </ul>
+                            <p>Use Redshift for large-scale analytics, RDS for transactional systems.</p>
+                        </div>
+                    </div>
+
+                    <!-- Hard Questions -->
+                    <h3 style="color: #667eea; margin-top: 2rem; margin-bottom: 1rem;">
+                        <span class="difficulty-indicator difficulty-hard"></span> Hard Level
+                    </h3>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Design a data pipeline for processing real-time data using AWS.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Architecture example:
+                            <ul>
+                                <li>Data sources → Kinesis Data Streams</li>
+                                <li>Lambda for real-time processing</li>
+                                <li>S3 for data lake storage</li>
+                                <li>Glue for transformation jobs</li>
+                                <li>Redshift for analytics</li>
+                                <li>CloudWatch for monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How would you handle data partitioning and optimization in S3?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Partition by date: s3://bucket/year=2024/month=11/day=15/</li>
+                                <li>Partition by region: s3://bucket/region=us-east-1/</li>
+                                <li>Use efficient formats (Parquet, ORC)</li>
+                                <li>Enable S3 Select for faster queries</li>
+                                <li>Use Glue Partitions for metadata</li>
+                                <li>Enable S3 Lifecycle policies for cost optimization</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            What security best practices should you follow for AWS data pipelines?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li>Use IAM roles with least privilege</li>
+                                <li>Enable S3 encryption (SSE-S3 or SSE-KMS)</li>
+                                <li>Use VPC endpoints for private access</li>
+                                <li>Enable logging (CloudTrail, S3 access logs)</li>
+                                <li>Block public S3 access</li>
+                                <li>Use AWS Secrets Manager for credentials</li>
+                                <li>Enable MFA for root account</li>
+                                <li>Regular audits with AWS Config</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Design Tab -->
+            <div id="system" class="tab-content">
+                <div class="interview-section">
+                    <div class="interview-header">
+                        <h2 class="interview-title"><i class="fas fa-sitemap"></i> System Design Questions</h2>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Design a data pipeline to process 1TB of data daily.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong> Key considerations:
+                            <ul>
+                                <li><strong>Data Ingestion:</strong> S3, Kinesis, or APIs</li>
+                                <li><strong>Storage:</strong> S3 data lake with partitioning</li>
+                                <li><strong>Processing:</strong> AWS Glue or EMR for batch, Lambda for real-time</li>
+                                <li><strong>Orchestration:</strong> Step Functions or Airflow</li>
+                                <li><strong>Output:</strong> Redshift for analytics</li>
+                                <li><strong>Monitoring:</strong> CloudWatch with alerts</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How would you design a real-time recommendation system?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>Data Collection:</strong> Kinesis for user events</li>
+                                <li><strong>Feature Store:</strong> SageMaker Feature Store or Tecton</li>
+                                <li><strong>Model Training:</strong> SageMaker</li>
+                                <li><strong>Real-time Inference:</strong> Lambda or SageMaker Endpoints</li>
+                                <li><strong>Result Storage:</strong> DynamoDB for low latency</li>
+                                <li><strong>Feedback Loop:</strong> Track recommendations back to Kinesis</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Design an analytics platform serving 1M queries/day.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>Data Warehouse:</strong> Redshift with automatic scaling</li>
+                                <li><strong>Caching:</strong> ElastiCache (Redis) for common queries</li>
+                                <li><strong>Query Tool:</strong> Athena with Glue Catalog</li>
+                                <li><strong>BI Tools:</strong> QuickSight or Tableau</li>
+                                <li><strong>Data Refresh:</strong> Scheduled Glue jobs</li>
+                                <li><strong>Monitoring:</strong> CloudWatch dashboards</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Design a cost-effective data lake for archived data.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>Hot Data:</strong> S3 Standard (recent data)</li>
+                                <li><strong>Warm Data:</strong> S3 Standard-IA (30+ days)</li>
+                                <li><strong>Cold Data:</strong> S3 Glacier (90+ days)</li>
+                                <li><strong>Format:</strong> Parquet/ORC for compression</li>
+                                <li><strong>Partitioning:</strong> By date for easy selection</li>
+                                <li><strong>Lifecycle Policies:</strong> Automatic transitions</li>
+                                <li><strong>Inventory:</strong> S3 Inventory for metadata</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Design a fault-tolerant ETL pipeline with data quality checks.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer:</strong>
+                            <ul>
+                                <li><strong>Error Handling:</strong> Dead letter queues in SQS</li>
+                                <li><strong>Data Validation:</strong> Great Expectations or custom checks</li>
+                                <li><strong>Retry Logic:</strong> Exponential backoff in Lambda</li>
+                                <li><strong>Idempotency:</strong> Idempotent transformations</li>
+                                <li><strong>Monitoring:</strong> SNS alerts on failures</li>
+                                <li><strong>Rollback:</strong> Previous version in S3 versioning</li>
+                                <li><strong>Testing:</strong> Pre-production environment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Behavioral Tab -->
+            <div id="behavioral" class="tab-content">
+                <div class="interview-section">
+                    <div class="interview-header">
+                        <h2 class="interview-title"><i class="fas fa-handshake"></i> Behavioral Questions</h2>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Tell me about a time you had to optimize a slow data pipeline. What was your approach?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer Framework (STAR method):</strong>
+                            <ul>
+                                <li><strong>Situation:</strong> Describe the slow pipeline and business impact</li>
+                                <li><strong>Task:</strong> Explain your role and responsibility</li>
+                                <li><strong>Action:</strong> Detail technical steps taken (indexing, partitioning, etc.)</li>
+                                <li><strong>Result:</strong> Quantify improvements (% faster, cost reduction)</li>
+                            </ul>
+                            <p><strong>Example:</strong> "Our nightly ETL was taking 6 hours. I profiled the code, found an N+1 query problem, added proper database indexes, and implemented batch processing. This reduced runtime to 45 minutes, saving $2000/month in compute costs."</p>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Describe a situation where data quality issues caused problems. How did you resolve it?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer Framework:</strong>
+                            <ul>
+                                <li>Explain the data quality issue and downstream impact</li>
+                                <li>Describe detection and debugging process</li>
+                                <li>Detail your solution (validation rules, alerts, process changes)</li>
+                                <li>Mention preventive measures for future</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Tell me about a time you collaborated with stakeholders to define data requirements.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer Focus Areas:</strong>
+                            <ul>
+                                <li>How you gathered requirements from non-technical stakeholders</li>
+                                <li>How you translated business needs into technical specifications</li>
+                                <li>How you managed expectations and scope</li>
+                                <li>The positive outcome and business impact</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            Describe your experience with version control and CI/CD pipelines.
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer Should Include:</strong>
+                            <ul>
+                                <li>Experience with Git, branching strategies</li>
+                                <li>Familiarity with automated testing</li>
+                                <li>Knowledge of deployment pipelines (Jenkins, GitLab CI, etc.)</li>
+                                <li>Examples of how this improved code quality</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="question-card" onclick="toggleAnswer(this)">
+                        <div class="question-title">
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                            How do you approach learning new technologies or tools?
+                        </div>
+                        <div class="answer-content">
+                            <strong>Answer Should Show:</strong>
+                            <ul>
+                                <li>Self-motivated learning approach</li>
+                                <li>Ability to quickly pick up new technologies</li>
+                                <li>Examples of new tools you've learned</li>
+                                <li>How you stayed current with industry trends</li>
+                                <li>Balance between deep knowledge and breadth</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="../index.html#weeks" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function toggleAnswer(element) {
+            element.classList.toggle('open');
+        }
+
+        // Syntax highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.code-example code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+</body>
+</html>
